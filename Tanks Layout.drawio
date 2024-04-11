@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-04-11T03:48:25.979Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="_tVOz64dEMV5ZnJrESXx" version="24.2.3" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-11T04:07:46.338Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" etag="tDYJKEG55mh8wLdrPEW2" version="24.2.3" type="github">
   <diagram name="Page-1" id="6133507b-19e7-1e82-6fc7-422aa6c4b21f">
-    <mxGraphModel dx="2321" dy="775" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#E6FFCC" math="0" shadow="0">
+    <mxGraphModel dx="2536" dy="912" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#E6FFCC" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -55,7 +55,7 @@
           <mxGeometry y="108" width="140" height="22" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-44" value="Projectile" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="880" y="390" width="160" height="128" as="geometry" />
+          <mxGeometry x="850" y="390" width="160" height="128" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-45" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- velocity:&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-44" vertex="1">
           <mxGeometry y="26" width="160" height="34" as="geometry" />
@@ -124,7 +124,7 @@
           <mxGeometry y="68" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="vv2smBv1t-94EoNuKPWK-13" value="Explosion" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1080" y="390" width="160" height="130" as="geometry" />
+          <mxGeometry x="1050" y="392" width="160" height="130" as="geometry" />
         </mxCell>
         <mxCell id="vv2smBv1t-94EoNuKPWK-14" value="- xCenter: int&lt;div&gt;- yCenter: int&lt;/div&gt;&lt;div&gt;- radius: int&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="vv2smBv1t-94EoNuKPWK-13" vertex="1">
           <mxGeometry y="26" width="160" height="54" as="geometry" />
@@ -179,6 +179,9 @@
             <mxPoint x="360" y="370" as="sourcePoint" />
             <mxPoint x="740" y="310" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="OTiGFBfn2zHBZvvq7VCK-9" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="UTHU-1M57-vCMUskgQRw-44" target="UTHU-1M57-vCMUskgQRw-44">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
