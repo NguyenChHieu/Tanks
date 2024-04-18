@@ -1,0 +1,19 @@
+                 T
+                 X
+               T
+               X
+                T
+   TT        X  X
+ XEXX       X      TX    X
+  X  XT   X   X    X X  X  X
+X     X                T  X
+       XT  X      X    X
+        X             X
+
+         T
+         X
+
+
+
+
+
