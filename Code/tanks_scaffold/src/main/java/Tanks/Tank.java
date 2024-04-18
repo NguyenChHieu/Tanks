@@ -10,38 +10,18 @@ public class Tank extends GameObject implements Comparable<Tank>{
     private int power = 50;
     private int fuel = 250;
     private int[] colorTank;
-    private float angle = PI/2; // TODO: CHECK PI
+    private float angle = 0;
     private PApplet app; //TODO: INJECT APP
 
     public Tank(int xPos, int yPos, String type){
         super(xPos, yPos, type);
     }
 
-    public void useFuel(){
-        fuel -= 2;
-    }
-
-    public void move(int key){
-        // Only move when have fuel
-        if (fuel >= 0) {
-            switch (key) {
-                // left
-                case 37:
-                    // Exceed left window border
-                    if (xPos >= 2) {
-                        xPos -= 2;
-                        break;
-                    }
-                case 39:
-                    // Exceed right window border
-                    if (xPos <= 862) {
-                        xPos += 2;
-                        break;
-                    }
-            }
-        }
-    }
     // TODO: CHECK UPDATE POWER
+    public Projectile shoot(int x, int y){
+        Projectile bullet = new Projectile(x, y, power);
+        return bullet;
+    }
     public void updatePower(int key){
         if (power <= health){
             switch (key){
@@ -69,9 +49,35 @@ public class Tank extends GameObject implements Comparable<Tank>{
                 break;
         }
         // Keep the angle between 0 and 180 deg
-        angle = constrain(angle, 0, PI);
+        angle = constrain(angle, -PI/2, PI/2);
+//        System.out.println(angle);
     }
 
+    public void useFuel(){
+        fuel -= 2;
+    }
+    public void move(int key, int WINDOW_WIDTH, int FPS, int pxPS){
+        // Only move when have fuel
+        if (fuel >= 0) {
+            switch (key) {
+                // left
+                case 37:
+                    // Exceed left window border
+                    if (xPos >= pxPS/FPS) {
+                        xPos -= pxPS/FPS;
+                        break;
+                    }
+                case 39:
+                    // Exceed right window border
+                    if (xPos <= WINDOW_WIDTH - pxPS/FPS) {
+                        xPos += pxPS/FPS;
+                        break;
+                    }
+            }
+        }
+    }
+
+    // GETTER & SETTERS
     public float getAngle() {
         return angle;
     }

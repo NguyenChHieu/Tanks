@@ -1,5 +1,6 @@
 package Tanks;
 
+import org.checkerframework.checker.units.qual.A;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.event.KeyEvent;
@@ -36,6 +37,7 @@ public class App extends PApplet {
 
     // Gameplay attributes
     public List<Tank> order = new ArrayList<>();
+//    public List<Projectile> active = new ArrayList<>();
     public boolean showArrow = true;
     public int arrStartTime = millis();
 
@@ -59,43 +61,15 @@ public class App extends PApplet {
             return;
         }
         // Setup map
-        List<LevelConfig> levels = manager.getLevels();
         HashMap<String, int[]> colors = manager.getPlayerColours();
+        List<LevelConfig> levels = manager.getLevels();
 
         LevelConfig level = levels.get(0);
         String layout = level.getLayoutFilePath();
+
+        // Setup levels
         setUpLevels(level);
-
-        // Create board
-        board = new GameObject[BOARD_HEIGHT][BOARD_WIDTH+1];
-        board = GameMap.generateTerrain(board, layout);
-        // Moving average
-        pixels = GameMap.instantiateHeight(board);
-        pixels = GameMap.movingAverage(pixels);
-        pixels = GameMap.movingAverage(pixels);
-
-        // Extract the trees from the matrix
-        for (int c = 0; c < 28; c++) {
-            for (int r = 0; r < 20; r++) {
-                if (board[r][c].getType().equals("T")) {
-                    // Randomize the location of the tree up to 30 pixels [-15,15]
-                    int rand = (int) random(-15,15);
-                    // At first, the cell is scaled to 32x32 matrix, hence the tree root
-                    // pixel would be in the bottom left cell of the matrix. To align the
-                    // root correctly, +16 to align the root to the center.
-                    treeX.add(board[r][c].xPos + 16 + rand);
-                }
-                if (board[r][c] instanceof Tank){
-                    int[] rgb = colors.get(board[r][c].type);
-                    ((Tank) board[r][c]).setColorTank(rgb);
-                    // Tank is alr scaled, according to the demo, no need to align to middle
-                    tankHeights.put((Tank) board[r][c], board[r][c].xPos);
-                    // The height of the tank will be 1 pixel above the terrain
-                    board[r][c].yPos = pixels[board[r][c].xPos] -1;
-                }
-            }
-        }
-
+        extractAttributes(layout, colors);
 
         // Sort the tanks alphabetically in order
         order.addAll(tankHeights.keySet());
@@ -107,18 +81,15 @@ public class App extends PApplet {
                 System.err.println("No color for player " + tank.type +" found");
             }
         }
-        // Check
-//        for (Tank tank: order){
-//            System.out.println(tank.getType());
-//        }
     }
 
-	@Override
+    @Override
     public void keyPressed(KeyEvent event){
         Tank currentTank = order.get(0);
         int key = event.getKeyCode();
 
         if (event.getKey() == ' '){
+//            active.add(currentTank.shoot(currentTank.xPos, currentTank.yPos));
             switchTurns();
 
             // Update the conditions to display the arrow
@@ -129,7 +100,7 @@ public class App extends PApplet {
         }
         else if (key == LEFT || key == RIGHT) {
             if (currentTank.getFuelLevel() > 0) {
-                currentTank.move(key);
+                currentTank.move(key, WIDTH, FPS, 60);
                 currentTank.yPos = pixels[currentTank.xPos] -1;
 
                 currentTank.useFuel();
@@ -141,13 +112,13 @@ public class App extends PApplet {
             currentTank.updatePower(key);
         }
         else if (key == UP || key == DOWN){
-            currentTank.updateAngle(key, radians(3)/FPS);
+            currentTank.updateAngle(key, PI/FPS);
         }
     }
 
 	@Override
     public void keyReleased(){
-        
+
     }
 
     @Override
@@ -191,9 +162,8 @@ public class App extends PApplet {
             drawTank(tankHeights.get(tank),
                     pixels[tankHeights.get(tank)]-1,
                     tank.getColorTank());
-//            drawTurret(tank.xPos, tank.yPos, tank.getAngle());
+            drawTurret(tank.xPos, tank.yPos, tank.getAngle());
         }
-
 
 
         //----------------------------------
@@ -260,6 +230,7 @@ public class App extends PApplet {
         text("Health: ", 380, 10);
 
     }
+
     void drawArrow(int x, int y) {
         strokeWeight(4); // Bold line
         // body
@@ -286,18 +257,50 @@ public class App extends PApplet {
         rect(x-8, y-8, 15, 4,10);
 
     }
-    void drawProjectile(float x, float y, float radius, int[] rgb){
-        fill(rgb[0], rgb[1], rgb[2]);
-        ellipse(x, y, radius, radius);
+    void drawTurret(int x, int y, float angle){
+        int xEnd = x + (int) (15 * sin(angle));
+        int yEnd = y - 8 - (int) (15 * cos(angle));
+        fill(0);
+        strokeWeight(3);
+        line(x, y-8, xEnd, yEnd);
+        strokeWeight(1);
     }
-//    void drawTurret(int x, int y, float angle){
-//        pushMatrix(); // Save the current transformation matrix state
-//        rotate(angle);
-//        fill(0,0,0);
-//        rect(x-1.5f, y-8-15, 3, 15);
-//        popMatrix();
-//    }
 
+    public void switchTurns(){
+        Tank before = order.remove(0);
+        order.add(before);
+    }
+    private void extractAttributes(String layout, HashMap<String, int[]> colors) {
+        // Create board
+        board = new GameObject[BOARD_HEIGHT][BOARD_WIDTH+1];
+        board = GameMap.generateTerrain(board, layout);
+        // Moving average
+        pixels = GameMap.instantiateHeight(board);
+        pixels = GameMap.movingAverage(pixels);
+        pixels = GameMap.movingAverage(pixels);
+
+        // Extract the trees from the matrix
+        for (int c = 0; c < 28; c++) {
+            for (int r = 0; r < 20; r++) {
+                if (board[r][c].getType().equals("T")) {
+                    // Randomize the location of the tree up to 30 pixels [-15,15]
+                    int rand = (int) random(-15,15);
+                    // At first, the cell is scaled to 32x32 matrix, hence the tree root
+                    // pixel would be in the bottom left cell of the matrix. To align the
+                    // root correctly, +16 to align the root to the center.
+                    treeX.add(board[r][c].xPos + 16 + rand);
+                }
+                if (board[r][c] instanceof Tank){
+                    int[] rgb = colors.get(board[r][c].type);
+                    ((Tank) board[r][c]).setColorTank(rgb);
+                    // Tank is alr scaled, according to the demo, no need to align to middle
+                    tankHeights.put((Tank) board[r][c], board[r][c].xPos);
+                    // The height of the tank will be 1 pixel above the terrain
+                    board[r][c].yPos = pixels[board[r][c].xPos] -1;
+                }
+            }
+        }
+    }
     public void setUpLevels(LevelConfig level){
         // Set level's background
         if (level.getBackground() != null) {
@@ -313,16 +316,10 @@ public class App extends PApplet {
             trees.resize(32,32);
         }
     }
-    // Leverage queue
-    public void switchTurns(){
-        Tank before = order.remove(0);
-        order.add(before);
-    }
     private String getPathToImage(String path) {
         return this.getClass().getResource(path).
                 getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
     }
-
 
     public static void main(String[] args) {
         PApplet.main("Tanks.App");
