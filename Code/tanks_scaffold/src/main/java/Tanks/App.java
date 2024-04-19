@@ -37,7 +37,7 @@ public class App extends PApplet {
 
     // Gameplay attributes
     public List<Tank> order = new ArrayList<>();
-//    public List<Projectile> active = new ArrayList<>();
+    public List<Projectile> active = new ArrayList<>();
     public boolean showArrow = true;
     public int arrStartTime = millis();
 
@@ -89,10 +89,10 @@ public class App extends PApplet {
         int key = event.getKeyCode();
 
         if (event.getKey() == ' '){
-//            active.add(currentTank.shoot(currentTank.xPos, currentTank.yPos));
+            active.add(currentTank.shoot(currentTank.xPos, currentTank.yPos));
             switchTurns();
 
-            // Update the conditions to display the arrow
+            // Redisplay the arrow
             showArrow = true;
             arrStartTime = millis();
 
@@ -162,8 +162,19 @@ public class App extends PApplet {
             drawTank(tankHeights.get(tank),
                     pixels[tankHeights.get(tank)]-1,
                     tank.getColorTank());
-            drawTurret(tank.xPos, tank.yPos, tank.getAngle());
+            tank.drawTurret(this);
         }
+
+        // Projectile
+        for (Projectile bullet : active){
+            if (!bullet.collide(pixels)){
+                bullet.update();
+                bullet.drawProjectile(this);
+            }
+        }
+        active.removeIf(Projectile::isExplode);
+
+
 
 
         //----------------------------------
@@ -230,7 +241,6 @@ public class App extends PApplet {
         text("Health: ", 380, 10);
 
     }
-
     void drawArrow(int x, int y) {
         strokeWeight(4); // Bold line
         // body
@@ -256,14 +266,6 @@ public class App extends PApplet {
         // Upper
         rect(x-8, y-8, 15, 4,10);
 
-    }
-    void drawTurret(int x, int y, float angle){
-        int xEnd = x + (int) (15 * sin(angle));
-        int yEnd = y - 8 - (int) (15 * cos(angle));
-        fill(0);
-        strokeWeight(3);
-        line(x, y-8, xEnd, yEnd);
-        strokeWeight(1);
     }
 
     public void switchTurns(){
