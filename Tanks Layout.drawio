@@ -1,19 +1,19 @@
-<mxfile host="app.diagrams.net" modified="2024-04-20T11:16:29.010Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="wTSVZw5YAIwxFDvrS7K5" version="24.2.5" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-20T11:18:20.905Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="OeDfT4SJ8aKcS4h69eDN" version="24.2.5" type="github">
   <diagram name="Page-1" id="6133507b-19e7-1e82-6fc7-422aa6c4b21f">
-    <mxGraphModel dx="2561" dy="725" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#E6FFCC" math="0" shadow="0">
+    <mxGraphModel dx="1705" dy="724" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#E6FFCC" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="UTHU-1M57-vCMUskgQRw-25" value="Tank" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="660" y="390" width="160" height="134" as="geometry" />
+          <mxGeometry x="660" y="550" width="160" height="134" as="geometry" />
         </mxCell>
-        <mxCell id="UTHU-1M57-vCMUskgQRw-26" value="- health: int&lt;div&gt;- power: int&lt;/div&gt;&lt;div&gt;- fuel: int&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- colorTank:&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-25" vertex="1">
+        <mxCell id="UTHU-1M57-vCMUskgQRw-26" value="- health: int&lt;div&gt;- power: int&lt;/div&gt;&lt;div&gt;- fuel: int&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- colorTank: int[]&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- angle: float&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-25" vertex="1">
           <mxGeometry y="26" width="160" height="74" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-27" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="UTHU-1M57-vCMUskgQRw-25" vertex="1">
           <mxGeometry y="100" width="160" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="UTHU-1M57-vCMUskgQRw-28" value="+ method(type): type" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-25" vertex="1">
+        <mxCell id="UTHU-1M57-vCMUskgQRw-28" value="+ move():&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-25" vertex="1">
           <mxGeometry y="108" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-30" value="ConfigManager" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
@@ -41,16 +41,16 @@
           <mxGeometry y="108" width="140" height="22" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-44" value="Projectile" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="850" y="390" width="160" height="128" as="geometry" />
+          <mxGeometry x="920" y="490" width="160" height="124" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-45" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- direction&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- velocity:&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-44" vertex="1">
-          <mxGeometry y="26" width="160" height="34" as="geometry" />
+          <mxGeometry y="26" width="160" height="30" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-46" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="UTHU-1M57-vCMUskgQRw-44" vertex="1">
-          <mxGeometry y="60" width="160" height="8" as="geometry" />
+          <mxGeometry y="56" width="160" height="8" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-47" value="+ move(): void&lt;div&gt;+ checkCollision():&lt;/div&gt;&lt;div&gt;+ explode(): void&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-44" vertex="1">
-          <mxGeometry y="68" width="160" height="60" as="geometry" />
+          <mxGeometry y="64" width="160" height="60" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-48" value="GameMap" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="460" y="390" width="150" height="120" as="geometry" />
