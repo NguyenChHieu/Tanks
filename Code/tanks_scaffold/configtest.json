@@ -1,0 +1,25 @@
+{
+  "levels": [
+    {
+      "layout": "leveltest.txt",
+      "background": "snow.png",
+      "foreground-colour": "255,255,255",
+      "trees": "tree2.png"
+    },
+    {
+      "layout": "leveltest2.txt",
+      "background": "snow.png",
+      "foreground-colour": "255,255,255",
+      "trees": "tree2.png"
+    }
+  ],
+  "player_colours": {
+    "A": "0,0,255",
+    "B": "255,0,0",
+    "C": "0,255,255",
+    "D": "255,255,0",
+    "E": "random",
+    "F": "random"
+  }
+}
+
