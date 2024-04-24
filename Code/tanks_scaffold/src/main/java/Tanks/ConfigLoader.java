@@ -5,9 +5,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 
-/** Load the JSON file's attributes into
- * ConfigManager object.
- */
 public class ConfigLoader {
 //    private static final String CONFIG_FILENAME = "config.json";
 
@@ -44,7 +41,7 @@ public class ConfigLoader {
             JSONObject playerColoursObj = config.getJSONObject("player_colours");
 
             // Create a list to hold extracted items.
-            List<LevelConfig> levels = new ArrayList<>();
+            List<Level> levels = new ArrayList<>();
             HashMap<String, int[]> playerColours = new HashMap<>();
 
             // Get the level's attributes and match it to the level object
@@ -54,7 +51,7 @@ public class ConfigLoader {
                 String background = (String) levelObj.get("background");
                 String foregroundColour = (String) levelObj.get("foreground-colour");
                 String trees = levelObj.has("trees") ? (String) levelObj.get("trees") : null;
-                levels.add(new LevelConfig(layoutFile, background, foregroundColour, trees));
+                levels.add(new Level(layoutFile, background, foregroundColour, trees));
             }
             // Get the player color - RGB pairs
             for (String player: playerColoursObj.keySet()){

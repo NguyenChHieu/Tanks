@@ -4,7 +4,7 @@ public class GameObject {
     /** Parent class of all game objects
      */
     protected int xPos;
-    protected int yPos;
+    protected float yPos;
     protected String type;
 
     /** Creates a game Object.
@@ -13,7 +13,7 @@ public class GameObject {
      * @param type the object's type - represent by a character.
      */
 
-    public GameObject(int x, int y, String type){
+    public GameObject(int x, float y, String type){
         xPos = x;
         yPos = y;
         this.type = type;
@@ -22,5 +22,4 @@ public class GameObject {
     public String getType() {
         return type;
     }
-
 }

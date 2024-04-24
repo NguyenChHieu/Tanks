@@ -1,13 +1,13 @@
 {
   "levels": [
     {
-      "layout": "level3.txt",
-      "background": "basic.png",
-      "foreground-colour": "120,171,0",
-      "trees": "tree1.png"
+      "layout": "leveltest.txt",
+      "background": "snow.png",
+      "foreground-colour": "255,255,255",
+      "trees": "tree2.png"
     },
     {
-      "layout": "leveltest.txt",
+      "layout": "leveltest2.txt",
       "background": "snow.png",
       "foreground-colour": "255,255,255",
       "trees": "tree2.png"
@@ -18,7 +18,8 @@
     "B": "255,0,0",
     "C": "0,255,255",
     "D": "255,255,0",
-    "E": "random"
+    "E": "random",
+    "F": "random"
   }
 }
 
