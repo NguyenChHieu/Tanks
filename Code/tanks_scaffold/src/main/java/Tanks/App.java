@@ -3,7 +3,6 @@ package Tanks;
 import processing.core.PApplet;
 import processing.core.PImage;
 import processing.event.KeyEvent;
-import processing.event.MouseEvent;
 
 import java.util.*;
 import java.util.List;
@@ -22,6 +21,8 @@ public class App extends PApplet {
     public  PImage backgroundPNG;
     public PImage trees;
 
+
+
     // Level attributes
     public GameMap currentMap;
     public ConfigManager manager;
@@ -29,6 +30,8 @@ public class App extends PApplet {
     private long delaySwitch = 0;
     public boolean currentlyDelayedLevel = false;
     public boolean isEndGame = false;
+
+
 
     // Gameplay attributes
     public PlayerScores scoreSave;
@@ -63,6 +66,7 @@ public class App extends PApplet {
         // ONLY CREATE THE PLAYER SCORE ONCE
         scoreSave = new PlayerScores(correctOrder);
     }
+
 
     @Override
     public void keyPressed(KeyEvent event){
@@ -110,25 +114,13 @@ public class App extends PApplet {
         else {
             if (key == 'R') {
                 //TODO RESET GAME
-                scoreSave.resetPlayerScores();
-                order.clear();
-                active.clear();
-                correctOrder.clear();
-                Projectile.setWindLevel();
-                currentLevelIndex = 0;
+                resetGameAttributes(true);
                 setupFirstLevel();
                 scoreSave = new PlayerScores(correctOrder);
-
                 isEndGame = false;
             }
         }
     }
-    @Override
-    public void keyReleased(){}
-    @Override
-    public void mousePressed(MouseEvent e) {}
-    @Override
-    public void mouseReleased(MouseEvent e) {}
 
 
 
@@ -202,10 +194,11 @@ public class App extends PApplet {
             drawHUD();
 
             // Indicate current player
-            if (showArrow && millis() - arrStartTime < 2000)
+            if (showArrow && millis() - arrStartTime < 2000) {
                 if (!order.isEmpty()) {
                     drawArrow(order.get(0).xPos, order.get(0).yPos - 100);
                 }
+            }
             else showArrow = false;
 
             //----------------------------------
@@ -360,36 +353,31 @@ public class App extends PApplet {
 
 
 
+
     // SWITCH
-    public boolean levelEnds(List<Tank> tanks){
+    private boolean levelEnds(List<Tank> tanks){
         return tanks.size() <= 1;
     }
-    public void switchTurns(){
+    private void switchTurns(){
         Tank before = order.remove(0);
         order.add(before);
     }
-    public void switchLevels(){
+    private void switchLevels(){
         currentLevelIndex++;
         List<Level> levels = manager.getLevels();
 
         if (currentLevelIndex < levels.size()){
             // Clear the current objects
-            order.clear();
-            active.clear();
-            Projectile.setWindLevel();
+            resetGameAttributes(false);
 
             Level level = levels.get(currentLevelIndex);
             setUpLevel(level);
             extractGameAttributes(level.getLayoutFilePath(), manager.getPlayerColours());
             if(currentMap != null) {
                 // Clear correctOrder before adding players
-                correctOrder.clear();
-
                 order.addAll(currentMap.getTanksList());
                 Collections.sort(order);
-
                 correctOrder.addAll(order);
-
 
                 // Update points from last level:
                 for (Tank tank: order){
@@ -406,9 +394,8 @@ public class App extends PApplet {
         }
     }
 
-
-
     // SETUP METHODS
+
     private void setupFirstLevel() {
         Level level = manager.getLevels().get(currentLevelIndex);
         setUpLevel(level);
@@ -420,7 +407,7 @@ public class App extends PApplet {
             correctOrder.addAll(order);
         }
     }
-    public void setUpLevel(Level level){
+    private void setUpLevel(Level level){
         // Set level's background
         if (level.getBackground() != null) {
             backgroundPNG = loadImage(getPathToImage(level.getBackground()));
@@ -433,6 +420,16 @@ public class App extends PApplet {
             trees = loadImage(getPathToImage(level.getTrees()));
             // Resize tree img
             trees.resize(32,32);
+        }
+    }
+    private void resetGameAttributes(boolean resetWholeGame) {
+        order.clear();
+        active.clear();
+        Projectile.setWindLevel();
+        correctOrder.clear();
+        if (resetWholeGame){
+            scoreSave.resetPlayerScores();
+            currentLevelIndex = 0;
         }
     }
     private void extractGameAttributes(String layout, HashMap<String, int[]> colors) {
@@ -452,7 +449,7 @@ public class App extends PApplet {
         gameMap.updateTanksY();
 
     }
-    String getPathToImage(String path) {
+    private String getPathToImage(String path) {
         return Objects.requireNonNull(this.getClass().getResource(path)).
                 getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
     }
