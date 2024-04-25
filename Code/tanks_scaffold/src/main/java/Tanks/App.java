@@ -41,7 +41,7 @@ public class App extends PApplet {
 
 
     public App() {
-        this.configPath = "configtest.json";
+        this.configPath = "config.json";
     }
 
 	@Override
@@ -110,6 +110,16 @@ public class App extends PApplet {
         else {
             if (key == 'R') {
                 //TODO RESET GAME
+                scoreSave.resetPlayerScores();
+                order.clear();
+                active.clear();
+                correctOrder.clear();
+                Projectile.setWindLevel();
+                currentLevelIndex = 0;
+                setupFirstLevel();
+                scoreSave = new PlayerScores(correctOrder);
+
+                isEndGame = false;
             }
         }
     }
@@ -189,9 +199,8 @@ public class App extends PApplet {
             //----------------------------------
             //Display HUD
             //----------------------------------
-            if (!isEndGame){
-                drawHUD();
-            }
+            drawHUD();
+
             // Indicate current player
             if (showArrow && millis() - arrStartTime < 2000)
                 if (!order.isEmpty()) {
@@ -202,7 +211,9 @@ public class App extends PApplet {
             //----------------------------------
             //Display scoreboard
             //----------------------------------
-            drawScore(correctOrder, scoreSave.getScore());
+            if (!isEndGame) {
+                drawScore(correctOrder, scoreSave.getScore());
+            }
         }
         if (levelEnds(order)){
             if (delaySwitch == 0){
@@ -215,7 +226,6 @@ public class App extends PApplet {
                 switchLevels();
             }
         }
-//        drawFinal(correctOrder, scoreSave.getScore());
     }
 
 
@@ -323,6 +333,7 @@ public class App extends PApplet {
         rect(280, 175, 350, 40 * numberOfPlayers);
 
         int i = 0;
+        long lastPrintTime = 0;
         for (String player: scoresSorted.keySet()){
             int[] playerColor = new int[3];
             int points = scoresSorted.get(player);
@@ -333,12 +344,13 @@ public class App extends PApplet {
                     break;
                 }
             }
-
-            fill(playerColor[0], playerColor[1], playerColor[2]);
-            text("Player " + player, 300, 180 +24*i);
-            fill(0);
-            text(points, 570, 180 +24*i);
-            i += 1;
+            if (millis() - lastPrintTime >= 700) {
+                fill(playerColor[0], playerColor[1], playerColor[2]);
+                text("Player " + player, 300, 180 + 35 * i);
+                fill(0);
+                text(points, 570, 180 + 35 * i);
+                i += 1;
+            }
         }
         // reset
         fill(0);
@@ -390,6 +402,7 @@ public class App extends PApplet {
         else {
             currentlyDelayedLevel = false;
             isEndGame = true;
+            drawFinal(correctOrder, scoreSave.getScore());
         }
     }
 

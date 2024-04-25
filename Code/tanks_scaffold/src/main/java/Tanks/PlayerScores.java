@@ -21,4 +21,8 @@ public class PlayerScores {
     public HashMap<String, Integer> getScore(){
         return points;
     }
+
+    public void resetPlayerScores(){
+        points.clear();
+    }
 }
