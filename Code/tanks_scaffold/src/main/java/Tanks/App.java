@@ -7,10 +7,10 @@ import processing.event.MouseEvent;
 
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class App extends PApplet {
 
-    public static final int CELL_SIZE = 32; //8;
     public static int WIDTH = 864; // CELL_SIZE*BOARD_WIDTH;
     public static int HEIGHT = 640; //BOARD_HEIGHT*CELL_SIZE+TOP_BAR;
     public static final int FPS = 30;
@@ -189,10 +189,12 @@ public class App extends PApplet {
             //----------------------------------
             //Display HUD
             //----------------------------------
-            drawHUD();
+            if (!isEndGame){
+                drawHUD();
+            }
             // Indicate current player
             if (showArrow && millis() - arrStartTime < 2000)
-                if (order.size() > 1) {
+                if (!order.isEmpty()) {
                     drawArrow(order.get(0).xPos, order.get(0).yPos - 100);
                 }
             else showArrow = false;
@@ -213,8 +215,8 @@ public class App extends PApplet {
                 switchLevels();
             }
         }
-
-        }
+//        drawFinal(correctOrder, scoreSave.getScore());
+    }
 
 
 
@@ -285,6 +287,64 @@ public class App extends PApplet {
         textSize(14);
 
     }
+    void drawFinal(List<Tank> players, HashMap<String, Integer> scores){
+        // Cite
+        //Stack Overflow. (2011). Sorting HashMap by values.
+        //Available at: https://stackoverflow.com/questions/8119366/sorting-hashmap-by-values
+        //[Accessed 25 Apr. 2024].
+        String winner = Collections.max(scores.entrySet(), Map.Entry.comparingByValue()).getKey();
+        HashMap<String, Integer> scoresSorted = scores.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (e1, e2) -> e1, LinkedHashMap::new));
+        int[] winnerColor = new int[3];
+        for (Tank tank:players){
+            if (Objects.equals(tank.type, winner)){
+                winnerColor = tank.getColorTank();
+                break;
+            }
+        }
+        int numberOfPlayers = players.size();
+
+        textSize(24);
+        fill(winnerColor[0], winnerColor[1], winnerColor[2]);
+        text("Player " + winner + " wins!", 300, 100);
+
+        // Upper
+        strokeWeight(4);
+        // Fill salmon
+        fill(250, 128,114);
+        rect(280, 140, 350, 35);
+        fill(0);
+        text( "Final Scores", 300, 145);
+
+        // Lower
+        fill(250, 128,114);
+        rect(280, 175, 350, 40 * numberOfPlayers);
+
+        int i = 0;
+        for (String player: scoresSorted.keySet()){
+            int[] playerColor = new int[3];
+            int points = scoresSorted.get(player);
+
+            for (Tank tank:players){
+                if (Objects.equals(tank.type, player)){
+                    playerColor = tank.getColorTank();
+                    break;
+                }
+            }
+
+            fill(playerColor[0], playerColor[1], playerColor[2]);
+            text("Player " + player, 300, 180 +24*i);
+            fill(0);
+            text(points, 570, 180 +24*i);
+            i += 1;
+        }
+        // reset
+        fill(0);
+        strokeWeight(1);
+        textSize(14);
+    }
 
 
 
@@ -328,12 +388,9 @@ public class App extends PApplet {
             delaySwitch = 0;
         }
         else {
-            // TODO PRINT SCORE
             currentlyDelayedLevel = false;
-
+            isEndGame = true;
         }
-
-
     }
 
 
