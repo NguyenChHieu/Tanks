@@ -205,7 +205,7 @@ public class App extends PApplet {
             //Display scoreboard
             //----------------------------------
             if (!isEndGame) {
-                drawScore(correctOrder, scoreSave.getScore());
+                scoreSave.drawScore(correctOrder, scoreSave.getScore(), this);
             }
         }
         if (levelEnds(order)){
@@ -262,134 +262,6 @@ public class App extends PApplet {
 
         strokeWeight(1); // Reset to normal
     }
-    void drawScore(List<Tank> players, HashMap<String, Integer> scores){
-        textSize(12);
-        // Upper rect
-        strokeWeight(3);
-        noFill();
-        rect(720, 55, 135, 14);
-        text("Scores", 765, 54);
-
-        // Points
-        rect(720, 69, 135, 15 * players.size());
-        int i = 0;
-        for (Tank tank: players){
-            fill(tank.getColorTank()[0],
-                    tank.getColorTank()[1],
-                    tank.getColorTank()[2]);
-            text("Player "+ tank.type, 723, 69 + 14 * i);
-
-            fill(0);
-            text(scores.get(tank.type), 835, 69 + 14 * i);
-            i++;
-        }
-
-        // reset
-        fill(0);
-        strokeWeight(1);
-        textSize(14);
-
-    }
-
-    private HashMap<String,Integer> drawPlayersInFinal = new HashMap<>();
-    private int index = 0;
-    private float startDrawDelay =0 ;
-    void drawFinal(List<Tank> players, HashMap<String, Integer> scores){
-        // Cite
-        //Stack Overflow. (2011). Sorting HashMap by values.
-        //Available at: https://stackoverflow.com/questions/8119366/sorting-hashmap-by-values
-        //[Accessed 25 Apr. 2024].
-        String winner = Collections.max(scores.entrySet(), Map.Entry.comparingByValue()).getKey();
-        int numberOfPlayers = players.size();
-
-        int[] winnerColor = new int[3];
-        for (Tank tank:players){
-            if (Objects.equals(tank.type, winner)){
-                winnerColor = tank.getColorTank();
-                break;
-            }
-        }
-        textSize(24);
-        fill(winnerColor[0], winnerColor[1], winnerColor[2]);
-        text("Player " + winner + " wins!", 300, 100);
-
-        // Upper
-        strokeWeight(4);
-        // Fill salmon
-        fill(250, 128,114);
-        rect(280, 140, 350, 35);
-        fill(0);
-        text( "Final Scores", 300, 145);
-
-        // Lower
-        fill(250, 128,114);
-        rect(280, 175, 350, 40 * numberOfPlayers);
-
-        int i = 0;
-        for (String player : drawPlayersInFinal.keySet()){
-            int[] playerColor = new int[3];
-            int points = drawPlayersInFinal.get(player);
-
-            for (Tank tank:players){
-                if (Objects.equals(tank.type, player)){
-                    playerColor = tank.getColorTank();
-                    break;
-                }
-            }
-            fill(playerColor[0], playerColor[1], playerColor[2]);
-            text("Player " + player, 300, 180 + 35 * i);
-            fill(0);
-            text(points, 570, 180 + 35 * i);
-            i+=1;
-        }
-        // reset
-        fill(0);
-        strokeWeight(1);
-        textSize(14);
-    }
-    void timerFinal(List<Tank> players, HashMap<String, Integer> scores){
-        HashMap<String, Integer> scoresSorted = scores.entrySet().stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                        (e1, e2) -> e1, LinkedHashMap::new));
-        ArrayList<String> sortedKeys = new ArrayList<>();
-        ArrayList<Integer> sortedValues = new ArrayList<>();
-        for (String player:scoresSorted.keySet()){
-            sortedKeys.add(player);
-            sortedValues.add(scoresSorted.get(player));
-        }
-
-        int[] playerColor = new int[3];
-        int points = sortedValues.get(index);
-        String player = sortedKeys.get(index);
-        for (Tank tank:players){
-            if (Objects.equals(tank.type, player)){
-                playerColor = tank.getColorTank();
-                break;
-            }
-        }
-        if (startDrawDelay == 0){
-            startDrawDelay = millis();
-        }
-        textSize(24);
-        fill(playerColor[0], playerColor[1], playerColor[2]);
-        text("Player " + player, 300, 180 + 35 * index);
-        fill(0);
-        text(points, 570, 180 + 35 * index);
-
-        drawPlayersInFinal.put(player, points);
-
-        if (millis() - startDrawDelay >= 700){
-            index = (index < sortedKeys.size()-1) ? index + 1: index;
-            startDrawDelay = 0;
-        }
-        // reset
-        fill(0);
-        strokeWeight(1);
-        textSize(14);
-    }
-
-
 
     // SWITCH
     private boolean levelEnds(List<Tank> tanks){
@@ -427,8 +299,8 @@ public class App extends PApplet {
         else {
             currentlyDelayedLevel = false;
             isEndGame = true;
-            timerFinal(correctOrder, scoreSave.getScore());
-            drawFinal(correctOrder, scoreSave.getScore());
+            scoreSave.timerFinal(correctOrder, scoreSave.getScore(), this);
+            scoreSave.drawFinal(correctOrder, scoreSave.getScore(), this);
         }
     }
 
@@ -468,6 +340,7 @@ public class App extends PApplet {
         if (resetWholeGame){
             scoreSave.resetPlayerScores();
             currentLevelIndex = 0;
+            delaySwitch = 0;
         }
     }
     private void extractGameAttributes(String layout, HashMap<String, int[]> colors) {
