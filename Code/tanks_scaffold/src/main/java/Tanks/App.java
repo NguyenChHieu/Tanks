@@ -6,7 +6,6 @@ import processing.event.KeyEvent;
 
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class App extends PApplet {
 
@@ -171,7 +170,7 @@ public class App extends PApplet {
             }
             // Remove dead tanks + explosion
             for (Tank tank : order) {
-                if (tank.isDead()) {
+                if (tank.isDead(currentMap.getPixels()[tank.xPos])) {
                     Projectile.drawExplosion(this,
                             tank.xPos,
                             tank.yPos,
@@ -185,7 +184,7 @@ public class App extends PApplet {
                             true);
                 }
             }
-            order.removeIf(tank -> tank.isOutMap() || tank.isDead());
+            order.removeIf(tank -> tank.isOutMap() || tank.isDead(currentMap.getPixels()[tank.xPos]));
 
 
             //----------------------------------

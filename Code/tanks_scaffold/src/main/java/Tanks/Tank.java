@@ -244,8 +244,8 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public int getHealth(){
         return health;
     }
-    public boolean isDead(){
-        if (health == 0){
+    public boolean isDead(float terrainHeight){
+        if (health == 0 && !isFalling(terrainHeight)){
             isAlive = false;
         }
         return !isAlive;
