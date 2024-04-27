@@ -1,13 +1,10 @@
 package Tanks;
 import java.util.*;
 public class ConfigManager {
-    /** Holds the JSON file's levels, player colours
-     * after extracted.
-     */
     private final List<Level> levels;
     private final HashMap<String, int[]> playerColours;
 
-    /** Creates a level Object.
+    /** Creates a ConfigManager object.
      * @param levels List contain level objects.
      * @param playerColours HashMap contains "player tag - color" pairs.
      */
