@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.util.*;
 
 public class ConfigLoader {
-//    private static final String CONFIG_FILENAME = "config.json";
 
     /**
      * Parse the JSON content into the ConfigManager object,
