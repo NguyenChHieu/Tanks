@@ -28,16 +28,8 @@ public class GameMap {
     }
 
 
-    // TERRAIN INSTANTIATION
-    /**
-     * Scale the height of the pixel to 32px
-     * @param row previous value of the pixel before scaling
-     * @return actual height of the pixel after scaling
-     */
-    public int findColHeight(int row){
-        return row*32;
-    }
 
+    // TERRAIN INSTANTIATION
     /**
      * Map objects in the text file to a 2D array.
      *
@@ -132,14 +124,36 @@ public class GameMap {
         }
         System.arraycopy(heightPixels, 864, pixels, 864, 32);
     }
+
+    /**
+     * Update Tanks height correctly after
+     * perform terrain smoothing.
+     */
     public void updateTanksY(){
         for (Tank tank: tanksList){
             tank.yPos = pixels[tank.xPos];
         }
     }
 
+    /**
+     * Scale the height of the pixel to 32px
+     * @param row previous value of the pixel before scaling
+     * @return actual height of the pixel after scaling
+     */
+    private int findColHeight(int row){
+        return row*32;
+    }
+
+
 
     // OBJECT EXTRACTION
+    /**
+     * Extract tree X positions and add it to
+     * the list of tree positions.
+     * The process involves randomization up to
+     * 30px around the root.
+     * @param app to get random function.
+     */
     public void extractTree(PApplet app){
         for (int c = 0; c < BOARD_WIDTH; c++) {
             for (int r = 0; r < BOARD_HEIGHT; r++) {
@@ -154,6 +168,13 @@ public class GameMap {
             }
         }
     }
+    /**
+     * Extract tank objects from the matrix
+     * setup initial positions, including X
+     * and Y and parsing tank colors.
+     * @param colors HashMap contains tank type as key
+     *               and RGB list as values
+     */
     public void extractTanks(HashMap<String, int[]> colors){
         for (int c = 0; c < BOARD_WIDTH; c++) {
             for (int r = 0; r < BOARD_HEIGHT; r++) {
@@ -170,7 +191,14 @@ public class GameMap {
     }
 
 
+
     // DRAW
+    /**
+     * Draw the terrain on the app's window.
+     * @param app refer to the app to drawing
+     * @param RGB color RGB for the tank
+     * @param height window height
+     */
     public void drawTerrain(PApplet app, int[] RGB, int height) {
         app.stroke(RGB[0], RGB[1], RGB[2]);
         for (int i = 0; i < 864; i++){
@@ -179,7 +207,13 @@ public class GameMap {
         // Reset
         app.stroke(0);
     }
-    //TODO check tree at borders
+    /**
+     * Draw trees based on their positions
+     * in treeX, update their positions on
+     * screen when hit by a projectile.
+     * @param app refer to the app
+     * @param trees Tree image sprite.
+     */
     public void drawTree(PApplet app, PImage trees){
         for (int i = 0; i <treeX.size(); i++){
             // The X point, Y point has to scaled -16 and -32 respectively
@@ -188,7 +222,6 @@ public class GameMap {
                 app.image(trees, 0,pixels[0] -32);
             else
                 app.image(trees, treeX.get(i) - 16 , pixels[treeX.get(i)] -32);
-            //  MIGHT HAVE TO HANDLE Y
         }
     }
 

@@ -89,7 +89,6 @@ public class Tank extends GameObject implements Comparable<Tank>{
             deployed = true;
         }
     }
-    // TODO TANK OUT MAP
 
 
 
