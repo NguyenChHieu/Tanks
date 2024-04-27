@@ -11,7 +11,7 @@ public class Level {
     /** Creates a level Object.
      * @param layout The level's layout file name.
      * @param background The level’s background.
-     * @param foregroundColour The terrain's RGB color.
+     * @param foregroundColour The terrain's RGB color - string parsed to an int[]
      * @param trees (If exist) The level's graphics for trees.
      */
     public Level(String layout, String background,
