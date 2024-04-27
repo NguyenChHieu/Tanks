@@ -76,9 +76,12 @@ public class Projectile {
             if (distance >= 0 && distance <= 30){
                 int damage = 60 - (int) distance * 2;
 
-                System.out.println(tank.type+ " explode " + damage +" shooter " + shooter.type);
+//                System.out.println(tank.type+ " explode " + damage +" shooter " + shooter.type);
 
                 tank.tankLoseHP(damage);
+                if (tank.getHealth() == 0){
+                    tank.setDeadByExplode();
+                }
                 // Avoid + points for self-destruct
                 if (!Objects.equals(tank.getType(), shooter.getType()))
                     shooter.addPoints(damage);
@@ -95,7 +98,7 @@ public class Projectile {
                         int fallDMG = Math.min((int) (terrainHeight[tank.xPos] - tank.yPos), tank.getHealth());
                         tank.tankLoseHP(fallDMG);
 
-                        System.out.println(tank.type+ " fall "+ fallDMG + " shooter " + shooter.type);
+//                        System.out.println(tank.type+ " fall "+ fallDMG + " shooter " + shooter.type);
 
                         if (!tank.isDead(terrainHeight[tank.xPos])){
                             if (!Objects.equals(tank.getType(), shooter.getType()))

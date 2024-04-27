@@ -43,7 +43,7 @@ public class App extends PApplet {
 
 
     public App() {
-        this.configPath = "configtest.json";
+        this.configPath = "config.json";
     }
 
 	@Override
@@ -218,6 +218,7 @@ public class App extends PApplet {
                 switchLevels();
             }
         }
+        System.out.println(frameRate);
     }
 
 

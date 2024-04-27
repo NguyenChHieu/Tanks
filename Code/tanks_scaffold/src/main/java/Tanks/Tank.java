@@ -263,12 +263,16 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public void setPoints(int point){
         points = point;
     }
+    public void setDeadByExplode(){
+        isAlive = false;
+    }
     public void tankLoseHP(int hp){
         health = Math.max(0, health-hp);
         power = Math.min(power, health);
     }
-    // Overriding the Comparable method -> The tanks are comparable in order
 
+
+    // Overriding the Comparable method -> The tanks are comparable in order
     // Leverage this to sort the Tanks alphabetically by using queue ds.
     @Override
     public int compareTo(Tank otherTank) {
