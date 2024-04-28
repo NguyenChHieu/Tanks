@@ -21,7 +21,7 @@ public class GameMap {
     public GameMap(){
         board = new GameObject[BOARD_HEIGHT][BOARD_WIDTH];
         treeX = new ArrayList<>();
-        //TODO: careful the width - actual width is 864
+        // actual width is 864
         int WIDTH = 896;
         pixels = new float[WIDTH];
         tanksList = new ArrayList<>();

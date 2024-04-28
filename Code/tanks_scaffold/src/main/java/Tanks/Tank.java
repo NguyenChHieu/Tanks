@@ -4,22 +4,23 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Tank extends GameObject implements Comparable<Tank>{
-    private int health = 100;
-    private int power = 50;
-    private int fuel = 250;
     private int[] colorTank;
+    private int fuel = 250;
+    private int points = 0;
+
+    private int health = 100;
+    private boolean isAlive = true;
+
+    private int power = 50;
     private float angle = 0;
+
     private int parachutes = 1;
     private boolean parachuteFall;
     private boolean deployed;
-    private boolean isAlive = true;
-    private int points = 0;
-
 
     public Tank(int xPos, int yPos, String type){
         super(xPos, yPos, type);
     }
-
 
     // Game functions
     public void move(int key, int WINDOW_WIDTH, int FPS, int pxPS){
@@ -45,19 +46,11 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public void useFuel(){
         fuel -= 2;
     }
-    public void updateAngle(int key, float rotationSpeed){
-        switch (key){
-            // Up
-            case 38:
-                angle += rotationSpeed;
-                break;
-            // Down
-            case 40:
-                angle -= rotationSpeed;
-                break;
-        }
-        // Keep the angle between 0 and 180 deg
-        angle = PApplet.constrain(angle, -PApplet.PI/2, PApplet.PI/2);
+    public Projectile shoot(){
+        // Start point = end of turret
+        return new Projectile(xPos + (int) (15 * PApplet.sin(angle)),
+                yPos - 8 - (15 * PApplet.cos(angle)),
+                power, this);
     }
     public void updatePower(int key){
         if (power <= health){
@@ -73,11 +66,19 @@ public class Tank extends GameObject implements Comparable<Tank>{
             }
         }
     }
-    public Projectile shoot(){
-        // Start point = end of turret
-        return new Projectile(xPos + (int) (15 * PApplet.sin(angle)),
-                                yPos - 8 - (15 * PApplet.cos(angle)),
-                                    power, this);
+    public void updateAngle(int key, float rotationSpeed){
+        switch (key){
+            // Up
+            case 38:
+                angle += rotationSpeed;
+                break;
+            // Down
+            case 40:
+                angle -= rotationSpeed;
+                break;
+        }
+        // Keep the angle between 0 and 180 deg
+        angle = PApplet.constrain(angle, -PApplet.PI/2, PApplet.PI/2);
     }
     public void addPoints(int point){
         points += point;
@@ -89,7 +90,6 @@ public class Tank extends GameObject implements Comparable<Tank>{
             deployed = true;
         }
     }
-
 
 
     // POWER UPS
@@ -107,6 +107,7 @@ public class Tank extends GameObject implements Comparable<Tank>{
             fuel = Math.min(250, fuel + 200);
         }
     }
+
 
     // Draw
         // In-game objects
@@ -160,7 +161,7 @@ public class Tank extends GameObject implements Comparable<Tank>{
             }
         }
     }
-    // HUD
+        // HUD
     public void drawFuel(PApplet app, String fuelIMG){
         PImage fuelImage = app.loadImage(fuelIMG);
         fuelImage.resize(20,20);
@@ -223,13 +224,18 @@ public class Tank extends GameObject implements Comparable<Tank>{
     }
 
 
-
     // GETTER & SETTERS
-    public float getAngle() {
-        return angle;
+    public int[] getColorTank(){
+        return colorTank;
+    }
+    public int getHealth(){
+        return health;
     }
     public int getFuelLevel(){
         return fuel;
+    }
+    public float getAngle() {
+        return angle;
     }
     public int getPoints(){
         return points;
@@ -237,23 +243,17 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public int getParachutes(){
         return parachutes;
     }
-    public int[] getColorTank(){
-        return colorTank;
+    public boolean isOutMap(){
+        return yPos > 639;
     }
-    public int getHealth(){
-        return health;
+    public boolean isFalling(float terrainHeight) {
+        return parachuteFall || yPos < terrainHeight;
     }
     public boolean isDead(float terrainHeight){
         if (health == 0 && !isFalling(terrainHeight)){
             isAlive = false;
         }
         return !isAlive;
-    }
-    public boolean isFalling(float terrainHeight) {
-        return parachuteFall || yPos < terrainHeight;
-    }
-    public boolean isOutMap(){
-        return yPos > 639;
     }
 
     public void setColorTank(int[] rgb){
