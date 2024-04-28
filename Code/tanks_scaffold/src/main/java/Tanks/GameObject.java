@@ -1,8 +1,6 @@
 package Tanks;
 
 public class GameObject {
-    /** Parent class of all game objects
-     */
     protected int xPos;
     protected float yPos;
     protected String type;
@@ -17,9 +15,5 @@ public class GameObject {
         xPos = x;
         yPos = y;
         this.type = type;
-    }
-
-    public String getType() {
-        return type;
     }
 }

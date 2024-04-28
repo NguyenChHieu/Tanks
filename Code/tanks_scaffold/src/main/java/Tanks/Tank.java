@@ -275,6 +275,6 @@ public class Tank extends GameObject implements Comparable<Tank>{
     // Leverage this to sort the Tanks alphabetically by using queue ds.
     @Override
     public int compareTo(Tank otherTank) {
-        return this.getType().compareTo(otherTank.getType());
+        return this.type.compareTo(otherTank.type);
     }
 }

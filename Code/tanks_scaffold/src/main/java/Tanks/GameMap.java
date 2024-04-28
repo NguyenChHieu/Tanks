@@ -96,7 +96,7 @@ public class GameMap {
         int innerLoop = 0;
         for (int c = 0; c < 28; c++){
             for(int r = 0 ; r < 20; r++){
-                if (board[r][c].getType().equals("X")){
+                if (board[r][c].type.equals("X")){
                     for(int i = 0; i < 32; i++){
                         pixels[i + innerLoop] = findColHeight(r);
                     }
@@ -157,7 +157,7 @@ public class GameMap {
     public void extractTree(PApplet app){
         for (int c = 0; c < BOARD_WIDTH; c++) {
             for (int r = 0; r < BOARD_HEIGHT; r++) {
-                if (board[r][c].getType().equals("T")) {
+                if (board[r][c].type.equals("T")) {
                     // Randomize the location of the tree up to 30 pixels [-15,15]
                     int rand = (int) app.random(-15, 15);
                     // At first, the cell is scaled to 32x32 matrix, hence the tree root

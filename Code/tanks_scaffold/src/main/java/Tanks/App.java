@@ -73,13 +73,16 @@ public class App extends PApplet {
 
         if (!isEndGame){
             Tank currentTank = order.get(0);
-            if (event.getKey() == ' ')
-                if (currentlyDelayedLevel) {
-                    currentlyDelayedLevel = false;
-                }
+            if (key == ' '){
+                if (levelEnds(order)) {
+                    // If game has 1 tank left, user click space, switch
+                    if (!currentlyDelayedLevel)
+                        currentlyDelayedLevel = true;
+                    }
                 else {
                     // Add a projectile to current active proj ls.
                     active.add(currentTank.shoot());
+                    System.out.println(currentTank.type + "curr");
                     // Then switch turns.
                     switchTurns();
                     // New wind
@@ -88,6 +91,7 @@ public class App extends PApplet {
                     showArrow = true;
                     arrStartTime = millis();
                 }
+            }
             else if (key == LEFT || key == RIGHT) {
                 if (!currentTank.isFalling(currentMap.getPixels()[currentTank.xPos])) {
                     if (currentTank.getFuelLevel() > 0) {
@@ -153,7 +157,7 @@ public class App extends PApplet {
 
                         // calc both explosion dmg
                         bullet.explode(currentMap.getPixels(),
-                                currentMap.getTanksList());
+                                correctOrder);
 
                     }
                 }
@@ -214,13 +218,13 @@ public class App extends PApplet {
             if (millis() - delaySwitch >= 1000){
                 currentlyDelayedLevel = true;
             }
+            // Check for both 1s elapsed or user pressed Space
             if (currentlyDelayedLevel){
                 switchLevels();
             }
         }
-        System.out.println(frameRate);
+//        System.out.println(frameRate);
     }
-
 
 
     // DRAW GAME METHODS
@@ -232,7 +236,7 @@ public class App extends PApplet {
         Tank current = order.get(0);
 
         // Player turn
-        String playerTurnText = "Player " + current.getType() + "'s turn";
+        String playerTurnText = "Player " + current.type + "'s turn";
         fill(0); // Black text
         textSize(16);
         textAlign(LEFT, TOP);

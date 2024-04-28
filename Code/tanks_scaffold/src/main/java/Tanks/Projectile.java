@@ -83,26 +83,33 @@ public class Projectile {
                     tank.setDeadByExplode();
                 }
                 // Avoid + points for self-destruct
-                if (!Objects.equals(tank.getType(), shooter.getType()))
+                if (!Objects.equals(tank.type, shooter.type))
                     shooter.addPoints(damage);
             }
         }
     }
     private void fallDamage(float[] terrainHeight, List<Tank> tanks){
+        int EXPLODE_RADIUS = 30;
+        int left = Math.max((int) (xPos - EXPLODE_RADIUS), 0);
+        int right = Math.min((int) (xPos + EXPLODE_RADIUS), 864);
+
         for (Tank tank : tanks){
-            if (tank.yPos < terrainHeight[tank.xPos] - 1){
-                // If the tank is dead = explosion, skip
-                if (!tank.isDead(terrainHeight[tank.xPos])) {
-                    // Tank has no parachutes
-                    if (tank.getParachutes() == 0) {
-                        int fallDMG = Math.min((int) (terrainHeight[tank.xPos] - tank.yPos), tank.getHealth());
-                        tank.tankLoseHP(fallDMG);
+            if (left <= tank.xPos && tank.xPos <=right) {
+                if (tank.yPos < terrainHeight[tank.xPos] - 1) {
+                    // If the tank is dead = explosion, skip
+                    if (!tank.isDead(terrainHeight[tank.xPos])) {
+                        // Tank has no parachutes
+                        if (tank.getParachutes() == 0) {
+                            int fallDMG = Math.min((int) (terrainHeight[tank.xPos] - 1 - tank.yPos), tank.getHealth());
+                            tank.tankLoseHP(fallDMG);
 
 //                        System.out.println(tank.type+ " fall "+ fallDMG + " shooter " + shooter.type);
 
-                        if (!tank.isDead(terrainHeight[tank.xPos])){
-                            if (!Objects.equals(tank.getType(), shooter.getType()))
-                                shooter.addPoints(fallDMG);
+                            if (!tank.isDead(terrainHeight[tank.xPos])) {
+                                if (!Objects.equals(tank, shooter)) {
+                                    shooter.addPoints(fallDMG);
+                                }
+                            }
                         }
                     }
                 }
@@ -137,6 +144,8 @@ public class Projectile {
             float currentDiameter = 2 * ((i == 0) ? currentRedRadius : (i == 1) ? currentOrangeRadius : currentYellowRadius);
             app.ellipse(x, y, currentDiameter, currentDiameter);
         }
+        //reset
+        app.stroke(0);
     }
     public static void drawWind(PApplet app, String wR, String wL){
         PImage windR = app.loadImage(wR);
