@@ -6,13 +6,14 @@ import processing.core.PImage;
 public class Tank extends GameObject implements Comparable<Tank>{
     private int[] colorTank;
     private int fuel = 250;
-    private int points = 0;
+    private int points = 100;
 
     private int health = 100;
     private boolean isAlive = true;
 
     private int power = 50;
     private float angle = 0;
+    private boolean ult = false;
 
     private int parachutes = 1;
     private boolean parachuteFall;
@@ -48,9 +49,13 @@ public class Tank extends GameObject implements Comparable<Tank>{
     }
     public Projectile shoot(){
         // Start point = end of turret
-        return new Projectile(xPos + (int) (15 * PApplet.sin(angle)),
+        Projectile bullet = new Projectile(xPos + (int) (15 * PApplet.sin(angle)),
                 yPos - 8 - (15 * PApplet.cos(angle)),
-                power, this);
+                power, this, ult);
+
+        // Turn off ult
+        ult = false;
+        return bullet;
     }
     public void updatePower(int key){
         if (power <= health){
@@ -116,7 +121,10 @@ public class Tank extends GameObject implements Comparable<Tank>{
     }
     public void ultimate(){
         int cost = 20;
-
+        if (points >= cost){
+            points -= cost;
+            ult = true;
+        }
     }
 
 
@@ -173,6 +181,15 @@ public class Tank extends GameObject implements Comparable<Tank>{
         }
     }
         // HUD
+    public void drawUlt(PApplet app){
+        app.fill(255,0,0);
+        app.textSize(16);
+        app.text("ULTIMATE", 255, 10);
+
+        // reset
+        app.fill(0);
+        app.textSize(14);
+    }
     public void drawFuel(PApplet app, String fuelIMG){
         PImage fuelImage = app.loadImage(fuelIMG);
         fuelImage.resize(20,20);
@@ -248,6 +265,9 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public float getAngle() {
         return angle;
     }
+    public boolean getUltStatus(){
+        return ult;
+    }
     public int getPoints(){
         return points;
     }
@@ -257,11 +277,11 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public boolean isOutMap(){
         return yPos > 639;
     }
-    public boolean isFalling(float terrainHeight) {
-        return parachuteFall || yPos < terrainHeight;
+    public boolean doneFalling(float terrainHeight) {
+        return !parachuteFall && !(yPos < terrainHeight);
     }
     public boolean isDead(float terrainHeight){
-        if (health == 0 && !isFalling(terrainHeight)){
+        if (health == 0 && doneFalling(terrainHeight)){
             isAlive = false;
         }
         return !isAlive;
@@ -280,7 +300,6 @@ public class Tank extends GameObject implements Comparable<Tank>{
         health = Math.max(0, health-hp);
         power = Math.min(power, health);
     }
-
 
     // Overriding the Comparable method -> The tanks are comparable in order
     // Leverage this to sort the Tanks alphabetically by using queue ds.

@@ -13,15 +13,18 @@ public class Projectile {
     private static int windLevel = (int) (Math.random() * 71) -35;
     private final float wind = windLevel;
     private final Tank shooter;
+    private final boolean isPoweredUp;
     private boolean isExplode;
     private boolean isOut = false;
 
 
     // Game Functions
-    public Projectile(int x, float y, int power, Tank shooter){
+    public Projectile(int x, float y, int power, Tank shooter, boolean ult){
         xPos = x;
         yPos = y;
         this.shooter = shooter;
+        isPoweredUp = ult;
+
         float iniVelocity = (Math.min(power/10, 9) == 0) ? 1 : Math.min(power/10, 9);
         vX = iniVelocity * PApplet.sin(shooter.getAngle());
         vY = -iniVelocity * PApplet.cos(shooter.getAngle());
@@ -46,8 +49,7 @@ public class Projectile {
         }
         return false;
     }
-    public void explode(float[] terrainHeight, List<Tank> tanks){
-        int EXPLODE_RADIUS = 30;
+    public void explode(float[] terrainHeight, List<Tank> tanks, int EXPLODE_RADIUS){
         // Explode within the window
         int left = Math.max((int) (xPos - EXPLODE_RADIUS), 0);
         int right = Math.min((int) (xPos + EXPLODE_RADIUS), 864);
@@ -66,15 +68,15 @@ public class Projectile {
                 terrainHeight[x] = upperBound;
             }
         }
-        explosionDamage(tanks);
-        fallDamage(terrainHeight, tanks);
+        explosionDamage(tanks, EXPLODE_RADIUS);
+        fallDamage(terrainHeight, tanks, EXPLODE_RADIUS);
     }
-    private void explosionDamage(List<Tank> tanks){
+    private void explosionDamage(List<Tank> tanks, int EXPLODE_RADIUS){
         for (Tank tank: tanks){
             float distance = (float) Math.sqrt(Math.pow(tank.xPos - xPos, 2) +
                                                 Math.pow(tank.yPos - yPos, 2));
-            if (distance >= 0 && distance <= 30){
-                int damage = 60 - (int) distance * 2;
+            if (distance >= 0 && distance <= EXPLODE_RADIUS){
+                int damage = 60 - (int) distance * 60/EXPLODE_RADIUS;
 
 //                System.out.println(tank.type+ " explode " + damage +" shooter " + shooter.type);
 
@@ -88,8 +90,7 @@ public class Projectile {
             }
         }
     }
-    private void fallDamage(float[] terrainHeight, List<Tank> tanks){
-        int EXPLODE_RADIUS = 30;
+    private void fallDamage(float[] terrainHeight, List<Tank> tanks, int EXPLODE_RADIUS){
         int left = Math.max((int) (xPos - EXPLODE_RADIUS), 0);
         int right = Math.min((int) (xPos + EXPLODE_RADIUS), 864);
 
@@ -126,11 +127,22 @@ public class Projectile {
         app.fill(rgb[0], rgb[1], rgb[2]);
         app.ellipse(xPos, yPos , 10, 10);
     }
-    // Explicitly get X, Y because tanks can also explode
-    public static void drawExplosion(PApplet app, float x, float y, float startTime, boolean isLargeExplode) {
-        float explosionRadius = (isLargeExplode) ? 30: 15;
-        float animationDuration = 0.2f;
-        float elapsedTime = PApplet.constrain((app.millis() - startTime) / 1000.0f, 0, animationDuration);
+    public static void drawExplosion(PApplet app, float x, float y, float explodeStart, String isLargeExplode) {
+        float explosionRadius = 0;
+        switch (isLargeExplode) {
+            case "tank":
+                explosionRadius = 15;
+                break;
+            case "normal":
+                explosionRadius = 30;
+                break;
+            case "powerUp":
+                explosionRadius = 60;
+                break;
+        }
+
+        float animationDuration = 200f;
+        float elapsedTime = app.millis()-explodeStart;
 
         float currentRedRadius = Math.min(explosionRadius * elapsedTime / animationDuration, explosionRadius);
         float currentOrangeRadius = Math.min(explosionRadius * 0.5f * elapsedTime / animationDuration, explosionRadius * 0.5f);
@@ -144,6 +156,7 @@ public class Projectile {
             float currentDiameter = 2 * ((i == 0) ? currentRedRadius : (i == 1) ? currentOrangeRadius : currentYellowRadius);
             app.ellipse(x, y, currentDiameter, currentDiameter);
         }
+
         //reset
         app.stroke(0);
     }
@@ -168,6 +181,9 @@ public class Projectile {
             return true;
         }
         return false;
+    }
+    public boolean isPoweredUp() {
+        return isPoweredUp;
     }
     public boolean isOut() {
         return isOut;
