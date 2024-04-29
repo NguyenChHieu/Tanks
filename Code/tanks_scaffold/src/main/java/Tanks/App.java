@@ -45,7 +45,6 @@ public class App extends PApplet {
     public App() {
         this.configPath = "config.json";
     }
-
 	@Override
     public void settings() {
         size(WIDTH, HEIGHT);
@@ -58,7 +57,6 @@ public class App extends PApplet {
         if (manager == null) {
             System.out.println("Error setting up attributes");
             return;}
-
         // Setup first level
         setupFirstLevel();
 
@@ -82,7 +80,6 @@ public class App extends PApplet {
                 else {
                     // Add a projectile to current active proj ls.
                     active.add(currentTank.shoot());
-                    System.out.println(currentTank.type + "curr");
                     // Then switch turns.
                     switchTurns();
                     // New wind
@@ -91,8 +88,7 @@ public class App extends PApplet {
                     showArrow = true;
                     arrStartTime = millis();
                 }
-            }
-            else if (key == LEFT || key == RIGHT) {
+            } else if (key == LEFT || key == RIGHT) {
                 if (!currentTank.isFalling(currentMap.getPixels()[currentTank.xPos])) {
                     if (currentTank.getFuelLevel() > 0) {
                         currentTank.move(key, WIDTH, FPS, 60);
@@ -100,23 +96,19 @@ public class App extends PApplet {
                         currentTank.useFuel();
                     }
                 }
-            }
-            else if (key == 'W' || key == 'S'){
+            } else if (key == 'W' || key == 'S'){
                 currentTank.updatePower(key);
-            }
-            else if (key == UP || key == DOWN){
+            } else if (key == UP || key == DOWN){
                 currentTank.updateAngle(key, PI/FPS);
-            }
-            else if (key == 'F'){
+            } else if (key == 'F'){
                 currentTank.addFuel();
-            }
-            else if (key == 'R'){
+            } else if (key == 'R'){
                 currentTank.repair();
+            } else if (key == 'P') {
+                currentTank.addParachute();
             }
-        }
-        else {
+        } else {
             if (key == 'R') {
-                //TODO RESET GAME
                 resetGameAttributes(true);
                 setupFirstLevel();
                 scoreSave = new PlayerScores(correctOrder);
@@ -133,7 +125,6 @@ public class App extends PApplet {
 	@Override
     public void draw() {
         if (!order.isEmpty()) {
-
             // Reset background every frame (clean old drawings)
             background(backgroundPNG);
             // Draw terrain & trees
@@ -158,7 +149,6 @@ public class App extends PApplet {
                         // calc both explosion dmg
                         bullet.explode(currentMap.getPixels(),
                                 correctOrder);
-
                     }
                 }
             }
@@ -190,10 +180,7 @@ public class App extends PApplet {
             }
             order.removeIf(tank -> tank.isOutMap() || tank.isDead(currentMap.getPixels()[tank.xPos]));
 
-
-            //----------------------------------
             //Display HUD
-            //----------------------------------
             drawHUD();
 
             // Indicate current player
@@ -204,9 +191,7 @@ public class App extends PApplet {
             }
             else showArrow = false;
 
-            //----------------------------------
             //Display scoreboard
-            //----------------------------------
             if (!isEndGame) {
                 scoreSave.drawScore(correctOrder, scoreSave.getScore(), this);
             }
