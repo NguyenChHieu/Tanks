@@ -107,6 +107,17 @@ public class Tank extends GameObject implements Comparable<Tank>{
             fuel = Math.min(250, fuel + 200);
         }
     }
+    public void addParachute(){
+        int cost = 15;
+        if (points >= cost){
+            points -= cost;
+            parachutes++;
+        }
+    }
+    public void ultimate(){
+        int cost = 20;
+
+    }
 
 
     // Draw
