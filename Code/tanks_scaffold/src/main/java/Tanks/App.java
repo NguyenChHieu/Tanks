@@ -39,11 +39,11 @@ public class App extends PApplet {
     public List<Projectile> active = new ArrayList<>();
     public boolean showArrow = true;
     private int arrStartTime = millis();
-    private final float explodeStart = millis();
+    public float explodeStart = millis();
 
 
     public App() {
-        this.configPath = "config.json";
+        this.configPath = "configtest.json";
     }
 	@Override
     public void settings() {
@@ -89,7 +89,7 @@ public class App extends PApplet {
                     arrStartTime = millis();
                 }
             } else if (key == LEFT || key == RIGHT) {
-                if (!currentTank.isFalling(currentMap.getPixels()[currentTank.xPos])) {
+                if (currentTank.doneFalling(currentMap.getPixels()[currentTank.xPos])) {
                     if (currentTank.getFuelLevel() > 0) {
                         currentTank.move(key, WIDTH, FPS, 60);
                         currentTank.yPos = currentMap.getPixels()[currentTank.xPos];
@@ -99,13 +99,15 @@ public class App extends PApplet {
             } else if (key == 'W' || key == 'S'){
                 currentTank.updatePower(key);
             } else if (key == UP || key == DOWN){
-                currentTank.updateAngle(key, PI/FPS);
+                currentTank.updateAngle(key, PI/frameRate);
             } else if (key == 'F'){
                 currentTank.addFuel();
             } else if (key == 'R'){
                 currentTank.repair();
             } else if (key == 'P') {
                 currentTank.addParachute();
+            } else if (key == 'X'){
+                currentTank.ultimate();
             }
         } else {
             if (key == 'R') {
@@ -130,25 +132,34 @@ public class App extends PApplet {
             // Draw terrain & trees
             currentMap.drawTerrain(this, foregroundColor, HEIGHT);
             currentMap.drawTree(this, trees);
+
             // Draw tanks & their turrets
             for (Tank tank : order) {
                 tank.drawTank(this);
                 tank.drawTurret(this);
             }
-            // Draw active projectiles
+
+            // Draw active projectiles - delete them after finished
             for (Projectile bullet : active) {
                 if (!bullet.outMap()) {
                     if (!bullet.collide(currentMap.getPixels())) {
                         bullet.update();
                         bullet.drawProjectile(this);
                     } else {
-                        Projectile.drawExplosion(this,
-                                bullet.getXPos(), bullet.getYPos(),
-                                explodeStart, true);
-
-                        // calc both explosion dmg
-                        bullet.explode(currentMap.getPixels(),
-                                correctOrder);
+                        if (!bullet.isPoweredUp()) {
+                            Projectile.drawExplosion(this,
+                                    bullet.getXPos(), bullet.getYPos(),
+                                    explodeStart, "normal");
+                            bullet.explode(currentMap.getPixels(),
+                                    correctOrder, 30);
+                        }
+                        else{
+                            Projectile.drawExplosion(this,
+                                    bullet.getXPos(), bullet.getYPos(), explodeStart,
+                                    "powerUp");
+                            bullet.explode(currentMap.getPixels(),
+                                    correctOrder, 60);
+                        }
                     }
                 }
             }
@@ -157,6 +168,7 @@ public class App extends PApplet {
             // UPDATE SCORE
             scoreSave.updatePlayerScores(correctOrder);
 
+            // Tank fall
             for (Tank tank : order) {
                 tank.drawTankFall(this,
                         getPathToImage("parachute.png"),
@@ -169,13 +181,13 @@ public class App extends PApplet {
                             tank.xPos,
                             tank.yPos,
                             explodeStart,
-                            false);
+                            "tank");
                 } else if (tank.isOutMap()) {
                     Projectile.drawExplosion(this,
                             tank.xPos,
                             tank.yPos,
                             explodeStart,
-                            true);
+                            "normal");
                 }
             }
             order.removeIf(tank -> tank.isOutMap() || tank.isDead(currentMap.getPixels()[tank.xPos]));
@@ -215,7 +227,6 @@ public class App extends PApplet {
     // DRAW GAME METHODS
     void drawHUD(){
         if (order.isEmpty()){
-//            System.out.println("No players found");
             return;}
 
         Tank current = order.get(0);
@@ -233,6 +244,10 @@ public class App extends PApplet {
         current.drawPower(this);
         // Health bar
         current.drawHP(this);
+        // Draw ult sign if ult
+        if (current.getUltStatus()){
+            current.drawUlt(this);
+        }
         // Wind
         Projectile.drawWind(this,
                             getPathToImage("wind.png"),
