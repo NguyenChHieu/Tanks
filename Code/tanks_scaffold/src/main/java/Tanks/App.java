@@ -37,9 +37,9 @@ public class App extends PApplet {
     public List<Tank> correctOrder = new ArrayList<>();
     public List<Tank> order = new ArrayList<>();
     public List<Projectile> active = new ArrayList<>();
+    public List<Explosion> explosionDraw = new ArrayList<>();
     public boolean showArrow = true;
     private int arrStartTime = millis();
-    public float explodeStart = millis();
 
 
     public App() {
@@ -139,7 +139,7 @@ public class App extends PApplet {
                 tank.drawTurret(this);
             }
 
-            // Draw active projectiles - delete them after finished
+            // Add active projectiles for drawing - delete them after finished
             for (Projectile bullet : active) {
                 if (!bullet.outMap()) {
                     if (!bullet.collide(currentMap.getPixels())) {
@@ -147,16 +147,12 @@ public class App extends PApplet {
                         bullet.drawProjectile(this);
                     } else {
                         if (!bullet.isPoweredUp()) {
-                            Projectile.drawExplosion(this,
-                                    bullet.getXPos(), bullet.getYPos(),
-                                    explodeStart, "normal");
+                            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 30));
                             bullet.explode(currentMap.getPixels(),
                                     correctOrder, 30);
                         }
                         else{
-                            Projectile.drawExplosion(this,
-                                    bullet.getXPos(), bullet.getYPos(), explodeStart,
-                                    "powerUp");
+                            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 60));
                             bullet.explode(currentMap.getPixels(),
                                     correctOrder, 60);
                         }
@@ -174,23 +170,22 @@ public class App extends PApplet {
                         getPathToImage("parachute.png"),
                         currentMap.getPixels()[tank.xPos]);
             }
+
             // Remove dead tanks + explosion
             for (Tank tank : order) {
                 if (tank.isDead(currentMap.getPixels()[tank.xPos])) {
-                    Projectile.drawExplosion(this,
-                            tank.xPos,
-                            tank.yPos,
-                            explodeStart,
-                            "tank");
+                    explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 15));
                 } else if (tank.isOutMap()) {
-                    Projectile.drawExplosion(this,
-                            tank.xPos,
-                            tank.yPos,
-                            explodeStart,
-                            "normal");
+                    explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 30));
                 }
             }
             order.removeIf(tank -> tank.isOutMap() || tank.isDead(currentMap.getPixels()[tank.xPos]));
+
+            // Draw explosion
+            for (Explosion e: explosionDraw){
+                e.drawExplosion();
+            }
+            explosionDraw.removeIf(Explosion::getFinishedExplode);
 
             //Display HUD
             drawHUD();
@@ -339,6 +334,7 @@ public class App extends PApplet {
     private void resetGameAttributes(boolean resetWholeGame) {
         order.clear();
         active.clear();
+        explosionDraw.clear();
         Projectile.setWindLevel();
         correctOrder.clear();
         if (resetWholeGame){

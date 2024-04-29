@@ -1,0 +1,33 @@
+______
++Begin: testLoadConfigurationInvalidLevels
+
+Output: 
+-Missing 'levels' key in configuration file.
++testLoadConfigurationInvalidLevels passed
+______
+-Begin: testLoadConfigurationInvalidNonExist
+
+Output: 
+Unable to read file.
+/testLoadConfigurationInvalidNonExist() passed
+______
+#Begin: testLoadConfigurationValid
+#testLoadConfigurationValid passed
+______
+*Begin: testLoadConfigurationInvalidEmpty
+
+Output: 
+VInvalid JSON format: A JSONObject text must begin with '{' at 0 [character 1 line 1]
+*testLoadConfigurationInvalidEmpty passed
+______
+,Begin: testLoadConfigurationInvalidColours
+
+Output: 
+5Missing 'player_colours' key in configuration file.
+,testLoadConfigurationInvalidColours passed
+______
+1Begin: testLoadConfigurationValidDifferentOrder
+1testLoadConfigurationValidDifferentOrder passed
+	______
+	Begin: testLevelConfigInit
+	testLevelConfigInit passed

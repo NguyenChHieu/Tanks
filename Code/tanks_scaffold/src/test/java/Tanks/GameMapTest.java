@@ -1,7 +1,6 @@
 package Tanks;
 
 
-import com.sun.org.apache.xpath.internal.operations.Equals;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

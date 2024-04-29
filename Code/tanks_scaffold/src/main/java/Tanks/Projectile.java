@@ -127,39 +127,6 @@ public class Projectile {
         app.fill(rgb[0], rgb[1], rgb[2]);
         app.ellipse(xPos, yPos , 10, 10);
     }
-    public static void drawExplosion(PApplet app, float x, float y, float explodeStart, String isLargeExplode) {
-        float explosionRadius = 0;
-        switch (isLargeExplode) {
-            case "tank":
-                explosionRadius = 15;
-                break;
-            case "normal":
-                explosionRadius = 30;
-                break;
-            case "powerUp":
-                explosionRadius = 60;
-                break;
-        }
-
-        float animationDuration = 200f;
-        float elapsedTime = app.millis()-explodeStart;
-
-        float currentRedRadius = Math.min(explosionRadius * elapsedTime / animationDuration, explosionRadius);
-        float currentOrangeRadius = Math.min(explosionRadius * 0.5f * elapsedTime / animationDuration, explosionRadius * 0.5f);
-        float currentYellowRadius = Math.min(explosionRadius * 0.2f * elapsedTime / animationDuration, explosionRadius * 0.2f);
-
-        int[] colors = {app.color(255, 0, 0), app.color(255, 165, 0), app.color(255, 255, 0)};
-
-        app.noStroke();
-        for (int i = 0; i < 3; i++) {
-            app.fill(colors[i]);
-            float currentDiameter = 2 * ((i == 0) ? currentRedRadius : (i == 1) ? currentOrangeRadius : currentYellowRadius);
-            app.ellipse(x, y, currentDiameter, currentDiameter);
-        }
-
-        //reset
-        app.stroke(0);
-    }
     public static void drawWind(PApplet app, String wR, String wL){
         PImage windR = app.loadImage(wR);
         PImage windL = app.loadImage(wL);
