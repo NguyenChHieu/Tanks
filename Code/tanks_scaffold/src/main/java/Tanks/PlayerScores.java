@@ -24,16 +24,16 @@ public class PlayerScores {
                 points.put(tank.type, tank.getPoints());
         }
     }
-    public HashMap<String, Integer> getScore(){
-        return points;
-    }
-
     public void resetPlayerScores(){
         points.clear();
         playersList.clear();
         index = 0;
         startDrawDelay = 0;
         drawPlayersInFinal.clear();
+    }
+
+    public HashMap<String, Integer> getScore(){
+        return points;
     }
 
     void drawScore(List<Tank> players, HashMap<String, Integer> scores, App app){
@@ -64,7 +64,6 @@ public class PlayerScores {
         app.textSize(14);
 
     }
-
     void timerFinal(List<Tank> players, HashMap<String, Integer> scores, App app){
         HashMap<String, Integer> scoresSorted = scores.entrySet().stream()
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
@@ -166,5 +165,3 @@ public class PlayerScores {
         app.textSize(14);
     }
 }
-
-
