@@ -28,10 +28,6 @@ public class Explosion {
         float currentOrangeRadius = Math.min(radius * 0.5f * elapsedTime / animationDuration, radius * 0.5f);
         float currentYellowRadius = Math.min(radius * 0.2f * elapsedTime / animationDuration, radius * 0.2f);
 
-        System.out.println(currentYellowRadius);
-        System.out.println(currentOrangeRadius);
-        System.out.println(currentRedRadius);
-
         int[] colors = {app.color(255, 0, 0), app.color(255, 165, 0), app.color(255, 255, 0)};
         if (!finishedExplode) {
             app.noStroke();

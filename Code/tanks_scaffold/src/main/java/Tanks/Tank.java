@@ -6,7 +6,7 @@ import processing.core.PImage;
 public class Tank extends GameObject implements Comparable<Tank>{
     private int[] colorTank;
     private int fuel = 250;
-    private int points = 100;
+    private int points = 0;
 
     private int health = 100;
     private boolean isAlive = true;
