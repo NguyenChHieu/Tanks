@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-04-30T12:50:29.784Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="JD_sGpb09S1x3-rjqdoS" version="24.3.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-30T13:13:25.620Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="qHoW1oAUDSF06a6HGNsg" version="24.3.1" type="github">
   <diagram name="Page-1" id="6133507b-19e7-1e82-6fc7-422aa6c4b21f">
     <mxGraphModel dx="492" dy="1448" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#E6FFCC" math="0" shadow="0">
       <root>
@@ -124,16 +124,16 @@
           <mxGeometry y="118" width="320" height="122" as="geometry" />
         </mxCell>
         <mxCell id="BkHAClC3e8f7iDP6U--B-9" value="App" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="515" y="1040" width="160" height="86" as="geometry" />
+          <mxGeometry x="480" y="790" width="410" height="650" as="geometry" />
         </mxCell>
-        <mxCell id="BkHAClC3e8f7iDP6U--B-10" value="+ field: type" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="BkHAClC3e8f7iDP6U--B-9">
-          <mxGeometry y="26" width="160" height="26" as="geometry" />
+        <mxCell id="BkHAClC3e8f7iDP6U--B-10" value="&lt;u&gt;+ WIDTH: int = 864&lt;/u&gt;&lt;div&gt;&lt;u&gt;+ HEIGHT: int = 640&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ FPS: int = 30&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- configPath: String&lt;/div&gt;&lt;div&gt;- foregroundColor: int[]&lt;/div&gt;&lt;div&gt;- backgroundPNG: PImage&lt;/div&gt;&lt;div&gt;- trees: PImage&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- currentMap: GameMap&lt;/div&gt;&lt;div&gt;- manager: ConfigManager&lt;/div&gt;&lt;div&gt;- currentLevelIndex: int = 0&lt;/div&gt;&lt;div&gt;- delaySwitch: int = 0&lt;/div&gt;&lt;div&gt;- currentlyDelayedLevel: boolean = false&lt;/div&gt;&lt;div&gt;- isEndGame: boolean = false&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- scoreSave: PlayerScores&lt;/div&gt;&lt;div&gt;- correctOrder: List&amp;lt;Tank&amp;gt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;- order: List&amp;lt;Tank&amp;gt;&lt;/div&gt;&lt;div&gt;- active: List&amp;lt;Projectile&amp;gt;&lt;/div&gt;&lt;div&gt;- explosionDraw: List&amp;lt;Explosion&amp;gt;&lt;/div&gt;&lt;div&gt;- showArrow: boolean = true&lt;/div&gt;&lt;div&gt;- arrStartTime: int = millis();&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="BkHAClC3e8f7iDP6U--B-9">
+          <mxGeometry y="26" width="410" height="334" as="geometry" />
         </mxCell>
         <mxCell id="BkHAClC3e8f7iDP6U--B-11" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="BkHAClC3e8f7iDP6U--B-9">
-          <mxGeometry y="52" width="160" height="8" as="geometry" />
+          <mxGeometry y="360" width="410" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="BkHAClC3e8f7iDP6U--B-12" value="+ method(type): type" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="BkHAClC3e8f7iDP6U--B-9">
-          <mxGeometry y="60" width="160" height="26" as="geometry" />
+        <mxCell id="BkHAClC3e8f7iDP6U--B-12" value="+ settings(): void&lt;div&gt;+ setup(): void&lt;/div&gt;&lt;div&gt;+ keyPressed(KeyEvent event): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ draw(): void&lt;/div&gt;&lt;div&gt;- drawHUD(): void&lt;/div&gt;&lt;div&gt;- drawArrow(int x, float y): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- levelEnds(List&amp;lt;Tank&amp;gt; tanks): boolean&lt;/div&gt;&lt;div&gt;- switchTurns(): void&lt;/div&gt;&lt;div&gt;- switchLevels(): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- setupFirstLevel(): void&lt;/div&gt;&lt;div&gt;- setupLevel(Level level): void&lt;/div&gt;&lt;div&gt;- resetGameAttributes(boolean resetWholeGame): void&lt;/div&gt;&lt;div&gt;- extractGameAttributes(String layout, HashMap&amp;lt;String, int[]&amp;gt; colors): void&lt;/div&gt;&lt;div&gt;- getPathToImage(String path): String&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;u&gt;+ main(String[] args): void&lt;/u&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="BkHAClC3e8f7iDP6U--B-9">
+          <mxGeometry y="368" width="410" height="282" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
