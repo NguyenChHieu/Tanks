@@ -19,6 +19,20 @@ public class Projectile {
 
 
     // Game Functions
+
+    /**
+     * Create a projectile object.
+     * The projectile's velocity got split into
+     * 2 parts: Vx and Vy, and these parts are
+     * calculated initially in the constructor.
+     *
+     * @param x initial x position
+     * @param y initial y position
+     * @param power initial power
+     * @param shooter refers to the tank that shoot the projectile
+     * @param ult boolean value indicates whether the projectile is
+     *            in ultimate mode (double the normal radius).
+     */
     public Projectile(int x, float y, int power, Tank shooter, boolean ult){
         xPos = x;
         yPos = y;
@@ -29,19 +43,37 @@ public class Projectile {
         vX = iniVelocity * PApplet.sin(shooter.getAngle());
         vY = -iniVelocity * PApplet.cos(shooter.getAngle());
     }
+
+    /**
+     * Modify the wind level by +5/-5 after each player fires.
+     */
     public static void windChange (){
         windLevel += (int) (Math.random() * 11) - 5;
     }
+
+    /**
+     * Update the current x, y of the projectile.
+     */
     public void update(){
         accelerate();
         xPos += vX;
         yPos += vY;
     }
+
+    /**
+     * Implement the effects of gravity and wind on the projectile
+     */
     private void accelerate(){
         float gravity = 3.6f / 30f;
         vY += gravity;
         vX += WIND * 0.03f / 30;
     }
+
+    /**
+     * Check if projectile hits the terrain.
+     * @param terrainHeight the height of the terrain at interaction point
+     * @return true if projectile hits.
+     */
     public boolean collide(float[] terrainHeight){
         if (yPos >= terrainHeight[(int)xPos]){
             isExplode = true;
@@ -49,20 +81,28 @@ public class Projectile {
         }
         return false;
     }
+
+    /**
+     * Update the terrain base on the impact of the explosion,
+     * calculate the explosion damage on tanks (if in range).
+     * @param terrainHeight list of height for each pixel
+     * @param tanks list of alive tanks
+     * @param EXPLODE_RADIUS radius of the explosion
+     */
     public void explode(float[] terrainHeight, List<Tank> tanks, int EXPLODE_RADIUS){
         // Explode within the window
         int left = Math.max((int) (xPos - EXPLODE_RADIUS), 0);
         int right = Math.min((int) (xPos + EXPLODE_RADIUS), 864);
-
+        // Check in range of the explosion
         for (int x = left; x < right; x++) {
-
             float ySemiCircle = (float) Math.sqrt(Math.pow(EXPLODE_RADIUS, 2) -
                     Math.pow(x - xPos, 2));
             float lowerBound = yPos - ySemiCircle;
             float upperBound = yPos + ySemiCircle;
-
+            // Terrain on top the explosion
             if (terrainHeight[x] < lowerBound) {
                 terrainHeight[x] += 2 * ySemiCircle;
+                // Terrain in range of the explosion
             } else if (terrainHeight[x] >= lowerBound &&
                     terrainHeight[x] <= upperBound) {
                 terrainHeight[x] = upperBound;
@@ -71,10 +111,17 @@ public class Projectile {
         explosionDamage(tanks, EXPLODE_RADIUS);
         fallDamage(terrainHeight, tanks, EXPLODE_RADIUS);
     }
+
+    /**
+     * Calculate the damage cause by the explosion on tanks.
+     * @param tanks list of alive tanks
+     * @param EXPLODE_RADIUS radius of the explosion
+     */
     private void explosionDamage(List<Tank> tanks, int EXPLODE_RADIUS){
         for (Tank tank: tanks){
             float distance = (float) Math.sqrt(Math.pow(tank.xPos - xPos, 2) +
                                                 Math.pow(tank.yPos - yPos, 2));
+            // If in range of the explosion
             if (distance >= 0 && distance <= EXPLODE_RADIUS){
                 int damage = 60 - (int) distance * 60/EXPLODE_RADIUS;
 
@@ -84,18 +131,28 @@ public class Projectile {
                 if (tank.getHealth() == 0){
                     tank.setDeadByExplode();
                 }
-                // Avoid + points for self-destruct
+                // Avoid adding points for self-destruct
                 if (!Objects.equals(tank.type, SHOOTER.type))
                     SHOOTER.addPoints(damage);
             }
         }
     }
+
+    /**
+     * Calculate the fall damage on tanks which cause
+     * by the projectile explosion
+     * @param terrainHeight list of height for each pixel.
+     * @param tanks list of alive tanks
+     * @param EXPLODE_RADIUS radius of the explosion
+     */
     private void fallDamage(float[] terrainHeight, List<Tank> tanks, int EXPLODE_RADIUS){
         int left = Math.max((int) (xPos - EXPLODE_RADIUS), 0);
         int right = Math.min((int) (xPos + EXPLODE_RADIUS), 864);
 
         for (Tank tank : tanks){
+            // If the tank is in the range of the explosion -> which might made them fall
             if (left <= tank.xPos && tank.xPos <=right) {
+                // Tank is above the terrain
                 if (tank.yPos < terrainHeight[tank.xPos] - 1) {
                     // If the tank is dead = explosion, skip
                     if (!tank.isDead(terrainHeight[tank.xPos])) {
@@ -106,6 +163,7 @@ public class Projectile {
 
 //                        System.out.println(tank.type+ " fall "+ fallDMG + " shooter " + shooter.type);
 
+                            // Avoid add points if self-destruct
                             if (!tank.isDead(terrainHeight[tank.xPos])) {
                                 if (!Objects.equals(tank, SHOOTER)) {
                                     SHOOTER.addPoints(fallDMG);
@@ -119,6 +177,11 @@ public class Projectile {
     }
 
     // DRAW
+
+    /**
+     * Draw the projectile's current position.
+     * @param app refer to Main
+     */
     public void drawProjectile(PApplet app){
 //        app.stroke(0);
 //        app.point(xPos, yPos);
@@ -127,6 +190,13 @@ public class Projectile {
         app.fill(rgb[0], rgb[1], rgb[2]);
         app.ellipse(xPos, yPos , 10, 10);
     }
+
+    /**
+     * Draw the wind icon on the top left side of HUD.
+     * @param app refer to Main
+     * @param wR load left wind image
+     * @param wL load right wind image
+     */
     public static void drawWind(PApplet app, String wR, String wL){
         PImage windR = app.loadImage(wR);
         PImage windL = app.loadImage(wL);
@@ -142,13 +212,6 @@ public class Projectile {
 
 
     // GETTER & SETTERS
-    public boolean outMap(){
-        if (yPos > 639|| xPos > 863 || xPos <0){
-            isOut = true;
-            return true;
-        }
-        return false;
-    }
     public boolean isPoweredUp() {
         return POWERED_UP;
     }
@@ -164,6 +227,22 @@ public class Projectile {
     public float getYPos() {
         return yPos;
     }
+
+    /**
+     * Check if the projectile goes outside the map.
+     * @return true if the projectile go beyond the border.
+     */
+    public boolean outMap(){
+        if (yPos > 639|| xPos > 863 || xPos <0){
+            isOut = true;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Set the new initial wind at the start of the level.
+     */
     public static void setWindLevel(){
         windLevel = (int) (Math.random() * 71) -35;
     }
