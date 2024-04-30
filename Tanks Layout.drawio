@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-04-30T10:49:54.917Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="-_nHRzyhtCScBhNkD1dC" version="24.3.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-30T11:08:04.128Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="p2_g1ggAy0_TaEfkVcQD" version="24.3.1" type="github">
   <diagram name="Page-1" id="6133507b-19e7-1e82-6fc7-422aa6c4b21f">
-    <mxGraphModel dx="2087" dy="1886" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#E6FFCC" math="0" shadow="0">
+    <mxGraphModel dx="472" dy="1424" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#E6FFCC" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -110,6 +110,18 @@
         </mxCell>
         <mxCell id="HNsEuWhfUiNUjsveQ-pI-4" value="+ drawExplosion()&lt;div&gt;+ getFinishedExplode()&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="HNsEuWhfUiNUjsveQ-pI-1" vertex="1">
           <mxGeometry y="128" width="210" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="BkHAClC3e8f7iDP6U--B-5" value="PlayerScores" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1690" y="582" width="440" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="BkHAClC3e8f7iDP6U--B-6" value="- points: HashMap&amp;lt;String, Integer&amp;gt;&lt;div&gt;- playersList: List&amp;lt;Tank&amp;gt;&lt;/div&gt;&lt;div&gt;- index: int = 0&lt;/div&gt;&lt;div&gt;- startDrawDelay: float = 0&lt;/div&gt;&lt;div&gt;- drawPayersInFinal = HashMap&amp;lt;String, Integer&amp;gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="BkHAClC3e8f7iDP6U--B-5">
+          <mxGeometry y="26" width="440" height="84" as="geometry" />
+        </mxCell>
+        <mxCell id="BkHAClC3e8f7iDP6U--B-7" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="BkHAClC3e8f7iDP6U--B-5">
+          <mxGeometry y="110" width="440" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="BkHAClC3e8f7iDP6U--B-8" value="+ updatePlayerScores(List&amp;lt;Tank&amp;gt; tanks): void&lt;div&gt;+ resetPlayerScores(&lt;span style=&quot;background-color: initial;&quot;&gt;List&amp;lt;Tank&amp;gt; tanks): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+ drawWinner (&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;List&amp;lt;Tank&amp;gt; players,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;HashMap&amp;lt;String, Integer&amp;gt; scores, App app)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+ drawScore (&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;List&amp;lt;Tank&amp;gt; players,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;HashMap&amp;lt;String, Integer&amp;gt; scores, App app)&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;+ drawFinal&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;(&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;List&amp;lt;Tank&amp;gt; players,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;HashMap&amp;lt;String, Integer&amp;gt; scores, App app&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="BkHAClC3e8f7iDP6U--B-5">
+          <mxGeometry y="118" width="440" height="82" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
