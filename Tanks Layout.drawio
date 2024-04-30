@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-04-30T03:20:09.667Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="Mf6oot1TjFjnQ8RzWdC1" version="24.3.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-30T03:26:38.384Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="8DyNvRYpTXoiQAcgohDw" version="24.3.1" type="github">
   <diagram name="Page-1" id="6133507b-19e7-1e82-6fc7-422aa6c4b21f">
     <mxGraphModel dx="714" dy="1695" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#E6FFCC" math="0" shadow="0">
       <root>
@@ -41,16 +41,16 @@
           <mxGeometry y="98" width="170" height="72" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-44" value="Projectile" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="970" y="-170" width="270" height="242" as="geometry" />
+          <mxGeometry x="970" y="-260" width="440" height="320" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-45" value="&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- windLevel: int = (int)(Math.random() * 71) - 35&amp;nbsp;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- xPos: float&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- yPos: float&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- vX: float&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- vY: float&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- isExplode: boolean&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- isOut: boolean = false&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- WIND: float = windLevel&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- SHOOTER: Tank&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- POWERED_UP: boolean&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-44" vertex="1">
-          <mxGeometry y="26" width="270" height="154" as="geometry" />
+          <mxGeometry y="26" width="440" height="154" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-46" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="UTHU-1M57-vCMUskgQRw-44" vertex="1">
-          <mxGeometry y="180" width="270" height="8" as="geometry" />
+          <mxGeometry y="180" width="440" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="UTHU-1M57-vCMUskgQRw-47" value="+ windChange(" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-44" vertex="1">
-          <mxGeometry y="188" width="270" height="54" as="geometry" />
+        <mxCell id="UTHU-1M57-vCMUskgQRw-47" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;+ windChange(): void&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+ update(): void&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+accelerate(): void&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+ collide(float[] terrainHeight): boolean&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+ explode(float[] terrainHeight, List&amp;lt;Tank&amp;gt; tanks, int EXPLODE_RADIUS: void&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- explosionDamage(List&amp;lt;Tank&amp;gt; tanks, int EXPLODE_RADIUS): void&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;- fall&lt;/font&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-44" vertex="1">
+          <mxGeometry y="188" width="440" height="132" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-48" value="GameMap" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="430" y="350" width="330" height="370" as="geometry" />
