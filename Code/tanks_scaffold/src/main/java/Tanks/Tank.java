@@ -24,6 +24,15 @@ public class Tank extends GameObject implements Comparable<Tank>{
     }
 
     // Game functions
+
+    /**
+     * Move the Tank object relative to
+     * the game's FPS and pixel per frame.
+     * @param key UP / DOWN on keyboard
+     * @param WINDOW_WIDTH game's window width
+     * @param FPS window's FPS
+     * @param pxPS parameter to adjust how fast the tank moves
+     */
     public void move(int key, int WINDOW_WIDTH, int FPS, int pxPS){
         // Only move when have fuel
             if (fuel >= 0) {
@@ -44,9 +53,20 @@ public class Tank extends GameObject implements Comparable<Tank>{
                 }
         }
     }
+
+    /**
+     * Decrease fuel level every time the tank moves.
+     */
     public void useFuel(){
         fuel -= 2;
     }
+
+    /**
+     * Create a projectile when player shoots,
+     * adjust the "ult" variable when the player
+     * bought the ultimate.
+     * @return Projectile Object
+     */
     public Projectile shoot(){
         // Start point = end of turret
         Projectile bullet = new Projectile(xPos + (int) (15 * PApplet.sin(angle)),
@@ -57,6 +77,12 @@ public class Tank extends GameObject implements Comparable<Tank>{
         ult = false;
         return bullet;
     }
+
+    /**
+     * Update the power level base
+     * on the key event.
+     * @param key RIGHT/LEFT
+     */
     public void updatePower(int key){
         if (power <= health){
             switch (key){
@@ -71,6 +97,13 @@ public class Tank extends GameObject implements Comparable<Tank>{
             }
         }
     }
+
+    /**
+     * Update the angle of the turret with relative
+     * to the y-axis base on the key events
+     * @param key W/S
+     * @param rotationSpeed base on FPS
+     */
     public void updateAngle(int key, float rotationSpeed){
         switch (key){
             // Up
@@ -85,9 +118,21 @@ public class Tank extends GameObject implements Comparable<Tank>{
         // Keep the angle between 0 and 180 deg
         angle = PApplet.constrain(angle, -PApplet.PI/2, PApplet.PI/2);
     }
+
+    /**
+     * Add points for player's tank to
+     * perform buying power-ups
+     * @param point points received
+     */
     public void addPoints(int point){
         points += point;
     }
+
+    /**
+     * Decrease the number of parachutes by 1,
+     * enter the parachuting phase by switch
+     * parachuteFall and deployed to true.
+     */
     public void deployParachute(){
         if (parachutes > 0){
             parachutes--;
@@ -98,6 +143,11 @@ public class Tank extends GameObject implements Comparable<Tank>{
 
 
     // POWER UPS
+
+    /**
+     * Repair kit: (key: r, cost: 20) – repairs the player’s
+     * tank by increasing health by 20 (maximum health is 100).
+     */
     public void repair(){
         int cost = 20;
         if (points >= cost){
@@ -105,6 +155,11 @@ public class Tank extends GameObject implements Comparable<Tank>{
             health = Math.min(100, health + 20);
         }
     }
+
+    /**
+     * Additional fuel (key: f, cost: 10)
+     * increase the player’s remaining fuel by 200.
+     */
     public void addFuel(){
         int cost = 10;
         if (points >= cost){
@@ -112,6 +167,11 @@ public class Tank extends GameObject implements Comparable<Tank>{
             fuel = Math.min(250, fuel + 200);
         }
     }
+
+    /**
+     * Additional parachute (key: p, cost: 15)
+     * increase the player’s remaining parachutes by 1.
+     */
     public void addParachute(){
         int cost = 15;
         if (points >= cost){
@@ -119,6 +179,12 @@ public class Tank extends GameObject implements Comparable<Tank>{
             parachutes++;
         }
     }
+
+    /**
+     * Larger projectile (key: x, cost: 20)
+     * the next shot fired by this player will
+     * have double the radius (60 instead of 30).
+     */
     public void ultimate(){
         int cost = 20;
         if (points >= cost){
@@ -130,6 +196,12 @@ public class Tank extends GameObject implements Comparable<Tank>{
 
     // Draw
         // In-game objects
+    /**
+     * Draw tank base on its x, y coordinates.
+     * The tank would be in a shape of 2 rectangles
+     * stacked on top of each other.
+     * @param app refer to Main
+     */
     public void drawTank(PApplet app) {
         // check center point
 //        app.stroke(0);
@@ -146,6 +218,13 @@ public class Tank extends GameObject implements Comparable<Tank>{
         app.rect(xPos-8, yPos-8, 15, 4,10);
 
     }
+
+    /**
+     * Draw tank's turret.
+     * Tank's turret would be in a
+     * shape of a bold line.
+     * @param app refer to Main
+     */
     public void drawTurret(PApplet app){
         int xEnd = xPos + (int) (15 * PApplet.sin(angle));
         float yEnd = yPos - 8 - (15 * PApplet.cos(angle));
@@ -155,6 +234,16 @@ public class Tank extends GameObject implements Comparable<Tank>{
         // Reset
         app.strokeWeight(1);
     }
+
+    /**
+     * Draw tank's position when falling with
+     * parachutes/ free-falling
+     * @param app refer to Main
+     * @param parachuteIMG load parachute's image
+     * @param terrainHeight current terrain's height at
+     *                      index x, with x is the x
+     *                      position of the terrain
+     */
     public void drawTankFall(PApplet app, String parachuteIMG, float terrainHeight){
         PImage parachute = app.loadImage(parachuteIMG);
         parachute.resize(40, 40);
@@ -181,6 +270,11 @@ public class Tank extends GameObject implements Comparable<Tank>{
         }
     }
         // HUD
+    /**
+     * Draw tank's ult status (if available).
+     * Located next to the fuel level.
+     * @param app refer to Main
+     */
     public void drawUlt(PApplet app){
         app.fill(255,0,0);
         app.textSize(16);
@@ -190,6 +284,12 @@ public class Tank extends GameObject implements Comparable<Tank>{
         app.fill(0);
         app.textSize(14);
     }
+
+    /**
+     * Draw tank's fuel level and fuel icon.
+     * @param app refer to Main
+     * @param fuelIMG load fuel icon
+     */
     public void drawFuel(PApplet app, String fuelIMG){
         PImage fuelImage = app.loadImage(fuelIMG);
         fuelImage.resize(20,20);
@@ -198,12 +298,23 @@ public class Tank extends GameObject implements Comparable<Tank>{
         app.textSize(16);
         app.text(fuel, 190, 10);
     }
+
+    /**
+     * Draw tank's power level.
+     * @param app refer to Main
+     */
     public void drawPower(PApplet app){
         String tankPowerText = "Power: " + power;
         app.fill(0);
         app.textSize(16);
         app.text(tankPowerText, 380, 35);
     }
+
+    /**
+     * Draw tank's health bar.
+     * Also indicates max power cap (= current health).
+     * @param app refer to Main
+     */
     public void drawHP (PApplet app){
         String tankPowerText = "Health: ";
         app.fill(0);
@@ -244,6 +355,13 @@ public class Tank extends GameObject implements Comparable<Tank>{
         app.strokeWeight(1);
         app.stroke(0);
     }
+
+    /**
+     * Draw tank's parachute with
+     * relative to tank's position.
+     * @param app refer to Main.
+     * @param parachuteIMG load parachute image.
+     */
     public void drawParachute(PApplet app, String parachuteIMG){
         PImage parachute = app.loadImage(parachuteIMG);
         parachute.resize(20, 20);
@@ -274,12 +392,33 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public int getParachutes(){
         return parachutes;
     }
+
+    /**
+     * Return a boolean value indicates
+     * if the tank fall below the limit.
+     * @return true if yPos > 640
+     */
     public boolean isOutMap(){
-        return yPos > 639;
+        return yPos > 640;
     }
+
+    /**
+     * Return tank's falling state
+     * @param terrainHeight terrain's height at index
+     *                      (tank.xPos)
+     * @return true if tank is not during the parachute fall (parachuteFall = true)
+     *          and tank.yPos is not above terrain's Height.
+     */
     public boolean doneFalling(float terrainHeight) {
         return !parachuteFall && !(yPos < terrainHeight);
     }
+
+    /**
+     * Check if the tank's dead.
+     * If tank has no health and not in a falling state.
+     * @param terrainHeight terrain's height at index (tank.xPos)
+     * @return true if isAlive is false.
+     */
     public boolean isDead(float terrainHeight){
         if (health == 0 && doneFalling(terrainHeight)){
             isAlive = false;
@@ -296,13 +435,25 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public void setDeadByExplode(){
         isAlive = false;
     }
+
+    /**
+     * Decrease tank's health, the health is limit at 0
+     * to avoid the health gets to negative.
+     * @param hp health points to deduct.
+     */
     public void tankLoseHP(int hp){
         health = Math.max(0, health-hp);
         power = Math.min(power, health);
     }
 
-    // Overriding the Comparable method -> The tanks are comparable in order
-    // Leverage this to sort the Tanks alphabetically by using queue ds.
+    /**
+     * Overriding the Comparable method -> The tanks are comparable in order
+     * Leverage this to sort the Tanks lexicographically by using queue data structure.
+     * @param otherTank the object to be compared.
+     * @return 0 if the string = other string (= characters).
+     *          Less than 0 - string < other string (fewer characters)
+     *          Greater than - if string > other string (more characters).
+     */
     @Override
     public int compareTo(Tank otherTank) {
         return this.type.compareTo(otherTank.type);
