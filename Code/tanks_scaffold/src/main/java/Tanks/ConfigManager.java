@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 public class ConfigManager {
-    private final List<Level> levels;
-    private final HashMap<String, int[]> playerColours;
+    private final List<Level> LEVELS;
+    private final HashMap<String, int[]> PLAYER_COLORS;
 
     /** Creates a ConfigManager object.
      * @param levels List contain level objects.
@@ -17,8 +17,8 @@ public class ConfigManager {
      */
     public ConfigManager(List<Level> levels,
                          HashMap<String, int[]> playerColours){
-        this.levels = levels;
-        this.playerColours = playerColours;
+        this.LEVELS = levels;
+        this.PLAYER_COLORS = playerColours;
     }
 
     /**
@@ -36,15 +36,16 @@ public class ConfigManager {
             String content = new String(Files.readAllBytes(file.toPath()));
 
             // Check if the JSON file is in valid format
+            JSONObject config;
             try{
-                JSONObject config = new JSONObject(content);
+                new JSONObject(content);
             }
             catch (JSONException e){
                 System.out.println("Invalid JSON format: " + e.getMessage());
                 return null;
             }
             // Create the JSON object
-            JSONObject config = getJSONObject(content);
+            config = getJSONObject(content);
             if (config == null){
                 return null;
             }
@@ -125,13 +126,13 @@ public class ConfigManager {
      * @return list contain levels in JSON file.
      */
     public List<Level> getLevels() {
-        return levels;
+        return LEVELS;
     }
 
     /** Gets player colours.
      * @return HashMap contains "player tag - RGB" pairs.
      */
     public HashMap<String, int[]> getPlayerColours() {
-        return playerColours;
+        return PLAYER_COLORS;
     }
 }
