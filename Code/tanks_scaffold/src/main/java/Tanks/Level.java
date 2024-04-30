@@ -3,10 +3,10 @@ package Tanks;
 public class Level {
     /** Matching level's attributes for better modification
      */
-    private final String layoutFilePath;
-    private final String background;
-    private final int[] foregroundColour;
-    private final String trees;
+    private final String LAYOUT_FILE_PATH;
+    private final String BACKGROUND;
+    private final int[] FOREGROUND_COLOR;
+    private final String TREES_IMG_PATH;
 
     /** Creates a level Object.
      * @param layout The level's layout file name.
@@ -16,9 +16,9 @@ public class Level {
      */
     public Level(String layout, String background,
                  String foregroundColour, String trees){
-        layoutFilePath = layout;
-        this.background = background;
-        this.trees = trees;
+        LAYOUT_FILE_PATH = layout;
+        this.BACKGROUND = background;
+        this.TREES_IMG_PATH = trees;
 
         // Parse the string into an RGB array
         String[] fgColorSplit = foregroundColour.split(",");
@@ -26,34 +26,34 @@ public class Level {
         for(int i = 0; i < 3; i++ ){
             fgColor[i] = Integer.parseInt(fgColorSplit[i]);
         }
-        this.foregroundColour = fgColor;
+        this.FOREGROUND_COLOR = fgColor;
     }
 
     /** Gets the level's layout file name.
      * @return layout filename.
      */
     public String getLayoutFilePath(){
-        return layoutFilePath;
+        return LAYOUT_FILE_PATH;
     }
 
     /** Gets the level’s background.
      * @return background img.
      */
     public String getBackground() {
-        return background;
+        return BACKGROUND;
     }
 
     /** Gets level's terrain color.
      * @return terrain RGB color array.
      */
     public int[] getForegroundColour() {
-        return foregroundColour;
+        return FOREGROUND_COLOR;
     }
 
     /** Gets the level's graphics for trees.
      * @return tree's graphics.
      */
     public String getTrees() {
-        return trees;
+        return TREES_IMG_PATH;
     }
 }
