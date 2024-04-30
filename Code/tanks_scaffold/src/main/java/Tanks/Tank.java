@@ -371,6 +371,7 @@ public class Tank extends GameObject implements Comparable<Tank>{
 
 
     // GETTER & SETTERS
+        // GETTERS
     public int[] getColorTank(){
         return colorTank;
     }
@@ -426,6 +427,7 @@ public class Tank extends GameObject implements Comparable<Tank>{
         return !isAlive;
     }
 
+        // SETTERS
     public void setColorTank(int[] rgb){
         colorTank = rgb;
     }
