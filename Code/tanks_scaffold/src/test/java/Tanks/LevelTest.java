@@ -12,7 +12,7 @@ public class LevelTest {
 
     @Test
     public void testLevelInit(){
-        ConfigLoaderTest get = new ConfigLoaderTest();
+        ConfigManagerTest get = new ConfigManagerTest();
         get.printPrompt("testLevelConfigInit", false);
         // Instantiate
         String layout = "layout.txt";

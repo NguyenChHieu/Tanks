@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameMapTest {
 //    // Getting the prompting function in the other class
-//    private final ConfigLoaderTest get = new ConfigLoaderTest();
+//    private final ConfigManagerTest get = new ConfigManagerTest();
 //
 //    // POSITIVE
 //    /**

@@ -53,7 +53,7 @@ public class App extends PApplet {
     public void setup() {
         // INITIAL SETUP
         frameRate(FPS);
-        manager = ConfigLoader.loadConfig(configPath);
+        manager = ConfigManager.loadConfig(configPath);
         if (manager == null) {
             System.out.println("Error setting up attributes");
             return;}
