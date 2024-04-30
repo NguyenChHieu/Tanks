@@ -6,24 +6,24 @@ import java.util.List;
 import java.util.Objects;
 
 public class Projectile {
+    private static int windLevel = (int) (Math.random() * 71) -35;
     private float xPos;
     private float yPos;
     private float vX;
-    private  float vY;
-    private static int windLevel = (int) (Math.random() * 71) -35;
-    private final float wind = windLevel;
-    private final Tank shooter;
-    private final boolean isPoweredUp;
+    private float vY;
     private boolean isExplode;
     private boolean isOut = false;
+    private final float WIND = windLevel;
+    private final Tank SHOOTER;
+    private final boolean POWERED_UP;
 
 
     // Game Functions
     public Projectile(int x, float y, int power, Tank shooter, boolean ult){
         xPos = x;
         yPos = y;
-        this.shooter = shooter;
-        isPoweredUp = ult;
+        this.SHOOTER = shooter;
+        POWERED_UP = ult;
 
         float iniVelocity = (Math.min(power/10, 9) == 0) ? 1 : Math.min(power/10, 9);
         vX = iniVelocity * PApplet.sin(shooter.getAngle());
@@ -40,7 +40,7 @@ public class Projectile {
     private void accelerate(){
         float gravity = 3.6f / 30f;
         vY += gravity;
-        vX += wind * 0.03f / 30;
+        vX += WIND * 0.03f / 30;
     }
     public boolean collide(float[] terrainHeight){
         if (yPos >= terrainHeight[(int)xPos]){
@@ -85,8 +85,8 @@ public class Projectile {
                     tank.setDeadByExplode();
                 }
                 // Avoid + points for self-destruct
-                if (!Objects.equals(tank.type, shooter.type))
-                    shooter.addPoints(damage);
+                if (!Objects.equals(tank.type, SHOOTER.type))
+                    SHOOTER.addPoints(damage);
             }
         }
     }
@@ -107,8 +107,8 @@ public class Projectile {
 //                        System.out.println(tank.type+ " fall "+ fallDMG + " shooter " + shooter.type);
 
                             if (!tank.isDead(terrainHeight[tank.xPos])) {
-                                if (!Objects.equals(tank, shooter)) {
-                                    shooter.addPoints(fallDMG);
+                                if (!Objects.equals(tank, SHOOTER)) {
+                                    SHOOTER.addPoints(fallDMG);
                                 }
                             }
                         }
@@ -123,7 +123,7 @@ public class Projectile {
 //        app.stroke(0);
 //        app.point(xPos, yPos);
 
-        int[] rgb = shooter.getColorTank();
+        int[] rgb = SHOOTER.getColorTank();
         app.fill(rgb[0], rgb[1], rgb[2]);
         app.ellipse(xPos, yPos , 10, 10);
     }
@@ -150,7 +150,7 @@ public class Projectile {
         return false;
     }
     public boolean isPoweredUp() {
-        return isPoweredUp;
+        return POWERED_UP;
     }
     public boolean isOut() {
         return isOut;
