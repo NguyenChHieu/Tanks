@@ -25,10 +25,9 @@ public class PlayerScores {
     /**
      * Draw the scoreboard next to the HUD,
      * display the players and their scores
-     * @param players List of tank objects (sorted)
      * @param app refer to Main
      */
-    public void drawScoreboard(List<Tank> players, App app){
+    public void drawScoreboard(App app){
         app.textSize(12);
         // Upper rect
         app.strokeWeight(3);
@@ -37,9 +36,9 @@ public class PlayerScores {
         app.text("Scores", 765, 54);
 
         // Points
-        app.rect(720, 69, 135, 15 * players.size());
+        app.rect(720, 69, 135, 15 * playersList.size());
         int i = 0;
-        for (Tank tank: players){
+        for (Tank tank: playersList){
             app.fill(tank.getColorTank()[0],
                     tank.getColorTank()[1],
                     tank.getColorTank()[2]);
@@ -61,10 +60,9 @@ public class PlayerScores {
      * Draw the text indicating the winner,
      * the scoreboard with player scores, ranking
      * from the highest to the lowest.
-     * @param players List of tank objects (sorted)
      * @param app refer to Main
      */
-    public void drawFinal(List<Tank> players, App app){
+    public void drawFinal(App app){
         // Cite
         //Stack Overflow. (2011). Sorting HashMap by values.
         //Available at: https://stackoverflow.com/questions/8119366/sorting-hashmap-by-values
@@ -77,10 +75,10 @@ public class PlayerScores {
                         (e1, e2) -> e1, LinkedHashMap::new));
         // Get the winner
         String winner = Collections.max(points.entrySet(), Map.Entry.comparingByValue()).getKey();
-        int numberOfPlayers = players.size();
+        int numberOfPlayers = playersList.size();
         // Get the winner's color
         int[] winnerColor = new int[3];
-        for (Tank tank:players){
+        for (Tank tank : playersList){
             if (Objects.equals(tank.type, winner)){
                 winnerColor = tank.getColorTank();
                 break;
@@ -109,7 +107,7 @@ public class PlayerScores {
             int[] playerColor = new int[3];
             int points = drawPlayersInFinal.get(player);
 
-            for (Tank tank:players){
+            for (Tank tank:playersList){
                 if (Objects.equals(tank.type, player)){
                     playerColor = tank.getColorTank();
                     break;
@@ -129,10 +127,9 @@ public class PlayerScores {
 
     /**
      * Timer implement the 0.7 delay showing players.
-     * @param players List of tank objects (sorted)
      * @param app refer to Main
      */
-    public void timerFinal(List<Tank> players, App app){
+    public void timerFinal(App app){
         HashMap<String, Integer> scoresSorted = points.entrySet().stream()
                 .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
@@ -149,7 +146,7 @@ public class PlayerScores {
         int[] playerColor = new int[3];
         int points = sortedValues.get(index);
         String player = sortedKeys.get(index);
-        for (Tank tank:players){
+        for (Tank tank:playersList){
             if (Objects.equals(tank.type, player)){
                 playerColor = tank.getColorTank();
                 break;
@@ -178,12 +175,20 @@ public class PlayerScores {
 
 
     // STATE FUNCTIONS
+    /**
+     * Update player scores during the game
+     * @param tanks update points which align with tanks
+     */
     public void updatePlayerScores(List<Tank> tanks){
         for (Tank tank: tanks){
             if (points.containsKey(tank.type))
                 points.put(tank.type, tank.getPoints());
         }
     }
+
+    /**
+     * Reset the scores to the new state with default values.
+     */
     public void resetPlayerScores(){
         points.clear();
         playersList.clear();
@@ -191,6 +196,7 @@ public class PlayerScores {
         startDrawDelay = 0;
         drawPlayersInFinal.clear();
     }
+
     public HashMap<String, Integer> getScore(){
         return points;
     }
