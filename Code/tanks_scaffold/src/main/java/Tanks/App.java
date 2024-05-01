@@ -15,41 +15,50 @@ public class App extends PApplet {
 
 
     //File attributes
-    public String configPath;
-    public int[] foregroundColor;
-    public  PImage backgroundPNG;
-    public PImage trees;
+    private final String configPath;
+    private int[] foregroundColor;
+    private PImage backgroundPNG;
+    private PImage trees;
 
 
 
     // Level attributes
-    public GameMap currentMap;
-    public ConfigManager manager;
-    public int currentLevelIndex = 0;
+    private GameMap currentMap;
+    private ConfigManager manager;
+    private int currentLevelIndex = 0;
     private long delaySwitch = 0;
-    public boolean currentlyDelayedLevel = false;
-    public boolean isEndGame = false;
+    private boolean currentlyDelayedLevel = false;
+    private boolean isEndGame = false;
 
 
 
     // Gameplay attributes
-    public PlayerScores scoreSave;
-    public List<Tank> correctOrder = new ArrayList<>();
-    public List<Tank> order = new ArrayList<>();
-    public List<Projectile> active = new ArrayList<>();
-    public List<Explosion> explosionDraw = new ArrayList<>();
-    public boolean showArrow = true;
+    private PlayerScores scoreSave;
+    private List<Tank> correctOrder = new ArrayList<>();
+    private List<Tank> order = new ArrayList<>();
+    private List<Projectile> active = new ArrayList<>();
+    private List<Explosion> explosionDraw = new ArrayList<>();
+    private boolean showArrow = true;
     private int arrStartTime = millis();
 
 
     public App() {
         this.configPath = "configtest.json";
     }
-	@Override
+
+    /**
+     * Initialize the window.
+     */
+    @Override
     public void settings() {
         size(WIDTH, HEIGHT);
     }
-	@Override
+
+    /**
+     * Set up game initially, including setting up first
+     * level for the game and initialize the scores
+     */
+    @Override
     public void setup() {
         // INITIAL SETUP
         frameRate(FPS);
@@ -64,7 +73,11 @@ public class App extends PApplet {
         scoreSave = new PlayerScores(correctOrder);
     }
 
-
+    /**
+     * Check for any key events and performs
+     * the corresponding function.
+     * @param event key event received.
+     */
     @Override
     public void keyPressed(KeyEvent event){
         int key = event.getKeyCode();
@@ -119,59 +132,59 @@ public class App extends PApplet {
         }
     }
 
-
-
     /**
      * Draw all elements in the game by current frame.
      */
 	@Override
     public void draw() {
+        // Reset background every frame (clean old drawings)
+        background(backgroundPNG);
+        // Draw terrain & trees
+        currentMap.drawTerrain(this, foregroundColor, HEIGHT);
+        currentMap.drawTree(this, trees);
         if (!order.isEmpty()) {
-            // Reset background every frame (clean old drawings)
-            background(backgroundPNG);
-            // Draw terrain & trees
-            currentMap.drawTerrain(this, foregroundColor, HEIGHT);
-            currentMap.drawTree(this, trees);
-
             // Draw tanks & their turrets
             for (Tank tank : order) {
                 tank.drawTank(this);
                 tank.drawTurret(this);
             }
-
-            // Add active projectiles for drawing - delete them after finished
-            for (Projectile bullet : active) {
-                if (!bullet.outMap()) {
-                    if (!bullet.collide(currentMap.getPixels())) {
-                        bullet.update();
-                        bullet.drawProjectile(this);
-                    } else {
-                        if (!bullet.isPoweredUp()) {
-                            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 30));
-                            bullet.explode(currentMap.getPixels(),
-                                    correctOrder, 30);
-                        }
-                        else{
-                            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 60));
-                            bullet.explode(currentMap.getPixels(),
-                                    correctOrder, 60);
-                        }
+        }
+        // Add active projectiles for drawing - delete them after finished
+        for (Projectile bullet : active) {
+            // Bullet gone out of the map
+            if (!bullet.outMap()) {
+                // If bullet hasn't collided with the terrain, update it
+                if (!bullet.collide(currentMap.getPixels())) {
+                    bullet.update();
+                    bullet.drawProjectile(this);
+                    // else check for type of explosion.
+                } else {
+                    if (!bullet.isPoweredUp()) {
+                        explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 30));
+                        bullet.explode(currentMap.getPixels(),
+                                correctOrder, 30);
+                    } else{
+                        explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 60));
+                        bullet.explode(currentMap.getPixels(),
+                                correctOrder, 60);
                     }
                 }
             }
-            active.removeIf(proj -> proj.isExplode() || proj.isOut());
+        }
+        // Remove the bullets that had exploded
+        active.removeIf(proj -> proj.isExplode() || proj.isOut());
 
-            // UPDATE SCORE
-            scoreSave.updatePlayerScores(correctOrder);
-
-            // Tank fall
+        // UPDATE SCORE
+        scoreSave.updatePlayerScores(correctOrder);
+        if (!order.isEmpty()) {
+            //  Draw tank fall
             for (Tank tank : order) {
                 tank.drawTankFall(this,
                         getPathToImage("parachute.png"),
                         currentMap.getPixels()[tank.xPos]);
             }
 
-            // Remove dead tanks + explosion
+            // Remove dead tanks/ tanks fall to death.
             for (Tank tank : order) {
                 if (tank.isDead(currentMap.getPixels()[tank.xPos])) {
                     explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 15));
@@ -180,29 +193,30 @@ public class App extends PApplet {
                 }
             }
             order.removeIf(tank -> tank.isOutMap() || tank.isDead(currentMap.getPixels()[tank.xPos]));
+        }
+        // Draw explosion
+        for (Explosion e: explosionDraw){
+            e.drawExplosion();
+        }
+        explosionDraw.removeIf(Explosion::getFinishedExplode);
 
-            // Draw explosion
-            for (Explosion e: explosionDraw){
-                e.drawExplosion();
-            }
-            explosionDraw.removeIf(Explosion::getFinishedExplode);
+        //Display HUD
+        drawHUD();
 
-            //Display HUD
-            drawHUD();
-
-            // Indicate current player
-            if (showArrow && millis() - arrStartTime < 2000) {
-                if (!order.isEmpty()) {
-                    drawArrow(order.get(0).xPos, order.get(0).yPos - 100);
-                }
-            }
-            else showArrow = false;
-
-            //Display scoreboard
-            if (!isEndGame) {
-                scoreSave.drawScore(correctOrder, scoreSave.getScore(), this);
+        // Indicate current player
+        if (showArrow && millis() - arrStartTime < 2000) {
+            if (!order.isEmpty()) {
+                drawArrow(order.get(0).xPos, order.get(0).yPos - 100);
             }
         }
+        else showArrow = false;
+
+        //Display scoreboard
+        if (!isEndGame) {
+            scoreSave.drawScoreboard(this);
+        }
+
+        // Check if the level ends, if ends then start the timer.
         if (levelEnds(order)){
             if (delaySwitch == 0){
                 delaySwitch = millis();
@@ -220,7 +234,14 @@ public class App extends PApplet {
 
 
     // DRAW GAME METHODS
-    void drawHUD(){
+
+    /**
+     * Draw different parts of the HUD, indicates the
+     * info related to the current player.
+     * if the case all players died at the same
+     * time, stop drawing the HUD.
+     */
+    private void drawHUD(){
         if (order.isEmpty()){
             return;}
 
@@ -250,7 +271,13 @@ public class App extends PApplet {
         // Player's parachute
         current.drawParachute(this, getPathToImage("parachute.png"));
     }
-    void drawArrow(int x, float y) {
+
+    /**
+     * Draw the arrow indicates the current player
+     * @param x current player's tank X position
+     * @param y current player's tank Y position
+     */
+    private void drawArrow(int x, float y) {
         strokeWeight(4); // Bold line
         // body
         line(x, y - 25, x, y + 50);
@@ -263,13 +290,33 @@ public class App extends PApplet {
     }
 
     // SWITCH
+
+    /**
+     * Check if the number of alive tanks
+     * is smaller than 1 to switch level.
+     * @param tanks list of alive tanks
+     * @return true if the list's size smaller than 1.
+     */
     private boolean levelEnds(List<Tank> tanks){
         return tanks.size() <= 1;
     }
+
+    /**
+     * Pop the first tank in list and append
+     * it to the end, simulating a queue for
+     * switching turns.
+     */
     private void switchTurns(){
         Tank before = order.remove(0);
         order.add(before);
     }
+
+    /**
+     * Function for switching levels after there's less
+     * than or equal to 1 alive tank on the field.
+     * Resetting game attributes for next level, or if its
+     * end game then reset whole game for the replaying.
+     */
     private void switchLevels(){
         currentLevelIndex++;
         List<Level> levels = manager.getLevels();
@@ -278,33 +325,29 @@ public class App extends PApplet {
             // Clear the current objects
             resetGameAttributes(false);
 
-            Level level = levels.get(currentLevelIndex);
-            setUpLevel(level);
-            extractGameAttributes(level.getLayoutFilePath(), manager.getPlayerColours());
-            if(currentMap != null) {
-                // Clear correctOrder before adding players
-                order.addAll(currentMap.getTanksList());
-                Collections.sort(order);
-                correctOrder.addAll(order);
-
-                // Update points from last level:
-                for (Tank tank: order){
-                    tank.setPoints(scoreSave.getScore().get(tank.type));
-                }
+            setupFirstLevel();
+            // Update points from last level:
+            for (Tank tank: order){
+                tank.setPoints(scoreSave.getScore().get(tank.type));
             }
+            // Reset the switch level delay
             currentlyDelayedLevel = false;
             delaySwitch = 0;
         }
         else {
             currentlyDelayedLevel = false;
             isEndGame = true;
-            scoreSave.timerFinal(correctOrder, scoreSave.getScore(), this);
-            scoreSave.drawFinal(correctOrder, scoreSave.getScore(), this);
+            scoreSave.timerFinal(this);
+            scoreSave.drawFinal(this);
         }
     }
 
 
     // SETUP METHODS
+    /**
+     * Set up the level and parse game data into objects,
+     * Add tanks in order for switching turns.
+     */
     private void setupFirstLevel() {
         Level level = manager.getLevels().get(currentLevelIndex);
         setUpLevel(level);
@@ -316,6 +359,11 @@ public class App extends PApplet {
             correctOrder.addAll(order);
         }
     }
+
+    /**
+     * Load related images, set the level's current terrain color
+     * @param level level object contains setup data - background, foreground color...
+     */
     private void setUpLevel(Level level){
         // Set level's background
         if (level.getBackground() != null) {
@@ -331,6 +379,13 @@ public class App extends PApplet {
             trees.resize(32,32);
         }
     }
+
+    /**
+     * Reset game attributes when a level ends or game ends
+     * @param resetWholeGame boolean value indicates resetting the game
+     *                       partially (for levels) or all attributes
+     *                       (for replaying the whole game)
+     */
     private void resetGameAttributes(boolean resetWholeGame) {
         order.clear();
         active.clear();
@@ -343,6 +398,13 @@ public class App extends PApplet {
             delaySwitch = 0;
         }
     }
+
+    /**
+     * Set up a map base on the txt file, extract
+     * game objects such as trees and tanks.
+     * @param layout path to map txt file
+     * @param colors player colors extracted from config file
+     */
     private void extractGameAttributes(String layout, HashMap<String, int[]> colors) {
         // Create a new map object for reference
         GameMap gameMap = new GameMap();
