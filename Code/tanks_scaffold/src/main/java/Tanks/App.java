@@ -150,32 +150,34 @@ public class App extends PApplet {
             }
         }
         // Add active projectiles for drawing - delete them after finished
-        for (Projectile bullet : active) {
-            // Bullet gone out of the map
-            if (!bullet.outMap()) {
-                // If bullet hasn't collided with the terrain, update it
-                if (!bullet.collide(currentMap.getPixels())) {
-                    bullet.update();
-                    bullet.drawProjectile(this);
-                    // else check for type of explosion.
-                } else {
-                    if (!bullet.isPoweredUp()) {
-                        explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 30));
-                        bullet.explode(currentMap.getPixels(),
-                                correctOrder, 30);
-                    } else{
-                        explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 60));
-                        bullet.explode(currentMap.getPixels(),
-                                correctOrder, 60);
+        if (!active.isEmpty()) {
+            for (Projectile bullet : active) {
+                // Bullet gone out of the map
+                if (!bullet.outMap()) {
+                    // If bullet hasn't collided with the terrain, update it
+                    if (!bullet.collide(currentMap.getPixels())) {
+                        bullet.update();
+                        bullet.drawProjectile(this);
+                        // else check for type of explosion.
+                    } else {
+                        if (!bullet.isPoweredUp()) {
+                            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 30));
+                            bullet.explode(currentMap.getPixels(),
+                                    correctOrder, 30);
+                        } else {
+                            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 60));
+                            bullet.explode(currentMap.getPixels(),
+                                    correctOrder, 60);
+                        }
+                        // UPDATE SCORE
+                        scoreSave.updatePlayerScores(correctOrder);
                     }
                 }
             }
+            // Remove the bullets that had exploded
+            active.removeIf(proj -> proj.isExplode() || proj.isOut());
         }
-        // Remove the bullets that had exploded
-        active.removeIf(proj -> proj.isExplode() || proj.isOut());
 
-        // UPDATE SCORE
-        scoreSave.updatePlayerScores(correctOrder);
         if (!order.isEmpty()) {
             //  Draw tank fall
             for (Tank tank : order) {
@@ -195,11 +197,12 @@ public class App extends PApplet {
             order.removeIf(tank -> tank.isOutMap() || tank.isDead(currentMap.getPixels()[tank.xPos]));
         }
         // Draw explosion
-        for (Explosion e: explosionDraw){
-            e.drawExplosion();
+        if (!explosionDraw.isEmpty()) {
+            for (Explosion e : explosionDraw) {
+                e.drawExplosion();
+            }
+            explosionDraw.removeIf(Explosion::getFinishedExplode);
         }
-        explosionDraw.removeIf(Explosion::getFinishedExplode);
-
         //Display HUD
         drawHUD();
 
