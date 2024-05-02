@@ -34,10 +34,10 @@ public class App extends PApplet {
 
     // Gameplay attributes
     private PlayerScores scoreSave;
-    private List<Tank> correctOrder = new ArrayList<>();
-    private List<Tank> order = new ArrayList<>();
-    private List<Projectile> active = new ArrayList<>();
-    private List<Explosion> explosionDraw = new ArrayList<>();
+    private final List<Tank> correctOrder = new ArrayList<>();
+    private final List<Tank> order = new ArrayList<>();
+    private final List<Projectile> active = new ArrayList<>();
+    private final List<Explosion> explosionDraw = new ArrayList<>();
     private boolean showArrow = true;
     private int arrStartTime = millis();
 
@@ -65,7 +65,8 @@ public class App extends PApplet {
         manager = ConfigManager.loadConfig(configPath);
         if (manager == null) {
             System.out.println("Error setting up attributes");
-            return;}
+            return;
+        }
         // Setup first level
         setupFirstLevel();
 
@@ -102,9 +103,11 @@ public class App extends PApplet {
                     arrStartTime = millis();
                 }
             } else if (key == LEFT || key == RIGHT) {
+                // Only allow to move when the tank's done falling
                 if (currentTank.doneFalling(currentMap.getPixels()[currentTank.xPos])) {
                     if (currentTank.getFuelLevel() > 0) {
                         currentTank.move(key, WIDTH, FPS, 60);
+                        // Update tank's y position
                         currentTank.yPos = currentMap.getPixels()[currentTank.xPos];
                         currentTank.useFuel();
                     }
@@ -142,6 +145,7 @@ public class App extends PApplet {
         // Draw terrain & trees
         currentMap.drawTerrain(this, foregroundColor, HEIGHT);
         currentMap.drawTree(this, trees);
+
         if (!order.isEmpty()) {
             // Draw tanks & their turrets
             for (Tank tank : order) {
@@ -236,7 +240,6 @@ public class App extends PApplet {
 
 
     // DRAW GAME METHODS
-
     /**
      * Draw different parts of the HUD, indicates the
      * info related to the current player.
@@ -292,7 +295,6 @@ public class App extends PApplet {
     }
 
     // SWITCH
-
     /**
      * Check if the number of alive tanks
      * is smaller than 1 to switch level.
