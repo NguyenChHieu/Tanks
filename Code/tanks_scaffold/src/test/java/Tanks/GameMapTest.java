@@ -56,10 +56,12 @@ public class GameMapTest {
         assertEquals(20, board.length, "Wrong number of rows");
         assertEquals(28, board[0].length, "Wrong number of columns.");
 
-        // Some checks on the map's contents
+        // Some checks on the map's contents to see if they extracted correctly
         assertEquals("X", board[5][1].type, "Map wasn't extracted correctly");
         assertEquals("X", board[6][2].type, "Map wasn't extracted correctly");
         assertEquals("X", board[7][0].type, "Map wasn't extracted correctly");
+        assertEquals("A", board[5][2].type, "Map wasn't extracted correctly");
+        assertEquals("1", board[6][0].type, "Map wasn't extracted correctly");
         System.out.println("testGenerateTerrainValidMissingLines passed");
     }
 

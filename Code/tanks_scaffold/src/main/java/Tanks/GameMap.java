@@ -43,27 +43,28 @@ public class GameMap {
         try {
             Scanner sc = new Scanner(f);
             int row = 0;
-            while (sc.hasNextLine() && row < 20){
+            while (sc.hasNextLine()){
                 String line = sc.nextLine();
                 int col = 0;
-                for (int i = 0; i < line.length() && col < 28; i++){
+                for (int i = 0; i < line.length(); i++){
                     if (String.valueOf(line.charAt(i)).equals(" ")){
                         map[row][col] = new GameObject(col, row, " ");
                         col++;
                     }
-                    else if (String.valueOf(line.charAt(i)).equals("T")) {
-                        // Randomize the location of the tree
-                        // Scaled the tree root initially by 32px
-                        map[row][col] = new GameObject(col * 32, row * 32, "T");
+                    else if (String.valueOf(line.charAt(i)).matches("[A-SU-WYZ]")
+                            || Character.isDigit(line.charAt(i))){
+                        // Scaled the tank initially by 32px
+                        map[row][col] = new Tank(col * 32, row * 32, String.valueOf(line.charAt(i)));
                         col++;
                     }
                     else if (String.valueOf(line.charAt(i)).equals("X")) {
                         map[row][col] = new GameObject(col, row, "X");
                         col++;
                     }
-                    else if (String.valueOf(line.charAt(i)).matches("[A-SU-WYZ]")){
-                        // Scaled the tank initially by 32px
-                        map[row][col] = new Tank(col * 32, row * 32, String.valueOf(line.charAt(i)));
+                    else if (String.valueOf(line.charAt(i)).equals("T")) {
+                        // Randomize the location of the tree
+                        // Scaled the tree root initially by 32px
+                        map[row][col] = new GameObject(col * 32, row * 32, "T");
                         col++;
                     }
                 }
