@@ -215,15 +215,19 @@ public class Projectile {
     public boolean isPoweredUp() {
         return POWERED_UP;
     }
+
     public boolean isOut() {
         return isOut;
     }
+
     public boolean isExplode() {
         return isExplode;
     }
+
     public float getXPos() {
         return xPos;
     }
+
     public float getYPos() {
         return yPos;
     }
