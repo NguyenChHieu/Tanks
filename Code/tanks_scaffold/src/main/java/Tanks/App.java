@@ -177,9 +177,8 @@ public class App extends PApplet {
             // Remove the bullets that had exploded
             active.removeIf(proj -> proj.isExplode() || proj.isOut());
         }
-
+        //  Draw tank fall
         if (!order.isEmpty()) {
-            //  Draw tank fall
             for (Tank tank : order) {
                 tank.drawTankFall(this,
                         getPathToImage("parachute.png"),
@@ -232,7 +231,7 @@ public class App extends PApplet {
                 switchLevels();
             }
         }
-//        System.out.println(frameRate);
+        System.out.println(frameRate);
     }
 
 

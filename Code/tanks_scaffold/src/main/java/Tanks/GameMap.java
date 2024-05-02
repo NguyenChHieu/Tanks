@@ -202,7 +202,7 @@ public class GameMap {
     public void drawTerrain(PApplet app, int[] RGB, int height) {
         app.stroke(RGB[0], RGB[1], RGB[2]);
         for (int i = 0; i < 864; i++){
-            app.line(i, height, i, pixels[i]);
+            app.rect(i, pixels[i], 1, height );
         }
         // Reset
         app.stroke(0);
