@@ -13,7 +13,7 @@ public class GameMap {
     private final int BOARD_HEIGHT = 20;
     private final int BOARD_WIDTH = 28;
 
-    private final GameObject[][] board;
+    private GameObject[][] board;
     private final ArrayList<Integer> treeX;
     private final float[] pixels;
     private final ArrayList<Tank> tanksList;
@@ -85,6 +85,7 @@ public class GameMap {
         }
         catch (FileNotFoundException e){
             System.err.println("File not found");
+            board = null;
         }
     }
 
