@@ -51,12 +51,6 @@ public class GameMap {
                         map[row][col] = new GameObject(col, row, " ");
                         col++;
                     }
-                    else if (String.valueOf(line.charAt(i)).matches("[A-SU-WYZ]")
-                            || Character.isDigit(line.charAt(i))){
-                        // Scaled the tank initially by 32px
-                        map[row][col] = new Tank(col * 32, row * 32, String.valueOf(line.charAt(i)));
-                        col++;
-                    }
                     else if (String.valueOf(line.charAt(i)).equals("X")) {
                         map[row][col] = new GameObject(col, row, "X");
                         col++;
@@ -66,6 +60,15 @@ public class GameMap {
                         // Scaled the tree root initially by 32px
                         map[row][col] = new GameObject(col * 32, row * 32, "T");
                         col++;
+                    }
+                    else if (String.valueOf(line.charAt(i)).matches("[A-SU-WYZ]")
+                            || Character.isDigit(line.charAt(i))){
+                        // Scaled the tank initially by 32px
+                        map[row][col] = new Tank(col * 32, row * 32, String.valueOf(line.charAt(i)));
+                        col++;
+                    }
+                    else{
+                        assert true;
                     }
                 }
                 // Fill the missing columns
@@ -128,6 +131,15 @@ public class GameMap {
     }
 
     /**
+     * Scale the height of the pixel to 32px
+     * @param row previous value of the pixel before scaling
+     * @return actual height of the pixel after scaling
+     */
+    private int findColHeight(int row){
+        return row*32;
+    }
+
+    /**
      * Update Tanks height correctly after
      * perform terrain smoothing.
      */
@@ -135,15 +147,6 @@ public class GameMap {
         for (Tank tank: tanksList){
             tank.yPos = pixels[tank.xPos];
         }
-    }
-
-    /**
-     * Scale the height of the pixel to 32px
-     * @param row previous value of the pixel before scaling
-     * @return actual height of the pixel after scaling
-     */
-    private int findColHeight(int row){
-        return row*32;
     }
 
 

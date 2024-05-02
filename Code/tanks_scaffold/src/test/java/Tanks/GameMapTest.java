@@ -2,12 +2,15 @@ package Tanks;
 
 
 import org.junit.jupiter.api.Test;
+import processing.core.PApplet;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameMapTest {
     // Getting the prompting function in the other class
     private final ConfigManagerTest get = new ConfigManagerTest();
     private final GameMap testMap = new GameMap();
+    private PApplet app;
 
 
     // POSITIVE
@@ -78,6 +81,11 @@ public class GameMapTest {
         testMap.generateMapFromConfig(testMap.getBoard(), fileName);
         testMap.instantiateHeight();
 
+        assertEquals(416, testMap.getPixels()[0],
+                "Terrain height wasn't instantiated correctly");
+        assertEquals(352, testMap.getPixels()[32],
+                "Terrain height wasn't instantiated correctly");
+        System.out.println("testInstantiateHeight passed");
     }
 
     /**
@@ -90,9 +98,17 @@ public class GameMapTest {
         get.printPrompt("testMovingAverage", false);
 
         //Instantiate
-        int[] heightPixels = new int[896];
+        testMap.movingAverage(testMap.getPixels());
+
+        assertEquals(414, testMap.getPixels()[1],
+                "Terrain height wasn't instantiated correctly");
+        assertEquals(412, testMap.getPixels()[2],
+                "Terrain height wasn't instantiated correctly");
+        System.out.println("testInstantiateHeight passed");
 
     }
+
+
 
     // NEGATIVE
     /**
