@@ -375,21 +375,27 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public int[] getColorTank(){
         return colorTank;
     }
+
     public int getHealth(){
         return health;
     }
+
     public int getFuelLevel(){
         return fuel;
     }
+
     public float getAngle() {
         return angle;
     }
+
     public boolean getUltStatus(){
         return ult;
     }
+
     public int getPoints(){
         return points;
     }
+
     public int getParachutes(){
         return parachutes;
     }
@@ -431,12 +437,15 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public void setColorTank(int[] rgb){
         colorTank = rgb;
     }
+
     public void setPoints(int point){
         points = point;
     }
+
     public void setDeadByExplode(){
         isAlive = false;
     }
+
 
     /**
      * Decrease tank's health, the health is limit at 0
