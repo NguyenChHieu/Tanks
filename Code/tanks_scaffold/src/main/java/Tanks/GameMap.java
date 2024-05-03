@@ -173,6 +173,7 @@ public class GameMap {
             }
         }
     }
+
     /**
      * Extract tank objects from the matrix
      * setup initial positions, including X

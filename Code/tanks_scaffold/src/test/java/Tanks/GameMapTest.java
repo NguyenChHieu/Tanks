@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -115,7 +116,8 @@ public class GameMapTest {
     }
 
     /**
-     * Tests the extractTree() function
+     * Tests the extractTree() function with valid input
+     * This verifies tree root locations are extracted correctly.
      */
     @Test
     public void testExtractTree(){
@@ -138,6 +140,37 @@ public class GameMapTest {
         assertEquals(754, treeX.get(8), "Wrong root location of 8-position tree");
         System.out.println("testExtractTree passed");
     }
+
+    /**
+     * Tests the extractTanks() function with valid input
+     * This verifies the tank objects are extracted correctly.
+     */
+    @Test
+    public void testExtractTank(){
+        get.printPrompt("testExtractTank", false);
+        String fileName = "additionalFiles/layoutTest/validLayout.txt";
+
+        HashMap<String, int[]> colors = new HashMap<>();
+        colors.put("A", new int[]{0, 0, 255});
+        colors.put("B", new int[]{255,0,0});
+        colors.put("C", new int[]{0,255,255});
+        colors.put("D", new int[]{255,255,0});
+
+        //Instantiate
+        testMap.generateMapFromConfig(testMap.getBoard(), fileName);
+        testMap.instantiateHeight();
+        testMap.extractTanks(colors);
+        testMap.updateTanksY();
+
+        ArrayList<Tank> tanks = testMap.getTanksList();
+
+        assertEquals("A", tanks.get(0).type, "Incorrect tank type");
+        assertEquals("B", tanks.get(1).type, "Incorrect tank type");
+        assertEquals(384, tanks.get(0).yPos, "Incorrect tank y-position");
+        assertEquals(320, tanks.get(1).yPos, "Incorrect tank y-position");
+        System.out.println("testExtractTank passed");
+    }
+
 
     // NEGATIVE
     /**
