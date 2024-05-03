@@ -242,4 +242,7 @@ public class GameMap {
     public ArrayList<Tank> getTanksList() {
         return tanksList;
     }
+    public ArrayList<Integer> getTreeX(){
+        return treeX;
+    }
 }

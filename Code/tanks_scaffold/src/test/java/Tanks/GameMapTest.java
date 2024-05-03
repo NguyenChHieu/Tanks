@@ -4,13 +4,15 @@ package Tanks;
 import org.junit.jupiter.api.Test;
 import processing.core.PApplet;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GameMapTest {
     // Getting the prompting function in the other class
     private final ConfigManagerTest get = new ConfigManagerTest();
     private final GameMap testMap = new GameMap();
-    private PApplet app;
+    private final PApplet app = new PApplet();
 
 
     // POSITIVE
@@ -97,18 +99,45 @@ public class GameMapTest {
     public void testMovingAverage(){
         get.printPrompt("testMovingAverage", false);
 
+        String fileName = "additionalFiles/layoutTest/validLayout.txt";
+
         //Instantiate
+        testMap.generateMapFromConfig(testMap.getBoard(), fileName);
+        testMap.instantiateHeight();
         testMap.movingAverage(testMap.getPixels());
 
         assertEquals(414, testMap.getPixels()[1],
                 "Terrain height wasn't instantiated correctly");
         assertEquals(412, testMap.getPixels()[2],
                 "Terrain height wasn't instantiated correctly");
-        System.out.println("testInstantiateHeight passed");
+        System.out.println("testMovingAverage passed");
 
     }
 
+    /**
+     * Tests the extractTree() function
+     */
+    @Test
+    public void testExtractTree(){
+        get.printPrompt("testExtractTree", false);
+        String fileName = "additionalFiles/layoutTest/validLayout.txt";
 
+        //Instantiate
+        testMap.generateMapFromConfig(testMap.getBoard(), fileName);
+        testMap.instantiateHeight();
+        testMap.movingAverage(testMap.getPixels());
+
+        // Set random seed
+        app.randomSeed(0);
+
+        testMap.extractTree(app);
+        ArrayList<Integer> treeX = testMap.getTreeX();
+
+        assertEquals(118, treeX.get(0), "Wrong root location of 0-position tree");
+        assertEquals(153, treeX.get(1), "Wrong root location of 1-position tree");
+        assertEquals(754, treeX.get(8), "Wrong root location of 8-position tree");
+        System.out.println("testExtractTree passed");
+    }
 
     // NEGATIVE
     /**
