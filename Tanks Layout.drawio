@@ -1,20 +1,20 @@
-<mxfile host="app.diagrams.net" modified="2024-05-03T12:54:47.723Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="Toi7MMImypXBibDb6sL2" version="24.3.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-05-03T12:57:00.869Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36" etag="mfDuhPfdr0hFiYqhYb3T" version="24.3.1" type="github">
   <diagram name="Page-1" id="6133507b-19e7-1e82-6fc7-422aa6c4b21f">
-    <mxGraphModel dx="1461" dy="1575" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#E6FFCC" math="0" shadow="0">
+    <mxGraphModel dx="2435" dy="2058" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#E6FFCC" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="UTHU-1M57-vCMUskgQRw-25" value="Tank" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="130" y="910" width="420" height="780" as="geometry" />
+          <mxGeometry x="130" y="870" width="420" height="820" as="geometry" />
         </mxCell>
-        <mxCell id="UTHU-1M57-vCMUskgQRw-26" value="&lt;div&gt;- colorTank: int[]&lt;/div&gt;&lt;div&gt;- fuel: int&lt;/div&gt;&lt;div&gt;- points: int&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- health: int&lt;/div&gt;&lt;div&gt;- isAlive: boolean&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- power: int&lt;/div&gt;&lt;div&gt;- angle: float&lt;/div&gt;&lt;div&gt;- ult: boolean&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- parachutes: int&lt;/div&gt;&lt;div&gt;- parachuteFall: boolean&lt;/div&gt;&lt;div&gt;- deployed: boolean&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-25" vertex="1">
-          <mxGeometry y="26" width="420" height="204" as="geometry" />
+        <mxCell id="UTHU-1M57-vCMUskgQRw-26" value="&lt;div&gt;- colorTank: int[]&lt;/div&gt;&lt;div&gt;- fuel: int&lt;/div&gt;&lt;div&gt;- points: int&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- health: int&lt;/div&gt;&lt;div&gt;- fallDamage: int = 0&lt;/div&gt;&lt;div&gt;- shooter: Tank&lt;/div&gt;&lt;div&gt;- isAlive: boolean&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- power: int&lt;/div&gt;&lt;div&gt;- angle: float&lt;/div&gt;&lt;div&gt;- ult: boolean&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- parachutes: int&lt;/div&gt;&lt;div&gt;- parachuteFall: boolean&lt;/div&gt;&lt;div&gt;- deployed: boolean&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-25" vertex="1">
+          <mxGeometry y="26" width="420" height="244" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-27" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="UTHU-1M57-vCMUskgQRw-25" vertex="1">
-          <mxGeometry y="230" width="420" height="8" as="geometry" />
+          <mxGeometry y="270" width="420" height="8" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-28" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;+ &lt;font style=&quot;&quot;&gt;move(int key,&amp;nbsp;&lt;/font&gt;&lt;/font&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;int WINDOW_WIDTH,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;int FPS,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;int pxFS) : void&lt;/span&gt;&lt;div&gt;&lt;div&gt;+ useFuel() : void&lt;/div&gt;&lt;div&gt;+ shoot(): Projectile&lt;/div&gt;&lt;div&gt;&lt;div&gt;+ updatePower(int key): void&lt;/div&gt;&lt;/div&gt;&lt;div&gt;+ updateAngle(int key,&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;float rotationSpeed): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ addPoints(int point): void&lt;/div&gt;&lt;div&gt;+ deployParachute(): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ repair(): void&lt;/div&gt;&lt;div&gt;+ addFuel(): void&lt;/div&gt;&lt;div&gt;+ addParachute(): void&lt;/div&gt;&lt;div&gt;+ ultimate(): void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ drawTank(PApplet app): void&lt;/div&gt;&lt;/div&gt;&lt;div&gt;+ drawTurret(PApplet app): void&lt;/div&gt;&lt;div&gt;+ drawTankFall(PApplet app,&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;String parachuteIMG,&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;float terrainHeight): void&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ drawUlt(PApplet app): void&lt;/div&gt;&lt;div&gt;+ drawFuel(PApplet app,&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;String fuelIMG):&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ drawPower(PApplet app)&lt;/div&gt;&lt;div&gt;+ drawHP(PApplet app)&lt;/div&gt;&lt;div&gt;+ drawParachute(PApplet app, String&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;parachuteIMG&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;)&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ getColorTank(): int[]&lt;/div&gt;&lt;div&gt;+ getAngle(): float&lt;/div&gt;&lt;div&gt;+ getPoints(): int&lt;/div&gt;&lt;div&gt;+ getFuelLevel(): int&lt;/div&gt;&lt;div&gt;+ getHealth(): int&lt;/div&gt;&lt;div&gt;+ getUltStatus(): boolean&lt;/div&gt;&lt;div&gt;+ getParachutes(): int&lt;/div&gt;&lt;div&gt;+ isOutMap(): boolean&lt;/div&gt;&lt;div&gt;+ isFalling(float terrainHeight): boolean&lt;/div&gt;&lt;div&gt;+ isDead(&lt;span style=&quot;background-color: initial;&quot;&gt;float terrainHeight&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;): boolean&lt;/span&gt;&lt;/div&gt;&lt;div&gt;+ setColorTank(int[] rgb): void&lt;/div&gt;&lt;div&gt;+ setPoints(int point): void&lt;/div&gt;&lt;div&gt;+ setShooter(Tank tank): void&lt;/div&gt;&lt;div&gt;+ setDeadByExplode(): void&lt;/div&gt;&lt;div&gt;+ tankLoseHP(int hp); void&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-25" vertex="1">
-          <mxGeometry y="238" width="420" height="542" as="geometry" />
+          <mxGeometry y="278" width="420" height="542" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-30" value="ConfigManager" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="240" y="80" width="260" height="150" as="geometry" />
@@ -53,7 +53,7 @@
           <mxGeometry y="188" width="440" height="272" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-48" value="GameMap" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="175" y="340" width="330" height="370" as="geometry" />
+          <mxGeometry x="175" y="300" width="330" height="370" as="geometry" />
         </mxCell>
         <mxCell id="UTHU-1M57-vCMUskgQRw-49" value="&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;- BOARD_HEIGHT: int = 20&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;- BOARD_WIDTH: int = 28&lt;/font&gt;&lt;/div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;- board: GameObject[][]&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;- treeX: ArrayList&amp;lt;Integer&amp;gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;- pixels[]: float&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;- tanksList: ArrayList&amp;lt;Tank&amp;gt;&lt;/font&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="UTHU-1M57-vCMUskgQRw-48" vertex="1">
           <mxGeometry y="26" width="330" height="94" as="geometry" />
@@ -65,15 +65,15 @@
           <mxGeometry y="128" width="330" height="242" as="geometry" />
         </mxCell>
         <mxCell id="vv2smBv1t-94EoNuKPWK-23" value="GameObject" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="60" y="780" width="170" height="80" as="geometry" />
+          <mxGeometry x="60" y="740" width="170" height="80" as="geometry" />
         </mxCell>
         <mxCell id="vv2smBv1t-94EoNuKPWK-24" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;# xPos: int&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;# yPos: int&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;# type: String&lt;/font&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=default;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="vv2smBv1t-94EoNuKPWK-23" vertex="1">
           <mxGeometry y="26" width="170" height="54" as="geometry" />
         </mxCell>
         <mxCell id="OTiGFBfn2zHBZvvq7VCK-6" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Extends&lt;/font&gt;" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;fontSize=12;curved=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="UTHU-1M57-vCMUskgQRw-25" target="vv2smBv1t-94EoNuKPWK-23" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="359.5" y="878" as="sourcePoint" />
-            <mxPoint x="359.5" y="818" as="targetPoint" />
+            <mxPoint x="359.5" y="838" as="sourcePoint" />
+            <mxPoint x="359.5" y="778" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="OTiGFBfn2zHBZvvq7VCK-9" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;fontSize=12;startSize=8;endSize=8;" parent="1" edge="1">
@@ -83,12 +83,12 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="MKVSj6SHnjrNCDTzluq0-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;Comparable&lt;/b&gt;&lt;/p&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b&gt;{abstract}&lt;/b&gt;&lt;/div&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ compareTo(Tank otherTank): int&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="420" y="771.25" width="230" height="80" as="geometry" />
+          <mxGeometry x="420" y="725" width="230" height="80" as="geometry" />
         </mxCell>
         <mxCell id="MKVSj6SHnjrNCDTzluq0-3" value="" style="endArrow=block;dashed=1;endFill=0;endSize=12;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="UTHU-1M57-vCMUskgQRw-25" target="MKVSj6SHnjrNCDTzluq0-2" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="360" y="869.5" as="sourcePoint" />
-            <mxPoint x="520" y="869.5" as="targetPoint" />
+            <mxPoint x="360" y="829.5" as="sourcePoint" />
+            <mxPoint x="535" y="811.25" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="MKVSj6SHnjrNCDTzluq0-4" value="Implements" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="MKVSj6SHnjrNCDTzluq0-3" vertex="1" connectable="0">
@@ -144,8 +144,8 @@
         </mxCell>
         <mxCell id="1rz5hR_GpqR-95g6XB6h-8" value="" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=1;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="UTHU-1M57-vCMUskgQRw-48" edge="1">
           <mxGeometry x="-1" y="3" relative="1" as="geometry">
-            <mxPoint x="680" y="1050" as="sourcePoint" />
-            <mxPoint x="340" y="910" as="targetPoint" />
+            <mxPoint x="680" y="1010" as="sourcePoint" />
+            <mxPoint x="340" y="870" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="1rz5hR_GpqR-95g6XB6h-11" value="1" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=0;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="UTHU-1M57-vCMUskgQRw-26" target="UTHU-1M57-vCMUskgQRw-45" edge="1">
@@ -155,7 +155,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="1rz5hR_GpqR-95g6XB6h-21" value="Store" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;labelBackgroundColor=default;" parent="1" vertex="1">
-          <mxGeometry x="290" y="790" width="100" height="20" as="geometry" />
+          <mxGeometry x="290" y="750" width="100" height="20" as="geometry" />
         </mxCell>
         <mxCell id="1rz5hR_GpqR-95g6XB6h-22" value="Create" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;labelBorderColor=none;labelBackgroundColor=default;" parent="1" vertex="1">
           <mxGeometry x="570" y="1130" width="100" height="40" as="geometry" />
@@ -183,7 +183,7 @@
             <mxPoint x="770" y="748.33" as="sourcePoint" />
             <mxPoint x="750" y="280" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="750" y="910" />
+              <mxPoint x="750" y="870" />
               <mxPoint x="750" y="304" />
             </Array>
           </mxGeometry>
@@ -192,7 +192,7 @@
           <mxGeometry x="710" y="480" width="100" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1rz5hR_GpqR-95g6XB6h-31" value="&lt;font style=&quot;font-size: 15px;&quot;&gt;Render + Instantiate&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;labelBackgroundColor=default;" parent="1" vertex="1">
-          <mxGeometry x="310" y="270" width="60" height="40" as="geometry" />
+          <mxGeometry x="320" y="260" width="60" height="40" as="geometry" />
         </mxCell>
         <mxCell id="1rz5hR_GpqR-95g6XB6h-36" value="" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=1;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;rounded=0;entryX=-0.002;entryY=0.235;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="HNsEuWhfUiNUjsveQ-pI-2" edge="1">
           <mxGeometry x="-1" y="3" relative="1" as="geometry">
@@ -237,8 +237,8 @@
         </mxCell>
         <mxCell id="Xi3g8HHwIl5kc9PCzdDJ-2" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="UTHU-1M57-vCMUskgQRw-48" target="vv2smBv1t-94EoNuKPWK-23" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="160" y="740" as="sourcePoint" />
-            <mxPoint x="320" y="740" as="targetPoint" />
+            <mxPoint x="160" y="700" as="sourcePoint" />
+            <mxPoint x="320" y="700" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
