@@ -13,7 +13,7 @@ public class Tank extends GameObject implements Comparable<Tank>{
     private Tank shooter;
     private boolean isAlive = true;
 
-    private int power = 0;
+    private int power = 50;
     private float angle = 0;
     private boolean ult = false;
 
