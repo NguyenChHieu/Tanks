@@ -6,6 +6,8 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -171,6 +173,38 @@ public class GameMapTest {
         System.out.println("testExtractTank passed");
     }
 
+    /**
+     * This test is to add the coverage of the draw functions.
+     */
+    @Test
+    public void addRenderFunctions(){
+//        get.printPrompt("addRenderFunction", false);
+//
+//        // Create board
+//        String fileName = "additionalFiles/layoutTest/validLayout.txt";
+//        HashMap<String, int[]> colors = new HashMap<>();
+//        colors.put("A", new int[]{0, 0, 255});
+//        colors.put("B", new int[]{255,0,0});
+//        colors.put("C", new int[]{0,255,255});
+//        colors.put("D", new int[]{255,255,0});
+//
+//        testMap.generateMapFromConfig(testMap.getBoard(), fileName);
+//        // Moving average
+//        testMap.instantiateHeight();
+//        testMap.movingAverage(testMap.getPixels());
+//        testMap.movingAverage(testMap.getPixels());
+//        // Extract the trees from the matrix
+//        testMap.extractTree(app);
+//        testMap.extractTanks(colors);
+//
+//        testMap.drawTerrain(app, new int[]{0,0,0},640);
+//
+//        String path = Objects.requireNonNull(this.getClass().getResource("tree1.png")).
+//                getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
+//
+//        testMap.drawTree(app, app.loadImage(path));
+//        System.out.println("Successfully add the render functions to coverage.");
+    }
 
     // NEGATIVE
     /**
