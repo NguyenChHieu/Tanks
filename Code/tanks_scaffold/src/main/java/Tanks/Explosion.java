@@ -28,9 +28,9 @@ public class Explosion {
         float animationDuration = 200f;
         float elapsedTime = APP.millis()-startTime;
 
-        float currentRedRadius = Math.min(RADIUS * elapsedTime / animationDuration, RADIUS);
-        float currentOrangeRadius = Math.min(RADIUS * 0.5f * elapsedTime / animationDuration, RADIUS * 0.5f);
-        float currentYellowRadius = Math.min(RADIUS * 0.2f * elapsedTime / animationDuration, RADIUS * 0.2f);
+        float currentRedRadius = RADIUS * elapsedTime / animationDuration;
+        float currentOrangeRadius = RADIUS * 0.5f * elapsedTime / animationDuration;
+        float currentYellowRadius = RADIUS * 0.2f * elapsedTime / animationDuration;
 
         int[] colors = {APP.color(255, 0, 0), APP.color(255, 165, 0), APP.color(255, 255, 0)};
         // If explosion haven't finished, keep drawing
