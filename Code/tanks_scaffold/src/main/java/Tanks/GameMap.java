@@ -43,10 +43,10 @@ public class GameMap {
         try {
             Scanner sc = new Scanner(f);
             int row = 0;
-            while (sc.hasNextLine()){
+            while (sc.hasNextLine() && row < 20){
                 String line = sc.nextLine();
                 int col = 0;
-                for (int i = 0; i < line.length(); i++){
+                for (int i = 0; i < line.length() && col < 28; i++){
                     if (String.valueOf(line.charAt(i)).equals(" ")){
                         map[row][col] = new GameObject(col, row, " ");
                         col++;
