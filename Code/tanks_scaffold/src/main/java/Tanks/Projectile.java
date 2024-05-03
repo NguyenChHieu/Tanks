@@ -108,7 +108,7 @@ public class Projectile {
                 terrainHeight[x] = upperBound;
             }
         }
-        explosionDamage(tanks, EXPLODE_RADIUS);
+        explosionDamage(terrainHeight, tanks, EXPLODE_RADIUS);
         fallDamage(terrainHeight, tanks, EXPLODE_RADIUS);
     }
 
@@ -117,23 +117,27 @@ public class Projectile {
      * @param tanks list of alive tanks
      * @param EXPLODE_RADIUS radius of the explosion
      */
-    private void explosionDamage(List<Tank> tanks, int EXPLODE_RADIUS){
+    private void explosionDamage(float[] terrainHeight, List<Tank> tanks, int EXPLODE_RADIUS){
         for (Tank tank: tanks){
             float distance = (float) Math.sqrt(Math.pow(tank.xPos - xPos, 2) +
                                                 Math.pow(tank.yPos - yPos, 2));
-            // If in range of the explosion
-            if (distance >= 0 && distance <= EXPLODE_RADIUS){
-                int damage = 60 - (int) distance * 60/EXPLODE_RADIUS;
+
+            // If target tank is not dead
+            if (!tank.isDead(terrainHeight[tank.xPos])) {
+                // If in range of the explosion
+                if (distance >= 0 && distance <= EXPLODE_RADIUS) {
+                    int damage = 60 - (int) distance * 60 / EXPLODE_RADIUS;
 
 //                System.out.println(tank.type+ " explode " + damage +" shooter " + shooter.type);
 
-                tank.tankLoseHP(damage);
-                if (tank.getHealth() == 0){
-                    tank.setDeadByExplode();
+                    tank.tankLoseHP(damage);
+                    if (tank.getHealth() == 0) {
+                        tank.setDeadByExplode();
+                    }
+                    // Avoid adding points for self-destruct
+                    if (!Objects.equals(tank.type, SHOOTER.type))
+                        SHOOTER.addPoints(damage);
                 }
-                // Avoid adding points for self-destruct
-                if (!Objects.equals(tank.type, SHOOTER.type))
-                    SHOOTER.addPoints(damage);
             }
         }
     }
@@ -154,22 +158,9 @@ public class Projectile {
             if (left <= tank.xPos && tank.xPos <=right) {
                 // Tank is above the terrain
                 if (tank.yPos < terrainHeight[tank.xPos] - 1) {
-                    // If the tank is dead = explosion, skip
+                    // If target tank is dead, skip
                     if (!tank.isDead(terrainHeight[tank.xPos])) {
-                        // Tank has no parachutes
-                        if (tank.getParachutes() == 0) {
-                            int fallDMG = Math.min((int) (terrainHeight[tank.xPos] - 1 - tank.yPos), tank.getHealth());
-                            tank.tankLoseHP(fallDMG);
-
-//                        System.out.println(tank.type+ " fall "+ fallDMG + " shooter " + shooter.type);
-
-                            // Avoid add points if self-destruct
-                            if (!tank.isDead(terrainHeight[tank.xPos])) {
-                                if (!Objects.equals(tank, SHOOTER)) {
-                                    SHOOTER.addPoints(fallDMG);
-                                }
-                            }
-                        }
+                        tank.setShooter(SHOOTER);
                     }
                 }
             }
@@ -177,7 +168,6 @@ public class Projectile {
     }
 
     // DRAW
-
     /**
      * Draw the projectile's current position.
      * @param app refer to Main

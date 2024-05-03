@@ -43,7 +43,7 @@ public class App extends PApplet {
 
 
     public App() {
-        this.configPath = "configtest.json";
+        this.configPath = "config.json";
     }
 
     /**
@@ -173,8 +173,6 @@ public class App extends PApplet {
                             bullet.explode(currentMap.getPixels(),
                                     correctOrder, 60);
                         }
-                        // UPDATE SCORE
-                        scoreSave.updatePlayerScores(correctOrder);
                     }
                 }
             }
@@ -199,6 +197,10 @@ public class App extends PApplet {
             }
             order.removeIf(tank -> tank.isOutMap() || tank.isDead(currentMap.getPixels()[tank.xPos]));
         }
+
+        // UPDATE SCORE
+        scoreSave.updatePlayerScores(correctOrder);
+
         // Draw explosion
         if (!explosionDraw.isEmpty()) {
             for (Explosion e : explosionDraw) {
@@ -235,7 +237,7 @@ public class App extends PApplet {
                 switchLevels();
             }
         }
-        System.out.println(frameRate);
+//        System.out.println(frameRate);
     }
 
 

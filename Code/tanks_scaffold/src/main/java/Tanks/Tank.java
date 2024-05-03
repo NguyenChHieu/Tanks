@@ -9,9 +9,11 @@ public class Tank extends GameObject implements Comparable<Tank>{
     private int points = 0;
 
     private int health = 100;
+    private int fallDamage = 0;
+    private Tank shooter;
     private boolean isAlive = true;
 
-    private int power = 50;
+    private int power = 0;
     private float angle = 0;
     private boolean ult = false;
 
@@ -248,6 +250,24 @@ public class Tank extends GameObject implements Comparable<Tank>{
         PImage parachute = app.loadImage(parachuteIMG);
         parachute.resize(40, 40);
 
+        // If tank has done falling, start to deduct health and add points
+        if (doneFalling(terrainHeight)){
+            // Initially the shooter has not been set.
+            if (shooter != null){
+                // Points = max health of the dead tank (health too low)
+                int points = Math.min(fallDamage, health);
+                // Avoid self-destruct points
+                if (shooter != this){
+                    shooter.addPoints(points);
+                }
+                tankLoseHP(fallDamage);
+
+                // reset state
+                shooter = null;
+                fallDamage = 0;
+            }
+        }
+
         // Finished falling
         if (deployed && this.yPos >= terrainHeight){
             deployed = false;
@@ -266,6 +286,7 @@ public class Tank extends GameObject implements Comparable<Tank>{
             } else {
                 drawTank(app);
                 this.yPos += 120f/ 30;
+                fallDamage += 4;
             }
         }
     }
@@ -396,9 +417,6 @@ public class Tank extends GameObject implements Comparable<Tank>{
         return points;
     }
 
-    public int getParachutes(){
-        return parachutes;
-    }
 
     /**
      * Return a boolean value indicates
@@ -440,6 +458,10 @@ public class Tank extends GameObject implements Comparable<Tank>{
 
     public void setPoints(int point){
         points = point;
+    }
+
+    public void setShooter(Tank tank){
+        shooter = tank;
     }
 
     public void setDeadByExplode(){
