@@ -173,7 +173,8 @@ public class GameMapTest {
     }
 
     /**
-     * This test is to add the coverage of the draw functions.
+     * This test is to add the coverage of the draw functions
+     * in GameMap including drawTerrain and drawTrees
      */
     @Test
     public void addRenderFunctions(){
@@ -182,8 +183,13 @@ public class GameMapTest {
         // Setup variables
         String path = Objects.requireNonNull(this.getClass().getResource("tree1.png")).
                 getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
+        // Create a new sketch
         App app = new App();
         PApplet.runSketch(new String[] {"App"}, app);
+        // Set to a custom map
+        // This map has a tree with cell-X at index 0, this is to
+        // test whether the image of the tree has been drawn correctly.
+        app.setConfigPath("additionalFiles/testMap.json");
         app.setup();
 
         // Get the instantiated map

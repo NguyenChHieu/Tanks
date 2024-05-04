@@ -15,7 +15,7 @@ public class App extends PApplet {
 
 
     //File attributes
-    private final String configPath;
+    private String configPath;
     private int[] foregroundColor;
     private PImage backgroundPNG;
     private PImage trees;
@@ -43,7 +43,7 @@ public class App extends PApplet {
 
 
     public App() {
-        this.configPath = "config.json";
+        this.configPath = "configtest.json";
     }
 
     /**
@@ -432,7 +432,12 @@ public class App extends PApplet {
         return Objects.requireNonNull(this.getClass().getResource(path)).
                 getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
     }
-
+    public GameMap getCurrentMap(){
+        return currentMap;
+    }
+    public void setConfigPath(String path){
+        this.configPath = path;
+    }
     public static void main(String[] args) {
         PApplet.main("Tanks.App");
     }
