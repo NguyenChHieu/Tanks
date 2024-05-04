@@ -15,8 +15,6 @@ public class GameMapTest {
     // Getting the prompting function in the other class
     private final ConfigManagerTest get = new ConfigManagerTest();
     private final GameMap testMap = new GameMap();
-    private final PApplet app = new PApplet();
-
 
     // POSITIVE
     /**
@@ -132,6 +130,7 @@ public class GameMapTest {
         testMap.movingAverage(testMap.getPixels());
 
         // Set random seed
+        PApplet app = new PApplet();
         app.randomSeed(0);
 
         testMap.extractTree(app);
@@ -178,32 +177,22 @@ public class GameMapTest {
      */
     @Test
     public void addRenderFunctions(){
-//        get.printPrompt("addRenderFunction", false);
-//
-//        // Create board
-//        String fileName = "additionalFiles/layoutTest/validLayout.txt";
-//        HashMap<String, int[]> colors = new HashMap<>();
-//        colors.put("A", new int[]{0, 0, 255});
-//        colors.put("B", new int[]{255,0,0});
-//        colors.put("C", new int[]{0,255,255});
-//        colors.put("D", new int[]{255,255,0});
-//
-//        testMap.generateMapFromConfig(testMap.getBoard(), fileName);
-//        // Moving average
-//        testMap.instantiateHeight();
-//        testMap.movingAverage(testMap.getPixels());
-//        testMap.movingAverage(testMap.getPixels());
-//        // Extract the trees from the matrix
-//        testMap.extractTree(app);
-//        testMap.extractTanks(colors);
-//
-//        testMap.drawTerrain(app, new int[]{0,0,0},640);
-//
-//        String path = Objects.requireNonNull(this.getClass().getResource("tree1.png")).
-//                getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
-//
-//        testMap.drawTree(app, app.loadImage(path));
-//        System.out.println("Successfully add the render functions to coverage.");
+        get.printPrompt("addRenderFunction", false);
+
+        // Setup variables
+        String path = Objects.requireNonNull(this.getClass().getResource("tree1.png")).
+                getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
+        App app = new App();
+        PApplet.runSketch(new String[] {"App"}, app);
+        app.setup();
+
+        // Get the instantiated map
+        GameMap currentMap = app.getCurrentMap();
+
+        currentMap.drawTerrain(app, new int[]{0,0,0},640);
+        currentMap.drawTree(app, app.loadImage(path));
+
+        System.out.println("Successfully add the render functions to coverage.");
     }
 
     // NEGATIVE
