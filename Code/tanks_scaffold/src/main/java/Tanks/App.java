@@ -5,22 +5,24 @@ import processing.core.PImage;
 import processing.event.KeyEvent;
 
 import java.util.*;
-import java.util.List;
 
 public class App extends PApplet {
 
+    public static final int FPS = 30;
     public static int WIDTH = 864; // CELL_SIZE*BOARD_WIDTH;
     public static int HEIGHT = 640; //BOARD_HEIGHT*CELL_SIZE+TOP_BAR;
-    public static final int FPS = 30;
-
-
+    // Gameplay attributes
+    private final int INITIAL_PARACHUTES = 3;
+    private final List<Tank> correctOrder = new ArrayList<>();
+    private final List<Tank> order = new ArrayList<>();
+    private final List<Projectile> active = new ArrayList<>();
+    private final List<Explosion> explosionDraw = new ArrayList<>();
+    private final List<Integer> saveParachutes = new ArrayList<>();
     //File attributes
     private String configPath;
     private int[] foregroundColor;
     private PImage backgroundPNG;
     private PImage trees;
-
-
     // Level attributes
     private GameMap currentMap;
     private ConfigManager manager;
@@ -28,22 +30,17 @@ public class App extends PApplet {
     private long delaySwitch = 0;
     private boolean currentlyDelayedLevel = false;
     private boolean isEndGame = false;
-
-
-    // Gameplay attributes
-    private final int INITIAL_PARACHUTES = 3;
     private PlayerScores scoreSave;
-    private final List<Tank> correctOrder = new ArrayList<>();
-    private final List<Tank> order = new ArrayList<>();
-    private final List<Projectile> active = new ArrayList<>();
-    private final List<Explosion> explosionDraw = new ArrayList<>();
-    private final List<Integer> saveParachutes = new ArrayList<>();
     private boolean showArrow = true;
     private int arrStartTime = millis();
 
 
     public App() {
         this.configPath = "config.json";
+    }
+
+    public static void main(String[] args) {
+        PApplet.main("Tanks.App");
     }
 
     /**
@@ -86,31 +83,9 @@ public class App extends PApplet {
         if (!isEndGame) {
             Tank currentTank = order.get(0);
             if (key == ' ') {
-                if (levelEnds(order)) {
-                    // If game has 1 tank left, user click space, switch
-                    if (!currentlyDelayedLevel)
-                        currentlyDelayedLevel = true;
-                } else {
-                    // Add a projectile to current active proj ls.
-                    active.add(currentTank.shoot());
-                    // Then switch turns.
-                    switchTurns();
-                    // New wind
-                    Projectile.windChange();
-                    // Redisplay the arrow
-                    showArrow = true;
-                    arrStartTime = millis();
-                }
+                handleSpaceKeyPressed(currentTank);
             } else if (key == LEFT || key == RIGHT) {
-                // Only allow to move when the tank's done falling
-                if (currentTank.doneFalling(currentMap.getPixels()[currentTank.xPos])) {
-                    if (currentTank.getFuelLevel() > 0) {
-                        currentTank.move(key, WIDTH, FPS, 60);
-                        // Update tank's y position
-                        currentTank.yPos = currentMap.getPixels()[currentTank.xPos];
-                        currentTank.useFuel();
-                    }
-                }
+                handleLeftRightKeyPressed(currentTank, key);
             } else if (key == 'W' || key == 'S') {
                 currentTank.updatePower(key);
             } else if (key == UP || key == DOWN) {
@@ -125,14 +100,47 @@ public class App extends PApplet {
                 currentTank.ultimate();
             }
         } else {
-            if (key == 'R') {
-                resetGameAttributes(true);
-                saveParachutes.clear();
-                setupFirstLevel();
-                setUpParachutes(true);
-                scoreSave = new PlayerScores(correctOrder);
-                isEndGame = false;
+            handleEndGameEvents(key);
+        }
+    }
+
+    private void handleEndGameEvents(int key) {
+        if (key == 'R') {
+            resetGameAttributes(true);
+            saveParachutes.clear();
+            setupFirstLevel();
+            setUpParachutes(true);
+            scoreSave = new PlayerScores(correctOrder);
+            isEndGame = false;
+        }
+    }
+
+    private void handleLeftRightKeyPressed(Tank currentTank, int key) {
+        // Only allow to move when the tank's done falling
+        if (currentTank.doneFalling(currentMap.getPixels()[currentTank.xPos])) {
+            if (currentTank.getFuelLevel() > 0) {
+                currentTank.move(key, WIDTH, FPS, 60);
+                // Update tank's y position
+                currentTank.yPos = currentMap.getPixels()[currentTank.xPos];
+                currentTank.useFuel();
             }
+        }
+    }
+
+    private void handleSpaceKeyPressed(Tank currentTank) {
+        if (levelEnds(order)) {
+            // If game has 1 tank left, user click space, switch
+            if (!currentlyDelayedLevel) currentlyDelayedLevel = true;
+        } else {
+            // Add a projectile to current active proj ls.
+            active.add(currentTank.shoot());
+            // Then switch turns.
+            switchTurns();
+            // New wind
+            Projectile.windChange();
+            // Redisplay the arrow
+            showArrow = true;
+            arrStartTime = millis();
         }
     }
 
@@ -143,81 +151,29 @@ public class App extends PApplet {
     public void draw() {
         // Reset background every frame (clean old drawings)
         background(backgroundPNG);
-        // Draw terrain & trees
-        currentMap.drawTerrain(this, foregroundColor, HEIGHT);
-        currentMap.drawTree(this, trees);
+        drawTerrainAndTrees();
 
         if (!order.isEmpty()) {
-            // Draw tanks & their turrets
-            for (Tank tank : order) {
-                tank.drawTank(this);
-                tank.drawTurret(this);
-            }
+            drawTanksAndTurrets();
         }
         // Add active projectiles for drawing - delete them after finished
         if (!active.isEmpty()) {
-            for (Projectile bullet : active) {
-                // Bullet gone out of the map
-                if (!bullet.outMap()) {
-                    // If bullet hasn't collided with the terrain, update it
-                    if (!bullet.collide(currentMap.getPixels())) {
-                        bullet.update();
-                        bullet.drawProjectile(this);
-                        // else check for type of explosion.
-                    } else {
-                        if (!bullet.isPoweredUp()) {
-                            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 30));
-                            bullet.explode(currentMap.getPixels(),
-                                    correctOrder, 30);
-                        } else {
-                            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 60));
-                            bullet.explode(currentMap.getPixels(),
-                                    correctOrder, 60);
-                        }
-                    }
-                }
-            }
-            // Remove the bullets that had exploded
-            active.removeIf(proj -> proj.isExplode() || proj.isOut());
+            drawProjectiles();
         }
         //  Draw tank fall
         if (!order.isEmpty()) {
-            for (Tank tank : order) {
-                tank.drawTankFall(this,
-                        getPathToImage("parachute.png"),
-                        currentMap.getPixels()[tank.xPos]);
-            }
-
+            drawTankFall();
             // Remove dead tanks/ tanks fall to death.
-            for (Tank tank : order) {
-                if (tank.isDead(currentMap.getPixels()[tank.xPos])) {
-                    explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 15));
-                } else if (tank.isOutMap()) {
-                    explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 30));
-                }
-            }
+            handleTankCollisions();
             order.removeIf(tank -> tank.isOutMap() || tank.isDead(currentMap.getPixels()[tank.xPos]));
         }
 
         // UPDATE SCORE
         scoreSave.updatePlayerScores(correctOrder);
 
-        // Draw explosion
-        if (!explosionDraw.isEmpty()) {
-            for (Explosion e : explosionDraw) {
-                e.drawExplosion();
-            }
-            explosionDraw.removeIf(Explosion::getFinishedExplode);
-        }
-        //Display HUD
+        drawExplosion();
         drawHUD();
-
-        // Indicate current player
-        if (showArrow && millis() - arrStartTime < 2000) {
-            if (!order.isEmpty()) {
-                drawArrow(order.get(0).xPos, order.get(0).yPos - 100);
-            }
-        } else showArrow = false;
+        drawCurrentPlayerArrow();
 
         //Display scoreboard
         if (!isEndGame) {
@@ -225,6 +181,11 @@ public class App extends PApplet {
         }
 
         // Check if the level ends, if ends then start the timer.
+        handleLevelSwitch();
+//        System.out.println(frameRate);
+    }
+
+    private void handleLevelSwitch() {
         if (levelEnds(order)) {
             if (delaySwitch == 0) {
                 delaySwitch = millis();
@@ -237,11 +198,83 @@ public class App extends PApplet {
                 switchLevels();
             }
         }
-//        System.out.println(frameRate);
+    }
+
+    private void drawCurrentPlayerArrow() {
+        if (showArrow && millis() - arrStartTime < 2000) {
+            if (!order.isEmpty()) {
+                drawArrow(order.get(0).xPos, order.get(0).yPos - 100);
+            }
+        } else showArrow = false;
+    }
+
+    private void drawExplosion() {
+        if (!explosionDraw.isEmpty()) {
+            for (Explosion e : explosionDraw) {
+                e.drawExplosion();
+            }
+            explosionDraw.removeIf(Explosion::getFinishedExplode);
+        }
+    }
+
+    private void handleTankCollisions() {
+        for (Tank tank : order) {
+            if (tank.isDead(currentMap.getPixels()[tank.xPos])) {
+                explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 15));
+            } else if (tank.isOutMap()) {
+                explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 30));
+            }
+        }
+    }
+
+    private void drawTankFall() {
+        for (Tank tank : order) {
+            tank.drawTankFall(this, getPathToImage("parachute.png"), currentMap.getPixels()[tank.xPos]);
+        }
+    }
+
+    private void drawProjectiles() {
+        for (Projectile bullet : active) {
+            // Bullet gone out of the map
+            if (!bullet.outMap()) {
+                // If bullet hasn't collided with the terrain, update it
+                if (!bullet.collide(currentMap.getPixels())) {
+                    bullet.update();
+                    bullet.drawProjectile(this);
+                    // else check for type of explosion.
+                } else {
+                    handleProjectileCollisions(bullet);
+                }
+            }
+        }
+        // Remove the bullets that had exploded
+        active.removeIf(proj -> proj.isExplode() || proj.isOut());
+    }
+
+    private void handleProjectileCollisions(Projectile bullet) {
+        if (!bullet.isPoweredUp()) {
+            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 30));
+            bullet.explode(currentMap.getPixels(), correctOrder, 30);
+        } else {
+            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 60));
+            bullet.explode(currentMap.getPixels(), correctOrder, 60);
+        }
+    }
+
+    private void drawTanksAndTurrets() {
+        for (Tank tank : order) {
+            tank.drawTank(this);
+            tank.drawTurret(this);
+        }
     }
 
 
     // DRAW GAME METHODS
+
+    private void drawTerrainAndTrees() {
+        currentMap.drawTerrain(this, foregroundColor, HEIGHT);
+        currentMap.drawTree(this, trees);
+    }
 
     /**
      * Draw different parts of the HUD, indicates the
@@ -274,12 +307,12 @@ public class App extends PApplet {
             current.drawUlt(this);
         }
         // Wind
-        Projectile.drawWind(this,
-                getPathToImage("wind.png"),
-                getPathToImage("wind-1.png"));
+        Projectile.drawWind(this, getPathToImage("wind.png"), getPathToImage("wind-1.png"));
         // Player's parachute
         current.drawParachute(this, getPathToImage("parachute.png"));
     }
+
+    // SWITCH
 
     /**
      * Draw the arrow indicates the current player
@@ -298,8 +331,6 @@ public class App extends PApplet {
 
         strokeWeight(1); // Reset to normal
     }
-
-    // SWITCH
 
     /**
      * Check if the number of alive tanks
@@ -321,6 +352,9 @@ public class App extends PApplet {
         Tank before = order.remove(0);
         order.add(before);
     }
+
+
+    // SETUP METHODS
 
     /**
      * Function for switching levels after there's less
@@ -357,9 +391,6 @@ public class App extends PApplet {
             scoreSave.drawFinal(this);
         }
     }
-
-
-    // SETUP METHODS
 
     /**
      * Set up the level and parse game data into objects,
@@ -443,15 +474,14 @@ public class App extends PApplet {
 
     }
 
-    private void extractParachutes(List<Tank> list){
-        for (Tank tank: list){
+    private void extractParachutes(List<Tank> list) {
+        for (Tank tank : list) {
             saveParachutes.add(tank.getParachutes());
         }
     }
 
     private String getPathToImage(String path) {
-        return Objects.requireNonNull(this.getClass().getResource(path)).
-                getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
+        return Objects.requireNonNull(this.getClass().getResource(path)).getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
     }
 
     public List<Tank> getTanksAlive() {
@@ -459,13 +489,12 @@ public class App extends PApplet {
     }
 
     private void setUpParachutes(boolean newGame) {
-        if (!newGame){
-            for (int i = 0; i < correctOrder.size(); i++){
+        if (!newGame) {
+            for (int i = 0; i < correctOrder.size(); i++) {
                 correctOrder.get(i).setParachutes(saveParachutes.get(i));
             }
-        }
-        else {
-            for (Tank tank: correctOrder){
+        } else {
+            for (Tank tank : correctOrder) {
                 tank.setParachutes(INITIAL_PARACHUTES);
             }
         }
@@ -473,9 +502,5 @@ public class App extends PApplet {
 
     public void setConfigPath(String path) {
         this.configPath = path;
-    }
-
-    public static void main(String[] args) {
-        PApplet.main("Tanks.App");
     }
 }
