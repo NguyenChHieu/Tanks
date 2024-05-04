@@ -1,13 +1,13 @@
 {
   "levels": [
     {
-      "layout": "leveltest.txt",
+      "layout": "additionalFiles/levels/leveltest.txt",
       "background": "snow.png",
       "foreground-colour": "255,255,255",
       "trees": "tree2.png"
     },
     {
-      "layout": "leveltest2.txt",
+      "layout": "additionalFiles/levels/leveltest2.txt",
       "background": "snow.png",
       "foreground-colour": "255,255,255",
       "trees": "tree2.png"
