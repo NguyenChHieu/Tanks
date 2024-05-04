@@ -10,7 +10,7 @@ public class Explosion {
     private float startTime = 0;
     private boolean finishedExplode = false;
 
-    public Explosion (PApplet app, float xPos, float yPos, int radius){
+    public Explosion(PApplet app, float xPos, float yPos, int radius) {
         this.APP = app;
         this.xPos = xPos;
         this.yPos = yPos;
@@ -20,13 +20,13 @@ public class Explosion {
     /**
      * Draw the explosion with specified radius.
      */
-    public void drawExplosion(){
+    public void drawExplosion() {
         // Set start time
-        if (startTime == 0){
+        if (startTime == 0) {
             startTime = APP.millis();
         }
         float animationDuration = 200f;
-        float elapsedTime = APP.millis()-startTime;
+        float elapsedTime = APP.millis() - startTime;
 
         float currentRedRadius = RADIUS * elapsedTime / animationDuration;
         float currentOrangeRadius = RADIUS * 0.5f * elapsedTime / animationDuration;
@@ -52,7 +52,7 @@ public class Explosion {
         }
     }
 
-    public boolean getFinishedExplode(){
+    public boolean getFinishedExplode() {
         return finishedExplode;
     }
 }
