@@ -90,14 +90,15 @@ public class PlayerScores {
 
         // Upper rect
         app.strokeWeight(4);
-        // Fill salmon
-        app.fill(250, 128, 114);
+        // Fill player color transparently
+        app.fill(winnerColor[0], winnerColor[1], winnerColor[2], 80);
         app.rect(280, 140, 350, 35);
         app.fill(0);
         app.text("Final Scores", 300, 145);
 
         // Lower rect
-        app.fill(250, 128, 114);
+        // Fill player color transparently
+        app.fill(winnerColor[0], winnerColor[1], winnerColor[2], 80);
         app.rect(280, 175, 350, 40 * numberOfPlayers);
 
         // Draw the players after the delay animation in timerFinal()
