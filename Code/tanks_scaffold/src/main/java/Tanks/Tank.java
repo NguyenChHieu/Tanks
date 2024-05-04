@@ -472,7 +472,6 @@ public class Tank extends GameObject implements Comparable<Tank>{
         isAlive = false;
     }
 
-
     /**
      * Decrease tank's health, the health is limit at 0
      * to avoid the health gets to negative.

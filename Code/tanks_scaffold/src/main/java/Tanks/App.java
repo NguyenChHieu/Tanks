@@ -432,6 +432,9 @@ public class App extends PApplet {
         return Objects.requireNonNull(this.getClass().getResource(path)).
                 getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
     }
+    public List<Tank> getTanksAlive(){
+        return order;
+    }
     public void setConfigPath(String path){
         this.configPath = path;
     }
