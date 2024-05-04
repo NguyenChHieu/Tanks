@@ -11,12 +11,12 @@ public class TankTest {
     private final ConfigManagerTest get = new ConfigManagerTest();
 
     /**
-     * Tests the move() method and check if the tank
-     * moves correctly and consume fuel as expected.
+     * Tests the move(), useFuel() method and check
+     * if the tank moves correctly and consume fuel as expected.
      */
     @Test
     public void testTankMovement(){
-        get.printPrompt("testTankMovement", true);
+        get.printPrompt("testTankMovement", false);
 
         App app = new App();
         app.loop();
@@ -39,6 +39,68 @@ public class TankTest {
         assertEquals(128, testTank.xPos, "Incorrect ROC for tank speed.");
         assertEquals(210, testTank.getFuelLevel(), "Incorrect fuel level.");
         System.out.println("testTankMovement passed");
+    }
+
+    /**
+     * Tests the updatePower() method and check if
+     * the power attribute of the corresponding tank
+     * is updated correctly.
+     */
+    @Test
+    public void testTankPower() {
+        get.printPrompt("testTankPower", false);
+
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[]{"App"}, app);
+        app.setConfigPath("additionalFiles/testMap.json");
+        app.setup();
+        // Setup delay
+        app.delay(1000);
+
+        // Increase power to 100
+        for (int i = 0; i < 50; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, 'W', 87));
+        }
+        // Decrease power to 0
+        for (int i = 0; i < 100; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, 'S', 83));
+        }
+
+        Tank testTank = app.getTanksAlive().get(0);
+        assertEquals(0, testTank.getPower(), "Incorrect ROC for tank power.");
+        System.out.println("testTankPower passed");
+    }
+
+    /**
+     * Tests the updateAngle() method and check if
+     * the angle attribute of the corresponding tank
+     * is updated correctly.
+     */
+    @Test
+    public void testTankAngle(){
+        get.printPrompt("testTankAngle", false);
+
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[]{"App"}, app);
+        app.setConfigPath("additionalFiles/testMap.json");
+        app.setup();
+        // Setup delay
+        app.delay(1000);
+
+        // Increase angle to max
+        for (int i = 0; i < 30; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+        }
+        // Increase angle to min
+        for (int i = 0; i < 60; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
+        }
+
+        Tank testTank = app.getTanksAlive().get(0);
+        assertEquals(-app.PI/2, testTank.getAngle(), "Incorrect ROC for tank angle.");
+        System.out.println("testTankAngle passed");
     }
 
 }

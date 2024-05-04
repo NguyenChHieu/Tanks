@@ -416,6 +416,9 @@ public class Tank extends GameObject implements Comparable<Tank>{
     public int getPoints(){
         return points;
     }
+    public int getPower(){
+        return power;
+    }
 
 
     /**
