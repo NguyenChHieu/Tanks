@@ -299,8 +299,8 @@ public class Tank extends GameObject implements Comparable<Tank> {
             }
         }
     }
-    // HUD
 
+    // HUD
     /**
      * Draw tank's ult status (if available).
      * Located next to the fuel level.

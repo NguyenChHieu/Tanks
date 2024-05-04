@@ -70,6 +70,7 @@ public class App extends PApplet {
         scoreSave = new PlayerScores(correctOrder);
     }
 
+
     /**
      * Check for any key events and performs
      * the corresponding function.
@@ -144,6 +145,9 @@ public class App extends PApplet {
         }
     }
 
+
+    // DRAW GAME METHODS
+
     /**
      * Draw all elements in the game by current frame.
      */
@@ -185,54 +189,28 @@ public class App extends PApplet {
 //        System.out.println(frameRate);
     }
 
-    private void handleLevelSwitch() {
-        if (levelEnds(order)) {
-            if (delaySwitch == 0) {
-                delaySwitch = millis();
-            }
-            if (millis() - delaySwitch >= 1000) {
-                currentlyDelayedLevel = true;
-            }
-            // Check for both 1s elapsed or user pressed Space
-            if (currentlyDelayedLevel) {
-                switchLevels();
-            }
-        }
+    /**
+     * Draws the terrain and trees on the game screen.
+     */
+    private void drawTerrainAndTrees() {
+        currentMap.drawTerrain(this, foregroundColor, HEIGHT);
+        currentMap.drawTree(this, trees);
     }
 
-    private void drawCurrentPlayerArrow() {
-        if (showArrow && millis() - arrStartTime < 2000) {
-            if (!order.isEmpty()) {
-                drawArrow(order.get(0).xPos, order.get(0).yPos - 100);
-            }
-        } else showArrow = false;
-    }
-
-    private void drawExplosion() {
-        if (!explosionDraw.isEmpty()) {
-            for (Explosion e : explosionDraw) {
-                e.drawExplosion();
-            }
-            explosionDraw.removeIf(Explosion::getFinishedExplode);
-        }
-    }
-
-    private void handleTankCollisions() {
+    /**
+     * Draws all tanks and their turrets on the game screen.
+     */
+    private void drawTanksAndTurrets() {
         for (Tank tank : order) {
-            if (tank.isDead(currentMap.getPixels()[tank.xPos])) {
-                explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 15));
-            } else if (tank.isOutMap()) {
-                explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 30));
-            }
+            tank.drawTank(this);
+            tank.drawTurret(this);
         }
     }
 
-    private void drawTankFall() {
-        for (Tank tank : order) {
-            tank.drawTankFall(this, getPathToImage("parachute.png"), currentMap.getPixels()[tank.xPos]);
-        }
-    }
-
+    /**
+     * Draws all active projectiles on the game screen.
+     * Handles projectile collisions with terrain and explosions.
+     */
     private void drawProjectiles() {
         for (Projectile bullet : active) {
             // Bullet gone out of the map
@@ -251,29 +229,55 @@ public class App extends PApplet {
         active.removeIf(proj -> proj.isExplode() || proj.isOut());
     }
 
-    private void handleProjectileCollisions(Projectile bullet) {
-        if (!bullet.isPoweredUp()) {
-            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 30));
-            bullet.explode(currentMap.getPixels(), correctOrder, 30);
-        } else {
-            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 60));
-            bullet.explode(currentMap.getPixels(), correctOrder, 60);
+    /**
+     * Draws explosion effects on the game screen.
+     */
+    private void drawExplosion() {
+        if (!explosionDraw.isEmpty()) {
+            for (Explosion e : explosionDraw) {
+                e.drawExplosion();
+            }
+            explosionDraw.removeIf(Explosion::getFinishedExplode);
         }
     }
 
-    private void drawTanksAndTurrets() {
+    /**
+     * Draws tanks falling with parachutes on the game screen.
+     */
+    private void drawTankFall() {
         for (Tank tank : order) {
-            tank.drawTank(this);
-            tank.drawTurret(this);
+            tank.drawTankFall(this, getPathToImage("parachute.png"), currentMap.getPixels()[tank.xPos]);
         }
     }
 
+    /**
+     * Sketch the arrow indicates the current player
+     *
+     * @param x current player's tank X position
+     * @param y current player's tank Y position
+     */
+    private void arrowFormula(int x, float y) {
+        strokeWeight(4); // Bold line
+        // body
+        line(x, y - 25, x, y + 50);
 
-    // DRAW GAME METHODS
+        // head
+        line(x - 15, y + 25, x, y + 50); // left
+        line(x, y + 50, x + 15, y + 25); //right
 
-    private void drawTerrainAndTrees() {
-        currentMap.drawTerrain(this, foregroundColor, HEIGHT);
-        currentMap.drawTree(this, trees);
+        strokeWeight(1); // Reset to normal
+    }
+
+    /**
+     * Draws an arrow indicating the current player's turn on the game screen.
+     * The arrow is displayed for a limited time after the player's turn starts.
+     */
+    private void drawCurrentPlayerArrow() {
+        if (showArrow && millis() - arrStartTime < 2000) {
+            if (!order.isEmpty()) {
+                arrowFormula(order.get(0).xPos, order.get(0).yPos - 100);
+            }
+        } else showArrow = false;
     }
 
     /**
@@ -312,25 +316,56 @@ public class App extends PApplet {
         current.drawParachute(this, getPathToImage("parachute.png"));
     }
 
-    // SWITCH
+    /**
+     * Handles the switching of levels based on game conditions.
+     * Checks if the current level ends and initiates the switch to the next level.
+     */
+    private void handleLevelSwitch() {
+        if (levelEnds(order)) {
+            if (delaySwitch == 0) {
+                delaySwitch = millis();
+            }
+            if (millis() - delaySwitch >= 1000) {
+                currentlyDelayedLevel = true;
+            }
+            // Check for both 1s elapsed or user pressed Space
+            if (currentlyDelayedLevel) {
+                switchLevels();
+            }
+        }
+    }
 
     /**
-     * Draw the arrow indicates the current player
-     *
-     * @param x current player's tank X position
-     * @param y current player's tank Y position
+     * Handles collisions between tanks and the game environment.
+     * Detects tanks that are destroyed or fall out of the map boundaries.
      */
-    private void drawArrow(int x, float y) {
-        strokeWeight(4); // Bold line
-        // body
-        line(x, y - 25, x, y + 50);
-
-        // head
-        line(x - 15, y + 25, x, y + 50); // left
-        line(x, y + 50, x + 15, y + 25); //right
-
-        strokeWeight(1); // Reset to normal
+    private void handleTankCollisions() {
+        for (Tank tank : order) {
+            if (tank.isDead(currentMap.getPixels()[tank.xPos])) {
+                explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 15));
+            } else if (tank.isOutMap()) {
+                explosionDraw.add(new Explosion(this, tank.xPos, tank.yPos, 30));
+            }
+        }
     }
+
+    /**
+     * Handles collisions between projectiles and game objects.
+     * Determines the type of explosion based on the projectile's attributes.
+     *
+     * @param bullet The projectile involved in the collision.
+     */
+    private void handleProjectileCollisions(Projectile bullet) {
+        if (!bullet.isPoweredUp()) {
+            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 30));
+            bullet.explode(currentMap.getPixels(), correctOrder, 30);
+        } else {
+            explosionDraw.add(new Explosion(this, bullet.getXPos(), bullet.getYPos(), 60));
+            bullet.explode(currentMap.getPixels(), correctOrder, 60);
+        }
+    }
+
+    // SWITCH
 
     /**
      * Check if the number of alive tanks
@@ -352,9 +387,6 @@ public class App extends PApplet {
         Tank before = order.remove(0);
         order.add(before);
     }
-
-
-    // SETUP METHODS
 
     /**
      * Function for switching levels after there's less
@@ -391,6 +423,9 @@ public class App extends PApplet {
             scoreSave.drawFinal(this);
         }
     }
+
+
+    // SETUP METHODS
 
     /**
      * Set up the level and parse game data into objects,
@@ -474,20 +509,22 @@ public class App extends PApplet {
 
     }
 
+    /**
+     * Extracts the number of parachutes each tank has and stores them for later use.
+     *
+     * @param list The list of tanks from which to extract parachute counts.
+     */
     private void extractParachutes(List<Tank> list) {
         for (Tank tank : list) {
             saveParachutes.add(tank.getParachutes());
         }
     }
 
-    private String getPathToImage(String path) {
-        return Objects.requireNonNull(this.getClass().getResource(path)).getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
-    }
-
-    public List<Tank> getTanksAlive() {
-        return order;
-    }
-
+    /**
+     * Sets up parachutes for tanks either in a new game or after switching levels.
+     *
+     * @param newGame Indicates whether this is a new game or not.
+     */
     private void setUpParachutes(boolean newGame) {
         if (!newGame) {
             for (int i = 0; i < correctOrder.size(); i++) {
@@ -502,5 +539,13 @@ public class App extends PApplet {
 
     public void setConfigPath(String path) {
         this.configPath = path;
+    }
+
+    private String getPathToImage(String path) {
+        return Objects.requireNonNull(this.getClass().getResource(path)).getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
+    }
+
+    public List<Tank> getTanksAlive() {
+        return order;
     }
 }
