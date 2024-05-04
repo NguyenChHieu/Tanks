@@ -1,4 +1,5 @@
 package Tanks;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -6,17 +7,23 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+
 public class ConfigManager {
     private final List<Level> LEVELS;
     private final HashMap<String, int[]> PLAYER_COLORS;
 
-    /** Creates a ConfigManager object.
-     * @param levels List contain level objects.
+    /**
+     * Creates a ConfigManager object.
+     *
+     * @param levels        List contain level objects.
      * @param playerColours HashMap contains "player tag - color" pairs.
      */
     public ConfigManager(List<Level> levels,
-                         HashMap<String, int[]> playerColours){
+                         HashMap<String, int[]> playerColours) {
         this.LEVELS = levels;
         this.PLAYER_COLORS = playerColours;
     }
@@ -24,10 +31,11 @@ public class ConfigManager {
     /**
      * Parse the JSON content into the ConfigManager object,
      * consisting a level's attributes and Player x AI tank colors
+     *
      * @param configFileName Configuration file name.
      * @return ConfigManager object
      */
-    public static ConfigManager loadConfig(String configFileName){
+    public static ConfigManager loadConfig(String configFileName) {
         Random rand = new Random();
         File file = new File(configFileName);
 
@@ -37,21 +45,20 @@ public class ConfigManager {
 
             // Check if the JSON file is in valid format
             JSONObject config;
-            try{
+            try {
                 new JSONObject(content);
-            }
-            catch (JSONException e){
+            } catch (JSONException e) {
                 System.out.println("Invalid JSON format: " + e.getMessage());
                 return null;
             }
             // Create the JSON object
             config = getJSONObject(content);
-            if (config == null){
+            if (config == null) {
                 return null;
             }
 
             // Get the items specified in JSON file
-            JSONArray levelsArray =  config.getJSONArray("levels");
+            JSONArray levelsArray = config.getJSONArray("levels");
             JSONObject playerColoursObj = config.getJSONObject("player_colours");
 
             // Create a list to hold extracted items.
@@ -59,7 +66,7 @@ public class ConfigManager {
             HashMap<String, int[]> playerColours = new HashMap<>();
 
             // Get the level's attributes and match it to the level object
-            for (Object level : levelsArray){
+            for (Object level : levelsArray) {
                 JSONObject levelObj = (JSONObject) level;
                 String layoutFile = (String) levelObj.get("layout");
                 String background = (String) levelObj.get("background");
@@ -68,21 +75,20 @@ public class ConfigManager {
                 levels.add(new Level(layoutFile, background, foregroundColour, trees));
             }
             // Get the player color - RGB pairs
-            for (String player: playerColoursObj.keySet()){
+            for (String player : playerColoursObj.keySet()) {
 
                 // Parse the RGB into int[]
                 int[] rgbExtracted = new int[3];
                 String str = playerColoursObj.get(player).toString();
 
                 // Randomize colors
-                if (str.equals("random")){
+                if (str.equals("random")) {
                     rgbExtracted[0] = rand.nextInt(256); // Red component (0-255)
                     rgbExtracted[1] = rand.nextInt(256); // Green component (0-255)
                     rgbExtracted[2] = rand.nextInt(256);
-                }
-                else{
+                } else {
                     String[] rgb = str.split(",");
-                    for (int i = 0; i < 3; i++){
+                    for (int i = 0; i < 3; i++) {
                         rgbExtracted[i] = Integer.parseInt(rgb[i]);
                     }
                 }
@@ -91,8 +97,7 @@ public class ConfigManager {
             }
 
             return new ConfigManager(levels, playerColours);
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Unable to read file.");
             return null;
         }
@@ -101,6 +106,7 @@ public class ConfigManager {
     /**
      * Check validity of the JSON file. Verifies that a
      * JSON file must have levels and player_colours key.
+     *
      * @param content JSON file content
      * @return JSON file content
      */
@@ -122,14 +128,19 @@ public class ConfigManager {
 
 
     // GETTERS
-    /** Gets level list.
+
+    /**
+     * Gets level list.
+     *
      * @return list contain levels in JSON file.
      */
     public List<Level> getLevels() {
         return LEVELS;
     }
 
-    /** Gets player colours.
+    /**
+     * Gets player colours.
+     *
      * @return HashMap contains "player tag - RGB" pairs.
      */
     public HashMap<String, int[]> getPlayerColours() {
