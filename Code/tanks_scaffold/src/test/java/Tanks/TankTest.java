@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TankTest {
     // Get prompt in other class
@@ -15,24 +15,24 @@ public class TankTest {
      * if the tank moves correctly and consume fuel as expected.
      */
     @Test
-    public void testTankMovement(){
+    public void testTankMovement() {
         get.printPrompt("testTankMovement", false);
 
         App app = new App();
         app.loop();
-        PApplet.runSketch(new String[] {"App"}, app);
+        PApplet.runSketch(new String[]{"App"}, app);
         app.setConfigPath("additionalFiles/testMap.json");
         app.setup();
         // Setup delay
         app.delay(1000);
 
         // Move right +2 * 10
-        for (int i = 0; i < 10; i++){
-            app.keyPressed(new KeyEvent(null, 0, 0 ,0, ' ', 39));
+        for (int i = 0; i < 10; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
         }
         // Move left -2 * 10
-        for (int i = 0; i < 10; i++){
-            app.keyPressed(new KeyEvent(null, 0, 0 ,0, ' ', 37));
+        for (int i = 0; i < 10; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 37));
         }
 
         Tank testTank = app.getTanksAlive().get(0);
@@ -78,7 +78,7 @@ public class TankTest {
      * is updated correctly.
      */
     @Test
-    public void testTankAngle(){
+    public void testTankAngle() {
         get.printPrompt("testTankAngle", false);
 
         App app = new App();
@@ -99,7 +99,7 @@ public class TankTest {
         }
 
         Tank testTank = app.getTanksAlive().get(0);
-        assertEquals(-app.PI/2, testTank.getAngle(), "Incorrect ROC for tank angle.");
+        assertEquals(-app.PI / 2, testTank.getAngle(), "Incorrect ROC for tank angle.");
         System.out.println("testTankAngle passed");
     }
 
