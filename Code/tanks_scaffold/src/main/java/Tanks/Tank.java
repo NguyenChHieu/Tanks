@@ -17,7 +17,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
     private float angle = 0;
     private boolean ult = false;
 
-    private int parachutes = 1;
+    private int parachutes;
     private boolean parachuteFall;
     private boolean deployed;
 
@@ -429,6 +429,14 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     public boolean getUltStatus() {
         return ult;
+    }
+
+    public int getParachutes(){
+        return parachutes;
+    }
+
+    public void setParachutes(int number){
+        parachutes = number;
     }
 
     public int getPoints() {

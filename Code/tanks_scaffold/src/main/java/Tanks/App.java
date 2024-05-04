@@ -31,17 +31,19 @@ public class App extends PApplet {
 
 
     // Gameplay attributes
+    private final int INITIAL_PARACHUTES = 3;
     private PlayerScores scoreSave;
     private final List<Tank> correctOrder = new ArrayList<>();
     private final List<Tank> order = new ArrayList<>();
     private final List<Projectile> active = new ArrayList<>();
     private final List<Explosion> explosionDraw = new ArrayList<>();
+    private final List<Integer> saveParachutes = new ArrayList<>();
     private boolean showArrow = true;
     private int arrStartTime = millis();
 
 
     public App() {
-        this.configPath = "additionalFiles/configtest.json";
+        this.configPath = "config.json";
     }
 
     /**
@@ -67,8 +69,7 @@ public class App extends PApplet {
         }
         // Setup first level
         setupFirstLevel();
-
-        // ONLY CREATE THE PLAYER SCORE ONCE
+        setUpParachutes(true);
         scoreSave = new PlayerScores(correctOrder);
     }
 
@@ -126,7 +127,9 @@ public class App extends PApplet {
         } else {
             if (key == 'R') {
                 resetGameAttributes(true);
+                saveParachutes.clear();
                 setupFirstLevel();
+                setUpParachutes(true);
                 scoreSave = new PlayerScores(correctOrder);
                 isEndGame = false;
             }
@@ -330,10 +333,16 @@ public class App extends PApplet {
         List<Level> levels = manager.getLevels();
 
         if (currentLevelIndex < levels.size()) {
+            extractParachutes(correctOrder);
             // Clear the current objects
             resetGameAttributes(false);
 
             setupFirstLevel();
+
+            // Update the parachutes from last level
+            setUpParachutes(false);
+            saveParachutes.clear();
+
             // Update points from last level:
             for (Tank tank : order) {
                 tank.setPoints(scoreSave.getScore().get(tank.type));
@@ -434,6 +443,12 @@ public class App extends PApplet {
 
     }
 
+    private void extractParachutes(List<Tank> list){
+        for (Tank tank: list){
+            saveParachutes.add(tank.getParachutes());
+        }
+    }
+
     private String getPathToImage(String path) {
         return Objects.requireNonNull(this.getClass().getResource(path)).
                 getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
@@ -441,6 +456,19 @@ public class App extends PApplet {
 
     public List<Tank> getTanksAlive() {
         return order;
+    }
+
+    private void setUpParachutes(boolean newGame) {
+        if (!newGame){
+            for (int i = 0; i < correctOrder.size(); i++){
+                correctOrder.get(i).setParachutes(saveParachutes.get(i));
+            }
+        }
+        else {
+            for (Tank tank: correctOrder){
+                tank.setParachutes(INITIAL_PARACHUTES);
+            }
+        }
     }
 
     public void setConfigPath(String path) {
