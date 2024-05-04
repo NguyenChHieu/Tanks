@@ -6,8 +6,6 @@ import processing.core.PApplet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -144,7 +142,8 @@ public class GameMapTest {
 
     /**
      * Tests the extractTanks() function with valid input
-     * This verifies the tank objects are extracted correctly.
+     * This verifies the tank objects are extracted correctly,
+     * which got automatically called inside.
      */
     @Test
     public void testExtractTank(){
@@ -174,15 +173,12 @@ public class GameMapTest {
 
     /**
      * This test is to add the coverage of the draw functions
-     * in GameMap including drawTerrain and drawTrees
+     * in GameMap including drawTerrain(), drawTrees()
      */
     @Test
     public void addRenderFunctions(){
         get.printPrompt("addRenderFunction", false);
 
-        // Setup variables
-        String path = Objects.requireNonNull(this.getClass().getResource("tree1.png")).
-                getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
         // Create a new sketch
         App app = new App();
         PApplet.runSketch(new String[] {"App"}, app);
@@ -192,11 +188,26 @@ public class GameMapTest {
         app.setConfigPath("additionalFiles/testMap.json");
         app.setup();
 
-        // Get the instantiated map
-        GameMap currentMap = app.getCurrentMap();
 
-        currentMap.drawTerrain(app, new int[]{0,0,0},640);
-        currentMap.drawTree(app, app.loadImage(path));
+        System.out.println("Successfully add the render functions to coverage.");
+    }
+
+    /**
+     * This test is to add the coverage of the draw functions
+     * in GameMap including drawTerrain(), drawTrees(), which got
+     * automatically called inside.
+     */
+    @Test
+    public void anotherRenderTest(){
+        get.printPrompt("anotherRenderTest", false);
+
+        // Create a new sketch
+        App app = new App();
+        PApplet.runSketch(new String[] {"App"}, app);
+        // Set to a custom map
+        // This map is similar to level 1.
+        app.setConfigPath("additionalFiles/configtest.json");
+        app.setup();
 
         System.out.println("Successfully add the render functions to coverage.");
     }

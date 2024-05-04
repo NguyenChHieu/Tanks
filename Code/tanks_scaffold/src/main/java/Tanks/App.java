@@ -43,7 +43,7 @@ public class App extends PApplet {
 
 
     public App() {
-        this.configPath = "configtest.json";
+        this.configPath = "additionalFiles/configtest.json";
     }
 
     /**
@@ -431,9 +431,6 @@ public class App extends PApplet {
     private String getPathToImage(String path) {
         return Objects.requireNonNull(this.getClass().getResource(path)).
                 getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
-    }
-    public GameMap getCurrentMap(){
-        return currentMap;
     }
     public void setConfigPath(String path){
         this.configPath = path;
