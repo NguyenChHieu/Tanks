@@ -71,7 +71,9 @@ public class GameMapTest {
 
 
     /**
-     * Test the instantiateHeight
+     * Test the instantiateHeight() method with valid input.
+     * This test verifies that all the terrain pixels are
+     * instantiated correctly.
      */
     @Test
     public void testInstantiateHeight(){
@@ -175,6 +177,11 @@ public class GameMapTest {
      * This test is to add the coverage of the draw functions
      * in GameMap including drawTerrain(), drawTrees()
      */
+
+    // SOME OTHER RENDER FUNCTIONS SUCH AS drawTurret(), drawTanks(), drawHUD()
+    // are also covered, and since the draw functions are not required,
+    // so I will keep it here.
+
     @Test
     public void addRenderFunctions(){
         get.printPrompt("addRenderFunction", false);
@@ -194,8 +201,8 @@ public class GameMapTest {
 
     /**
      * This test is to add the coverage of the draw functions
-     * in GameMap including drawTerrain(), drawTrees(), which got
-     * automatically called inside.
+     * in GameMap including drawTerrain(), drawTrees(),which
+     * get automatically called inside.
      */
     @Test
     public void anotherRenderTest(){
