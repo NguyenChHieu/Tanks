@@ -70,7 +70,8 @@ public class PlayerScores {
         //[Accessed 25 Apr. 2024].
 
         // Sort the player-points pairs by values from high to low
-        drawPlayersInFinal = drawPlayersInFinal.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+        drawPlayersInFinal = drawPlayersInFinal.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         // Get the winner
         String winner = Collections.max(points.entrySet(), Map.Entry.comparingByValue()).getKey();
         int numberOfPlayers = playersList.size();
@@ -129,7 +130,9 @@ public class PlayerScores {
      * @param app refer to Main
      */
     public void timerFinal(App app) {
-        HashMap<String, Integer> scoresSorted = points.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+        HashMap<String, Integer> scoresSorted = points.entrySet().stream().
+                sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         ArrayList<String> sortedKeys = new ArrayList<>();
         ArrayList<Integer> sortedValues = new ArrayList<>();
 
