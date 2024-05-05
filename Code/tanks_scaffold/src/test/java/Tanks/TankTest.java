@@ -20,9 +20,8 @@ public class TankTest {
 
         App app = new App();
         app.loop();
-        PApplet.runSketch(new String[]{"App"}, app);
         app.setConfigPath("additionalFiles/testMap.json");
-        app.setup();
+        PApplet.runSketch(new String[]{"App"}, app);
         // Setup delay
         app.delay(1000);
 
@@ -52,9 +51,8 @@ public class TankTest {
 
         App app = new App();
         app.loop();
-        PApplet.runSketch(new String[]{"App"}, app);
         app.setConfigPath("additionalFiles/testMap.json");
-        app.setup();
+        PApplet.runSketch(new String[]{"App"}, app);
         // Setup delay
         app.delay(1000);
 
@@ -83,9 +81,8 @@ public class TankTest {
 
         App app = new App();
         app.loop();
-        PApplet.runSketch(new String[]{"App"}, app);
         app.setConfigPath("additionalFiles/testMap.json");
-        app.setup();
+        PApplet.runSketch(new String[]{"App"}, app);
         // Setup delay
         app.delay(1000);
 
@@ -114,9 +111,8 @@ public class TankTest {
 
         App app = new App();
         app.loop();
-        PApplet.runSketch(new String[]{"App"}, app);
         app.setConfigPath("additionalFiles/testMap.json");
-        app.setup();
+        PApplet.runSketch(new String[]{"App"}, app);
         // Setup delay
         app.delay(1000);
 
