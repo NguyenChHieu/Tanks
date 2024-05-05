@@ -6,6 +6,10 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class of projectiles, calculate the location
+ * of the projectile and measure the damages.
+ */
 public class Projectile {
     private static int windLevel = (int) (Math.random() * 71) - 35;
     private final float WIND = windLevel;
@@ -160,7 +164,8 @@ public class Projectile {
                 // If in range of the explosion
                 if (distance >= 0 && distance <= EXPLODE_RADIUS) {
                     int damage = 60 - (int) distance * 60 / EXPLODE_RADIUS;
-
+                    // TODO CHECK IF CALCULATES CORRECTLY
+                    damage = Math.min(tank.getHealth(), damage);
 //                System.out.println(tank.type+ " explode " + damage +" shooter " + shooter.type);
 
                     tank.tankLoseHP(damage);
@@ -216,29 +221,49 @@ public class Projectile {
     }
 
     // GETTER & SETTERS
+
+    /**
+     * Check if the projectile is an ultimate
+     * @return true if the projectile is an ultimate
+     */
     public boolean isPoweredUp() {
         return POWERED_UP;
     }
 
+    /**
+     * Get the isOut status of the projectile
+     * @return true if the projectile goes beyond the game's border
+     */
     public boolean isOut() {
         return isOut;
     }
 
+    /**
+     * Get the explosion status of the projectile
+     * @return true if the projectile had exploded
+     */
     public boolean isExplode() {
         return isExplode;
     }
 
+    /**
+     * Get the X-position of the projectile
+     * @return xPos of projectile
+     */
     public float getXPos() {
         return xPos;
     }
 
+    /**
+     * Get the Y-position of the projectile
+     * @return yPos of projectile
+     */
     public float getYPos() {
         return yPos;
     }
 
     /**
      * Check if the projectile goes outside the map.
-     *
      * @return true if the projectile go beyond the border.
      */
     public boolean outMap() {
