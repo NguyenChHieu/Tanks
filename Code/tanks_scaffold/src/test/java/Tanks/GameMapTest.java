@@ -195,7 +195,6 @@ public class GameMapTest {
         PApplet.runSketch(new String[] {"App"}, app);
 
         app.delay(1000);
-        app.exit();
 
         System.out.println("Successfully add the render functions to coverage.");
     }
@@ -217,7 +216,6 @@ public class GameMapTest {
         PApplet.runSketch(new String[] {"App"}, app);
 
         app.delay(1000);
-        app.exit();
 
         System.out.println("Successfully add the render functions to coverage.");
     }
