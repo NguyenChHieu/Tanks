@@ -8,9 +8,12 @@ import java.util.*;
 
 public class App extends PApplet {
 
+    /** Frame per second */
     public static final int FPS = 30;
-    public static int WIDTH = 864; // CELL_SIZE*BOARD_WIDTH;
-    public static int HEIGHT = 640; //BOARD_HEIGHT*CELL_SIZE+TOP_BAR;
+    /** CELL_SIZE*BOARD_WIDTH */
+    public static int WIDTH = 864;
+    /** BOARD_HEIGHT*CELL_SIZE+TOP_BAR */
+    public static int HEIGHT = 640;
     // Gameplay attributes
     private final int INITIAL_PARACHUTES = 3;
     private final List<Tank> correctOrder = new ArrayList<>();
@@ -34,11 +37,11 @@ public class App extends PApplet {
     private boolean showArrow = true;
     private int arrStartTime = millis();
 
-
+    /** Create the main App class and set the config path for the file */
     public App() {
         this.configPath = "config.json";
     }
-
+    /** Call the main app */
     public static void main(String[] args) {
         PApplet.main("Tanks.App");
     }
@@ -537,6 +540,10 @@ public class App extends PApplet {
         }
     }
 
+    /**
+     * Set the specified config path for parsing
+     * @param path abs path from root folder
+     */
     public void setConfigPath(String path) {
         this.configPath = path;
     }
@@ -545,6 +552,10 @@ public class App extends PApplet {
         return Objects.requireNonNull(this.getClass().getResource(path)).getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
     }
 
+    /**
+     * Get the tanks which are still alive
+     * @return list of alive tanks
+     */
     public List<Tank> getTanksAlive() {
         return order;
     }

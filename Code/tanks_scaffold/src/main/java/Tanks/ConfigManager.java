@@ -12,6 +12,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class holds list of levels and
+ * player colors parsed from JSON file.
+ */
 public class ConfigManager {
     private final List<Level> LEVELS;
     private final HashMap<String, int[]> PLAYER_COLORS;
