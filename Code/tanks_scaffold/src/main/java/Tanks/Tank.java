@@ -3,6 +3,7 @@ package Tanks;
 import processing.core.PApplet;
 import processing.core.PImage;
 
+/** Class of Tank object, handle actions and render.*/
 public class Tank extends GameObject implements Comparable<Tank> {
     private int[] colorTank;
     private int fuel = 250;
@@ -21,6 +22,12 @@ public class Tank extends GameObject implements Comparable<Tank> {
     private boolean parachuteFall;
     private boolean deployed;
 
+    /**
+     * Create a tank object.
+     * @param xPos X-position of the tank center
+     * @param yPos Y-position of the tank center
+     * @param type Single letter distinguish tanks.
+     */
     public Tank(int xPos, int yPos, String type) {
         super(xPos, yPos, type);
     }
@@ -407,46 +414,94 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
 
     // GETTER & SETTERS
+
+    /**
+     * Get the RGB set of the tank
+     * @return length-3 array contain RGB values
+     */
     public int[] getColorTank() {
         return colorTank;
     }
 
+    /**
+     * Set the tank's color
+     * @param rgb length-3 RGB array
+     */
     public void setColorTank(int[] rgb) {
         colorTank = rgb;
     }
 
+    /**
+     * Get the current max health of the tank
+     * @return int represent the tank's health
+     */
     public int getHealth() {
         return health;
     }
 
+    /**
+     * Get the fuel level
+     * @return int represent fuel level
+     */
     public int getFuelLevel() {
         return fuel;
     }
 
+    /**
+     * Get the current turret angle relative to the Y-axis
+     * @return float value of the angle
+     */
     public float getAngle() {
         return angle;
     }
 
+    /**
+     * Get the ultimate status of the tank
+     * @return true if tank is in ultimate mode
+     */
     public boolean getUltStatus() {
         return ult;
     }
 
+    /**
+     * Get current number of parachutes
+     * @return int represent number of parachutes
+     */
     public int getParachutes(){
         return parachutes;
     }
 
+    /**
+     * Set the current number of parachutes of the tank.
+     * Use for loading initial number of parachutes or
+     * load the tank's number of parachutes in the
+     * previous level.
+     * @param number number of parachutes
+     */
     public void setParachutes(int number){
         parachutes = number;
     }
 
+    /**
+     * Get current points
+     * @return int represent points
+     */
     public int getPoints() {
         return points;
     }
 
+    /**
+     * Set the tank's current points
+     * @param point points in int value
+     */
     public void setPoints(int point) {
         points = point;
     }
 
+    /**
+     * Get the power level
+     * @return int represent the power level
+     */
     public int getPower() {
         return power;
     }
@@ -487,10 +542,19 @@ public class Tank extends GameObject implements Comparable<Tank> {
         return !isAlive;
     }
 
+    /**
+     * Set the culprit of the explosion which
+     * damage the tank. Use for points tracking
+     * purposes.
+     * @param tank Tank object which damage the tank (could be itself)
+     */
     public void setShooter(Tank tank) {
         shooter = tank;
     }
 
+    /**
+     * Set the tank's alive status to false
+     */
     public void setDeadByExplode() {
         isAlive = false;
     }
@@ -512,8 +576,8 @@ public class Tank extends GameObject implements Comparable<Tank> {
      *
      * @param otherTank the object to be compared.
      * @return 0 if the string = other string (= characters).
-     * Less than 0 - string < other string (fewer characters)
-     * Greater than - if string > other string (more characters).
+     * Less than 0 - string has fewer characters other string
+     * Greater than - if string has more characters other string.
      */
     @Override
     public int compareTo(Tank otherTank) {
