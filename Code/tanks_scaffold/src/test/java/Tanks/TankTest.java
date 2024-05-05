@@ -103,4 +103,40 @@ public class TankTest {
         System.out.println("testTankAngle passed");
     }
 
+    // TEST POWER UPS
+    /**
+     * Tests the addFuel() power up and check if
+     * the fuel level of the tank is updated correctly
+     */
+    @Test
+    public void addFuel(){
+        get.printPrompt("testAddFuel", false);
+
+        App app = new App();
+        app.loop();
+        PApplet.runSketch(new String[]{"App"}, app);
+        app.setConfigPath("additionalFiles/testMap.json");
+        app.setup();
+        // Setup delay
+        app.delay(1000);
+
+        // Move a bit to consume fuel
+        for (int i = 0; i < 10; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
+        }
+
+        // Tried to buy when have insufficient credits
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'F', 70));
+        Tank testTank = app.getTanksAlive().get(0);
+        testTank.addPoints(10);
+
+        // Buy credits when have sufficient credits
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'F', 70));
+
+        // Check fuel level
+        assertEquals(250, testTank.getFuelLevel(), "Incorrect fuel level.");
+        // Check credits
+        assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
+        System.out.println("testAddFuel passed");
+    }
 }

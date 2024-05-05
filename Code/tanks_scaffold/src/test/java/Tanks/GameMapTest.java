@@ -188,13 +188,14 @@ public class GameMapTest {
 
         // Create a new sketch
         App app = new App();
-        PApplet.runSketch(new String[] {"App"}, app);
         // Set to a custom map
         // This map has a tree with cell-X at index 0, this is to
         // test whether the image of the tree has been drawn correctly.
         app.setConfigPath("additionalFiles/testMap.json");
-        app.setup();
+        PApplet.runSketch(new String[] {"App"}, app);
 
+        app.delay(1000);
+        app.exit();
 
         System.out.println("Successfully add the render functions to coverage.");
     }
@@ -210,11 +211,13 @@ public class GameMapTest {
 
         // Create a new sketch
         App app = new App();
-        PApplet.runSketch(new String[] {"App"}, app);
         // Set to a custom map
         // This map is similar to level 1.
         app.setConfigPath("additionalFiles/configtest.json");
-        app.setup();
+        PApplet.runSketch(new String[] {"App"}, app);
+
+        app.delay(1000);
+        app.exit();
 
         System.out.println("Successfully add the render functions to coverage.");
     }
