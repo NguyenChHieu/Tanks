@@ -3,6 +3,9 @@ package Tanks;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Class holds the score of each player.
+ */
 public class PlayerScores {
     private final HashMap<String, Integer> points = new HashMap<>();
     private final List<Tank> playersList;
@@ -70,7 +73,8 @@ public class PlayerScores {
         //[Accessed 25 Apr. 2024].
 
         // Sort the player-points pairs by values from high to low
-        drawPlayersInFinal = drawPlayersInFinal.entrySet().stream().sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+        drawPlayersInFinal = drawPlayersInFinal.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         // Get the winner
         String winner = Collections.max(points.entrySet(), Map.Entry.comparingByValue()).getKey();
@@ -131,8 +135,12 @@ public class PlayerScores {
      * @param app refer to Main
      */
     public void timerFinal(App app) {
-        HashMap<String, Integer> scoresSorted = points.entrySet().stream().
-                sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+        // Cite
+        //Stack Overflow. (2011). Sorting HashMap by values.
+        //Available at: https://stackoverflow.com/questions/8119366/sorting-hashmap-by-values
+        //[Accessed 25 Apr. 2024].
+        HashMap<String, Integer> scoresSorted = points.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
         ArrayList<String> sortedKeys = new ArrayList<>();
         ArrayList<Integer> sortedValues = new ArrayList<>();
@@ -198,6 +206,11 @@ public class PlayerScores {
         drawPlayersInFinal.clear();
     }
 
+    /**
+     * Get the saved-scores for every player
+     *
+     * @return hashmap contains player-points pairs
+     */
     public HashMap<String, Integer> getScore() {
         return points;
     }
