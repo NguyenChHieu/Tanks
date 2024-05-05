@@ -6,6 +6,7 @@ import processing.event.KeyEvent;
 
 import java.util.*;
 
+/** Main method */
 public class App extends PApplet {
 
     /** Frame per second */
@@ -41,7 +42,11 @@ public class App extends PApplet {
     public App() {
         this.configPath = "config.json";
     }
-    /** Call the main app */
+
+    /**
+     * Call the main app.
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         PApplet.main("Tanks.App");
     }
