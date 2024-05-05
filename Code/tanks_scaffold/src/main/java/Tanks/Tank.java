@@ -83,7 +83,9 @@ public class Tank extends GameObject implements Comparable<Tank> {
      */
     public Projectile shoot() {
         // Start point = end of turret
-        Projectile bullet = new Projectile(xPos + (int) (15 * PApplet.sin(angle)), yPos - 8 - (15 * PApplet.cos(angle)), power, this, ult);
+        Projectile bullet = new Projectile(xPos + (int) (15 * PApplet.sin(angle)),
+                yPos - 8 - (15 * PApplet.cos(angle)),
+                power, this, ult);
 
         // Turn off ult
         ult = false;
@@ -390,7 +392,8 @@ public class Tank extends GameObject implements Comparable<Tank> {
         app.stroke(255, 0, 0);
         app.strokeWeight(2);
         // adjust bar by power
-        app.line(440 + ((float) (actualW * power) / health), 5, 440 + ((float) (actualW * power) / health), 35);
+        app.line(440 + ((float) (actualW * power) / health), 5,
+                440 + ((float) (actualW * power) / health), 35);
         // reset
         app.strokeWeight(1);
         app.stroke(0);
