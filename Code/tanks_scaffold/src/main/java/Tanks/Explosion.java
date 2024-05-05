@@ -2,6 +2,9 @@ package Tanks;
 
 import processing.core.PApplet;
 
+/**
+ * Class to draw explosions
+ */
 public class Explosion {
     private final PApplet APP;
     private final int RADIUS;
@@ -52,6 +55,10 @@ public class Explosion {
         }
     }
 
+    /**
+     * Return the state of the explosion (finished or not)
+     * @return whether the explosion has finished
+     */
     public boolean getFinishedExplode() {
         return finishedExplode;
     }
