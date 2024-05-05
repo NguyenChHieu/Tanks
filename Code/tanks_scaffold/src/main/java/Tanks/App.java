@@ -549,7 +549,8 @@ public class App extends PApplet {
     }
 
     private String getPathToImage(String path) {
-        return Objects.requireNonNull(this.getClass().getResource(path)).getPath().toLowerCase(Locale.ROOT).replace("%20", " ");
+        return Objects.requireNonNull(this.getClass().getResource(path)).getPath().
+                toLowerCase(Locale.ROOT).replace("%20", " ");
     }
 
     /**
