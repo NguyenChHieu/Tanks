@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * Class to parse the txt file
+ * to GameObjects and terrain
+ * related objects.
+ */
 public class GameMap {
     private final int BOARD_HEIGHT = 20;
     private final int BOARD_WIDTH = 28;
@@ -17,6 +22,11 @@ public class GameMap {
     private final ArrayList<Tank> tanksList;
     private GameObject[][] board;
 
+    /**
+     * Create a GameMap object, which
+     * instantiate the 20x28 board, list of
+     * tree root locations and list of tanks
+     */
     public GameMap() {
         board = new GameObject[BOARD_HEIGHT][BOARD_WIDTH];
         treeX = new ArrayList<>();
@@ -229,18 +239,35 @@ public class GameMap {
 
 
     // GETTER & SETTERS
+
+    /**
+     * Get the 20x28 matrix parsed from the file.
+     * @return game matrix
+     */
     public GameObject[][] getBoard() {
         return board;
     }
 
+    /**
+     * Get the length-864 array of pixel heights.
+     * @return array contain height of the terrain in each pixel column
+     */
     public float[] getPixels() {
         return pixels;
     }
 
+    /**
+     * Get the list of tanks parsed from the matrix.
+     * @return list of tanks
+     */
     public ArrayList<Tank> getTanksList() {
         return tanksList;
     }
 
+    /**
+     * Get tree loot locations.
+     * @return an array contains the x position of trees.
+     */
     public ArrayList<Integer> getTreeX() {
         return treeX;
     }

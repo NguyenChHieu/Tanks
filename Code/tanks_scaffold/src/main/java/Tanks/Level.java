@@ -1,8 +1,8 @@
 package Tanks;
 
+/** Class contains each level's attributes */
 public class Level {
-    /** Matching level's attributes for better modification
-     */
+
     private final String LAYOUT_FILE_PATH;
     private final String BACKGROUND;
     private final int[] FOREGROUND_COLOR;

@@ -1,8 +1,15 @@
 package Tanks;
 
+/**
+ * Parent class of in-game objects
+ * such as Tanks, trees, air
+ */
 public class GameObject {
+    /** X-position of the object */
     protected int xPos;
+    /** Y-position of the object */
     protected float yPos;
+    /** Type of the object, represented by a letter */
     protected String type;
 
     /** Creates a game Object.
