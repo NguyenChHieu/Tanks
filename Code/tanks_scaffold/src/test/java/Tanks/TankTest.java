@@ -99,7 +99,7 @@ public class TankTest {
         assertEquals(-app.PI / 2, testTank.getAngle(), "Incorrect ROC for tank angle.");
         System.out.println("testTankAngle passed");
     }
-
+    
     // TEST POWER UPS
     /**
      * Tests the addFuel() power up and check if
