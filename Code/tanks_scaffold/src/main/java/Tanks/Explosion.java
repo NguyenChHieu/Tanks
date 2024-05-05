@@ -13,6 +13,13 @@ public class Explosion {
     private float startTime = 0;
     private boolean finishedExplode = false;
 
+    /**
+     * Create an explosion object
+     * @param app refer to Main
+     * @param xPos X-position of the center
+     * @param yPos Y-position of the center
+     * @param radius radius of the explosion
+     */
     public Explosion(PApplet app, float xPos, float yPos, int radius) {
         this.APP = app;
         this.xPos = xPos;
