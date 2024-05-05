@@ -3,7 +3,9 @@ package Tanks;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-/** Class of Tank object, handle actions and render.*/
+/**
+ * Class of Tank object, handle actions and render.
+ */
 public class Tank extends GameObject implements Comparable<Tank> {
     private int[] colorTank;
     private int fuel = 250;
@@ -24,6 +26,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Create a tank object.
+     *
      * @param xPos X-position of the tank center
      * @param yPos Y-position of the tank center
      * @param type Single letter distinguish tanks.
@@ -80,9 +83,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
      */
     public Projectile shoot() {
         // Start point = end of turret
-        Projectile bullet = new Projectile(xPos + (int) (15 * PApplet.sin(angle)),
-                yPos - 8 - (15 * PApplet.cos(angle)),
-                power, this, ult);
+        Projectile bullet = new Projectile(xPos + (int) (15 * PApplet.sin(angle)), yPos - 8 - (15 * PApplet.cos(angle)), power, this, ult);
 
         // Turn off ult
         ult = false;
@@ -297,8 +298,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
                 drawTank(app);
                 this.yPos += 60f / 30; // 30FPS
 
-                if (!deployed)
-                    deployParachute();
+                if (!deployed) deployParachute();
             } else {
                 drawTank(app);
                 this.yPos += 120f / 30;
@@ -308,6 +308,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
     }
 
     // HUD
+
     /**
      * Draw tank's ult status (if available).
      * Located next to the fuel level.
@@ -377,22 +378,19 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
         // Current HP frame
         app.fill(colorTank[0], colorTank[1], colorTank[2]);
-        app.rect(440, 10,
-                actualW, 20);
+        app.rect(440, 10, actualW, 20);
 
         // Grey border rect
         app.stroke(80, 80, 80);
         app.strokeWeight(5);
         // adjust grey border by MAX_HEALTH
-        app.rect(440, 10,
-                (float) (actualW * power) / health, 20);
+        app.rect(440, 10, (float) (actualW * power) / health, 20);
 
         // Red indicator
         app.stroke(255, 0, 0);
         app.strokeWeight(2);
         // adjust bar by power
-        app.line(440 + ((float) (actualW * power) / health), 5,
-                440 + ((float) (actualW * power) / health), 35);
+        app.line(440 + ((float) (actualW * power) / health), 5, 440 + ((float) (actualW * power) / health), 35);
         // reset
         app.strokeWeight(1);
         app.stroke(0);
@@ -417,6 +415,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Get the RGB set of the tank
+     *
      * @return length-3 array contain RGB values
      */
     public int[] getColorTank() {
@@ -425,6 +424,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Set the tank's color
+     *
      * @param rgb length-3 RGB array
      */
     public void setColorTank(int[] rgb) {
@@ -433,6 +433,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Get the current max health of the tank
+     *
      * @return int represent the tank's health
      */
     public int getHealth() {
@@ -441,6 +442,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Get the fuel level
+     *
      * @return int represent fuel level
      */
     public int getFuelLevel() {
@@ -449,6 +451,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Get the current turret angle relative to the Y-axis
+     *
      * @return float value of the angle
      */
     public float getAngle() {
@@ -457,6 +460,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Get the ultimate status of the tank
+     *
      * @return true if tank is in ultimate mode
      */
     public boolean getUltStatus() {
@@ -465,9 +469,10 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Get current number of parachutes
+     *
      * @return int represent number of parachutes
      */
-    public int getParachutes(){
+    public int getParachutes() {
         return parachutes;
     }
 
@@ -476,14 +481,16 @@ public class Tank extends GameObject implements Comparable<Tank> {
      * Use for loading initial number of parachutes or
      * load the tank's number of parachutes in the
      * previous level.
+     *
      * @param number number of parachutes
      */
-    public void setParachutes(int number){
+    public void setParachutes(int number) {
         parachutes = number;
     }
 
     /**
      * Get current points
+     *
      * @return int represent points
      */
     public int getPoints() {
@@ -492,6 +499,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Set the tank's current points
+     *
      * @param point points in int value
      */
     public void setPoints(int point) {
@@ -500,6 +508,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Get the power level
+     *
      * @return int represent the power level
      */
     public int getPower() {
@@ -546,6 +555,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
      * Set the culprit of the explosion which
      * damage the tank. Use for points tracking
      * purposes.
+     *
      * @param tank Tank object which damage the tank (could be itself)
      */
     public void setShooter(Tank tank) {
