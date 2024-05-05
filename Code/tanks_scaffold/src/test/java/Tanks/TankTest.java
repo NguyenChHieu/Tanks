@@ -121,12 +121,14 @@ public class TankTest {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
         }
 
-        // Tried to buy when have insufficient credits
+        // Test when have insufficient credits
         app.keyPressed(new KeyEvent(null, 0, 0, 0, 'F', 70));
+
+        // Add credits
         Tank testTank = app.getTanksAlive().get(0);
         testTank.addPoints(10);
 
-        // Buy credits when have sufficient credits
+        // Test when have sufficient credits
         app.keyPressed(new KeyEvent(null, 0, 0, 0, 'F', 70));
 
         // Check fuel level
@@ -134,5 +136,73 @@ public class TankTest {
         // Check credits
         assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
         System.out.println("testAddFuel passed");
+    }
+
+    /**
+     * Tests the repair() power up and check if
+     * health is replenished correctly
+     */
+    @Test
+    public void testRepair(){
+        get.printPrompt("testRepair", false);
+
+        App app = new App();
+        app.loop();
+        app.setConfigPath("additionalFiles/testMap.json");
+        PApplet.runSketch(new String[]{"App"}, app);
+        // Setup delay
+        app.delay(1000);
+
+        // Test repair() when have insufficient credits
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'R', 82));
+
+        // Decrease health and add points for testing
+        Tank testTank = app.getTanksAlive().get(0);
+        testTank.tankLoseHP(10);
+        testTank.addPoints(20);
+
+        // Test repair() when have sufficient credits
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'R', 82));
+
+        // Check health level
+        assertEquals(100, testTank.getHealth(), "Incorrect health level.");
+        // Check credits
+        assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
+        System.out.println("testRepair passed");
+    }
+
+    /**
+     * Tests the addParachute() power up and check
+     * if the parachute was correctly added
+     */
+    @Test
+    public void testAddParachute(){
+        get.printPrompt("testAddParachute", false);
+
+        App app = new App();
+        app.loop();
+        app.setConfigPath("additionalFiles/testMap.json");
+        PApplet.runSketch(new String[]{"App"}, app);
+        // Setup delay
+        app.delay(1000);
+
+        // Test when have insufficient credits
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'P', 80));
+
+        // Add credits
+        Tank testTank = app.getTanksAlive().get(0);
+        int initialNumParachute = testTank.getParachutes();
+        testTank.addPoints(15);
+
+        // Test when have sufficient credits
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'P', 80));
+
+
+        // Check fuel level
+        assertEquals(initialNumParachute+1, testTank.getParachutes(),
+                "Incorrect number of parachutes.");
+        // Check credits
+        assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
+        System.out.println("testAddParachute passed");
     }
 }
