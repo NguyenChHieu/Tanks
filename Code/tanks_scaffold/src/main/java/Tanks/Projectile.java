@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 public class Projectile {
     private static int windLevel = (int) (Math.random() * 71) - 35;
-    private final float WIND = windLevel;
+    private float WIND = windLevel;
     private final Tank SHOOTER;
     private final boolean POWERED_UP;
     private float xPos;
@@ -52,8 +52,9 @@ public class Projectile {
     /**
      * Modify the wind level by +5/-5 after each player fires.
      */
-    public static void windChange() {
+    public static int windChange() {
         windLevel += (int) (Math.random() * 11) - 5;
+        return windLevel;
     }
 
     /**
@@ -272,5 +273,13 @@ public class Projectile {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Set the current wind to affect the projectile
+     * @param wind represents current wind
+     */
+    public void setWindProjectile(int wind){
+        WIND = wind;
     }
 }

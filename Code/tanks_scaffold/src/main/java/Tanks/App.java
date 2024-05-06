@@ -40,7 +40,7 @@ public class App extends PApplet {
 
     /** Create the main App class and set the config path for the file */
     public App() {
-        this.configPath = "config.json";
+        this.configPath = "additionalFiles/testMap.json";
     }
 
     /**
@@ -145,8 +145,13 @@ public class App extends PApplet {
             active.add(currentTank.shoot());
             // Then switch turns.
             switchTurns();
+
             // New wind
-            Projectile.windChange();
+            int newWind = Projectile.windChange();
+            for (Projectile p : active){
+                p.setWindProjectile(newWind);
+            }
+
             // Redisplay the arrow
             showArrow = true;
             arrStartTime = millis();
@@ -444,10 +449,11 @@ public class App extends PApplet {
         setUpLevel(level);
         extractGameAttributes(level.getLayoutFilePath(), manager.getPlayerColours());
         if (currentMap != null) {
-            // Sort the tanks alphabetically in order
+            // Keep the initial order
             order.addAll(currentMap.getTanksList());
-            Collections.sort(order);
             correctOrder.addAll(order);
+            // Sort the tanks alphabetically in order
+            Collections.sort(correctOrder);
         }
     }
 
@@ -564,5 +570,13 @@ public class App extends PApplet {
      */
     public List<Tank> getTanksAlive() {
         return order;
+    }
+
+    /**
+     * Get the current map for testing
+     * @return GameMap object referring to current level
+     */
+    public GameMap getCurrentMap(){
+        return currentMap;
     }
 }
