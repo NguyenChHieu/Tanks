@@ -13,24 +13,61 @@ public class ExplosionTest {
     /**
      * Tests the tank's explosion radius (30)
      * when the tank gets to the bottom of the map.
+     * This test is created by letting the B tank
+     * create a hole and go straight in. This is
+     * for the testing if the radius of the explosion
+     * was correct.
      */
-//    @Test
-//    public void testTankFallToDeath(){
-//        get.printPrompt("testTankFallToDeath", false);
-//
-//        App app = new App();
-//        app.loop();
-//        app.setConfigPath("additionalFiles/testMap.json");
-//        PApplet.runSketch(new String[]{"App"}, app);
-//
-//        // Setup delay
-//        app.delay(1000);
-//
-//        // Move left
-//        app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 37));
-//
-//        assertEquals(1, app.getTanksAlive().size(), "Incorrect number of alive tanks.");
-//    }
+    @Test
+    public void testTankFallToDeath(){
+        get.printPrompt("testTankFallToDeath", false);
+
+        App app = new App();
+        app.loop();
+        app.setConfigPath("additionalFiles/testMap.json");
+        PApplet.runSketch(new String[]{"App"}, app);
+
+        // Setup delay
+        app.delay(1000);
+
+        // Decrease angle to min of tank A
+        for (int i = 0; i < 60; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
+        }
+        // Shoots
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
+
+        // SET UP THE HOLE
+        // Increase angle to max
+        for (int i = 0; i < 30; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+        }
+        // Decrease power
+        for (int i = 0; i < 40; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, 'S', 83));
+        }
+
+        // Take turns shooting, then the B tank will create a hole eventually
+        for (int i = 0; i < 26; i ++){
+            // Shoots, isolate wind effect to test the damage
+            Projectile.setWindTest(0);
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
+            Projectile.setWindTest(0);
+        }
+        // Wait for the explosions to finish
+        app.delay(5000);
+
+        // Tank B move right +2 * 30
+        for (int i = 0; i < 42; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
+        }
+        // Wait for the explosion
+        app.delay(2000);
+
+        // Test
+        assertEquals(1, app.getTanksAlive().size(), "Incorrect number of alive tanks.");
+        System.out.println("testTankFallToDeath passed");
+    }
 
 
     /**
