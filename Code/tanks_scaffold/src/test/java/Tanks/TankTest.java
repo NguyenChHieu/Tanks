@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TankTest {
     // Get prompt in other class
@@ -224,11 +224,44 @@ public class TankTest {
         app.keyPressed(new KeyEvent(null, 0, 0, 0, 'P', 80));
 
 
-        // Check fuel level
+        // Check number of parachutes
         assertEquals(initialNumParachute+1, testTank.getParachutes(),
                 "Incorrect number of parachutes.");
         // Check credits
         assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
         System.out.println("testAddParachute passed");
     }
+
+    @Test
+     public void testUlt(){
+        get.printPrompt("testUlt", false);
+
+        App app = new App();
+        app.loop();
+        app.setConfigPath("additionalFiles/testMap.json");
+        PApplet.runSketch(new String[]{"App"}, app);
+        // Setup delay
+        app.delay(1000);
+
+        // Test when have insufficient credits
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'X', 88));
+
+        // Add credits
+        Tank testTank = app.getTanksAlive().get(0);
+        testTank.addPoints(20);
+
+        // Test when have sufficient credits
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'X', 88));
+        app.delay(200);
+        assertTrue(testTank.getUltStatus(), "Ult status should be true before shoots.");
+
+        // Shoots
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
+
+        // Check fuel level
+        assertFalse(testTank.getUltStatus(), "Ult status should be false after shoots.");
+        // Check credits
+        assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
+        System.out.println("testUlt passed");
+     }
 }
