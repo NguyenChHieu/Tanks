@@ -125,7 +125,22 @@ public class TankTest {
         assertEquals(-app.PI / 2, testTank.getAngle(), "Incorrect ROC for tank angle.");
         System.out.println("testTankAngle passed");
     }
-    
+
+    /** Tests the setPoints() function which use to set
+     * the points for the tanks on the new level.
+     */
+    @Test
+    public void testSetPoints(){
+        get.printPrompt("testSetPoints", false);
+        // Create a dummy tank and add points
+        Tank testTank = new Tank(0,0,"O");
+        testTank.setPoints(10);
+
+        // Test
+        assertEquals(10, testTank.getPoints(), "Wrong number of points.");
+        System.out.println("testSetPoints passed");
+    }
+
     // TEST POWER UPS
     /**
      * Tests the addFuel() power up and check if
