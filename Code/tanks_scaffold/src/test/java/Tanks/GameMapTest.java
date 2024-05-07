@@ -41,7 +41,7 @@ public class GameMapTest {
 
     /**
      * Tests the generateTerrain() method with valid text file
-     * input but the length of the text fine is less than 20.
+     * input but the length of the text file is less than 20.
      * This test verifies that the content from the txt file got
      * extracted correctly to a 28x20 matrix, with the missing lines
      * filled correctly.
