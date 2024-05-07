@@ -130,11 +130,9 @@ public class Tank extends GameObject implements Comparable<Tank> {
      * parachuteFall and deployed to true.
      */
     public void deployParachute() {
-        if (parachutes > 0) {
-            parachutes--;
-            parachuteFall = true;
-            deployed = true;
-        }
+        parachutes--;
+        parachuteFall = true;
+        deployed = true;
     }
 
 
