@@ -90,4 +90,49 @@ public class ProjectileTest {
 
         System.out.println("testBulletHitsOpponent passed");
     }
+
+    /**
+     * Test the shoot() method when a player hits the opponent
+     * but has no parachute -> additional fall damage
+     * This test verifies that the damage is added and points
+     * are added correctly.
+     */
+    @Test
+    public void testBulletHitsOpponentNoParachute(){
+        App app = new App();
+        app.loop();
+        app.setConfigPath("additionalFiles/testMap.json");
+        PApplet.runSketch(new String[]{"App"}, app);
+        // Setup delay
+        app.delay(1000);
+
+        get.printPrompt("testBulletHitsOpponentNoParachute", false);
+
+        // Set the targeted tank to have no parachutes
+        app.getTanksAlive().get(1).setParachutes(0);
+
+        // Max angle
+        for (int i = 0; i < 30; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+        }
+
+        // Shoots, isolate wind effect to test the damage
+        Projectile.setWindTest(0);
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
+        Projectile.setWindTest(0);
+
+        app.delay(2000);
+
+        int damagedTankHealth = app.getTanksAlive().get(0).getHealth();
+        // This is because of the float difference +- 1 pixel of the bullet trajectory (explosion damage varies)
+        boolean checkHealth = damagedTankHealth == 56|| damagedTankHealth == 58;
+        int shooterPoints = app.getTanksAlive().get(1).getPoints();
+        boolean checkPoints = shooterPoints == 44 || shooterPoints == 42;
+
+        // Check if points and damage is added correctly
+        assertTrue(checkHealth, "Incorrect damage applied on damage tank (B).");
+        assertTrue(checkPoints, "Incorrect points applied on shooter tank (A).");
+
+        System.out.println("testBulletHitsOpponentNoParachute passed");
+    }
 }
