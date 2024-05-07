@@ -11,13 +11,11 @@ public class ProjectileTest {
     private final ConfigManagerTest get = new ConfigManagerTest();
 
     /**
-     * Tests the shoot() method and check if the tank
-     * fires a projectile correctly and then switch turn
+     * Tests the shoot() method with max/min power and check
+     * if the tank fires a projectile correctly and then switch turn.
      */
     @Test
-    public void testShootMinPower(){
-        get.printPrompt("testShoot", false);
-
+    public void testShoots(){
         App app = new App();
         app.loop();
         app.setConfigPath("additionalFiles/testMap.json");
@@ -25,52 +23,30 @@ public class ProjectileTest {
         // Setup delay
         app.delay(1000);
 
-        // Increase angle to min
-        for (int i = 0; i < 60; i++) {
-            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
-        }
+        get.printPrompt("testShoots", false);
         // Decrease power to 0
         for (int i = 0; i < 50; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, 'S', 83));
         }
 
-        // Shoots
+        // Player A Shoots
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
 
+        // Test
         Tank testTank = app.getTanksAlive().get(0);
         assertEquals("B", testTank.type, "The current tank should be B after A shoots.");
-        System.out.println("testShoot passed");
-    }
 
-    /**
-     * Tests the shoot() method and check if the tank
-     * fires a projectile correctly and then switch turn
-     */
-    @Test
-    public void testShootMaxPower(){
-        get.printPrompt("testShootMaxPower", false);
-
-        App app = new App();
-        app.loop();
-        app.setConfigPath("additionalFiles/testMap.json");
-        PApplet.runSketch(new String[]{"App"}, app);
-        // Setup delay
-        app.delay(1000);
-
-        // Increase angle to min
-        for (int i = 0; i < 60; i++) {
-            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
-        }
         // Max power
         for (int i = 0; i < 50; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, 'W', 87));
         }
 
-        // Shoots
+        // Player B Shoots
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
+        app.delay(2000);
 
-        Tank testTank = app.getTanksAlive().get(0);
-        assertEquals("B", testTank.type, "The current tank should be B after A shoots.");
-        System.out.println("testShootMaxPower passed");
+        testTank = app.getTanksAlive().get(0);
+        assertEquals("A", testTank.type, "The current tank should be A after B shoots.");
+        System.out.println("testShoots passed");
     }
 }
