@@ -5,6 +5,7 @@ import processing.core.PApplet;
 import processing.event.KeyEvent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ExplosionTest {
     private final ConfigManagerTest get = new ConfigManagerTest();
@@ -69,6 +70,62 @@ public class ExplosionTest {
         System.out.println("testTankFallToDeath passed");
     }
 
+    // TANK COLLISIONS
+    /**
+     * Tests the tank's explosion radius (15)
+     * when the tank falls to death.
+     * This test is created by letting the A tank
+     * shoot the terrain B tank.
+     */
+    @Test
+    public void testTankFallToDeathByBullet(){
+        get.printPrompt("testTankFallToDeathByBullet", false);
+
+        App app = new App();
+        app.loop();
+        app.setConfigPath("additionalFiles/testMapHighGrounds.json");
+        PApplet.runSketch(new String[]{"App"}, app);
+
+        // Setup delay
+        app.delay(4000);
+
+        // Setup B tank to have no parachute and low health
+        Tank tankB = app.getTanksAlive().get(1);
+        tankB.tankLoseHP(90);
+        tankB.setParachutes(0);
+
+        // Adjust A's angle
+        // Increase angle to max
+        for (int i = 0; i < 30; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+        }
+
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
+
+        // Adjust B's angle
+        // Increase angle to max
+        for (int i = 0; i < 30; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+        }
+
+        // Take turns shooting
+        for (int i = 0; i < 6; i ++) {
+            // Shoots, isolate wind effect to test the damage
+            Projectile.setWindTest(0);
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
+            Projectile.setWindTest(0);
+        }
+
+        // Delay
+        app.delay(3000);
+
+        // Test
+        int pointsForFallDamage = app.getTanksAlive().get(0).getPoints();
+        boolean checkTrue = pointsForFallDamage == 10; // since B's health is 10
+        assertTrue(checkTrue, "Wrong points.");
+        assertEquals(1, app.getTanksAlive().size(), "Incorrect number of alive tanks.");
+        System.out.println("testTankFallToDeathByBullet passed");
+    }
 
     /**
      * Tests the tank's explosion radius (15)
