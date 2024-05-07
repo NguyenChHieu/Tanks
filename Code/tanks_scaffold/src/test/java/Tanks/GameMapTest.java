@@ -69,6 +69,34 @@ public class GameMapTest {
         System.out.println("testGenerateTerrainValidMissingLines passed");
     }
 
+    /**
+     * Tests the generateTerrain() method with valid text file input
+     * but the length of the text file is more than 20.
+     * This test verifies that the method correctly deals with the
+     * non-existent or unreadable files.
+     */
+    @Test
+    public void testGenerateTerrainValidMoreLines(){
+        get.printPrompt("testGenerateTerrainValidMoreLines", false);
+
+        String fileName = "additionalFiles/layoutTest/moreLines.txt";
+
+        testMap.generateMapFromConfig(testMap.getBoard(), fileName);
+        GameObject[][] board = testMap.getBoard();
+
+        // Test
+        assertNotNull(board);
+        assertEquals(20, board.length, "Wrong number of rows");
+        assertEquals(28, board[0].length, "Wrong number of columns.");
+
+        // Some checks on the map's contents to see if they extracted correctly
+        assertEquals("X", board[5][1].type, "Map wasn't extracted correctly");
+        assertEquals("X", board[6][2].type, "Map wasn't extracted correctly");
+        assertEquals("X", board[7][0].type, "Map wasn't extracted correctly");
+        assertEquals("A", board[5][2].type, "Map wasn't extracted correctly");
+        assertEquals("1", board[6][0].type, "Map wasn't extracted correctly");
+        System.out.println("testGenerateTerrainValidMoreLines passed");
+    }
 
     /**
      * Test the instantiateHeight() method with valid input.
