@@ -28,7 +28,7 @@ public class ExplosionTest {
         PApplet.runSketch(new String[]{"App"}, app);
 
         // Setup delay
-        app.delay(1000);
+        app.delay(2000);
 
         // Decrease angle to min of tank A
         for (int i = 0; i < 60; i++) {

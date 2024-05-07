@@ -63,7 +63,7 @@ public class ProjectileTest {
         app.setConfigPath("additionalFiles/testMap.json");
         PApplet.runSketch(new String[]{"App"}, app);
         // Setup delay
-        app.delay(1000);
+        app.delay(2000);
 
         get.printPrompt("testBulletHitsOpponent", false);
         // Max angle
@@ -105,7 +105,7 @@ public class ProjectileTest {
         app.setConfigPath("additionalFiles/testMap.json");
         PApplet.runSketch(new String[]{"App"}, app);
         // Setup delay
-        app.delay(1000);
+        app.delay(2000);
 
         get.printPrompt("testBulletHitsOpponentNoParachute", false);
 
