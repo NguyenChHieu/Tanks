@@ -282,4 +282,13 @@ public class Projectile {
     public void setWindProjectile(int wind){
         WIND = wind;
     }
+
+    //TODO: ADD THIS IN UML
+    public static void setWindTest(int wind){
+        windLevel = wind;
+    }
+
+    public static int getWindTest(){
+        return windLevel;
+    }
 }
