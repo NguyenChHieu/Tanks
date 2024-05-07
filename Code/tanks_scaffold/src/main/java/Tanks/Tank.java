@@ -93,18 +93,9 @@ public class Tank extends GameObject implements Comparable<Tank> {
      * @param key RIGHT/LEFT
      */
     public void updatePower(int key) {
-        if (power <= health) {
-            switch (key) {
-                // W
-                case 87:
-                    power = Math.min(power + 1, health);
-                    break;
-                // S
-                case 83:
-                    power = Math.max(power - 1, 0);
-                    break;
-            }
-        }
+        if (key == 87)
+            power = Math.min(power + 1, health);
+        else power = Math.max(power - 1, 0);
     }
 
     /**
