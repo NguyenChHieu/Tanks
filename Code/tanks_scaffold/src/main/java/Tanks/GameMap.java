@@ -66,7 +66,7 @@ public class GameMap {
                         // Scaled the tree root initially by 32px
                         map[row][col] = new GameObject(col * 32, row * 32, "T");
                         col++;
-                    } else if (String.valueOf(line.charAt(i)).matches("[A-SU-WYZ]") || Character.isDigit(line.charAt(i))) {
+                    } else if (String.valueOf(line.charAt(i)).matches("[A-Z1-9]")) {
                         // Scaled the tank initially by 32px
                         map[row][col] = new Tank(col * 32, row * 32, String.valueOf(line.charAt(i)));
                         col++;
