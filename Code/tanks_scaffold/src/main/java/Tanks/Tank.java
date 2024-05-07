@@ -573,6 +573,13 @@ public class Tank extends GameObject implements Comparable<Tank> {
     }
 
     /**
+     * Set the tank's fuel for testing
+     */
+    public void setFuel(int fuel){
+        this.fuel = fuel;
+    }
+
+    /**
      * Decrease tank's health, the health is limit at 0
      * to avoid the health gets to negative.
      *

@@ -13,6 +13,8 @@ public class TankTest {
     /**
      * Tests the move(), useFuel() method and check
      * if the tank moves correctly and consume fuel as expected.
+     * This includes test when tank has no fuel and tried to move,
+     * Move when has fuel, and try to move until reached the borders.
      */
     @Test
     public void testTankMovement() {
@@ -25,6 +27,15 @@ public class TankTest {
         // Setup delay
         app.delay(1000);
 
+        Tank testTank = app.getTanksAlive().get(0);
+        // Exhaust the fuel
+        testTank.setFuel(0);
+        // Try to move
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
+        assertEquals(128, testTank.xPos, "Tank should not move when fuel is exhausted.");
+
+        // Set fuel for testing
+        testTank.setFuel(250);
         // Move right +2 * 10
         for (int i = 0; i < 10; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
@@ -33,10 +44,25 @@ public class TankTest {
         for (int i = 0; i < 10; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 37));
         }
-
-        Tank testTank = app.getTanksAlive().get(0);
+        // Test normal
         assertEquals(128, testTank.xPos, "Incorrect ROC for tank speed.");
         assertEquals(210, testTank.getFuelLevel(), "Incorrect fuel level.");
+
+        // Test tank move to borders
+        testTank.setFuel(2000);
+        // Right border
+        while (testTank.xPos != 864){
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
+        }
+        assertEquals(864, testTank.xPos, "Incorrect tank location.");
+
+        testTank.setFuel(2000);
+        // Left border
+        while (testTank.xPos != 0){
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 37));
+        }
+        assertEquals(0, testTank.xPos, "Incorrect tank location.");
+
         System.out.println("testTankMovement passed");
     }
 
