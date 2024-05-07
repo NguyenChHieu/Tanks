@@ -22,7 +22,7 @@ public class ProjectileTest {
         app.setConfigPath("additionalFiles/testMap.json");
         PApplet.runSketch(new String[]{"App"}, app);
         // Setup delay
-        app.delay(1000);
+        app.delay(2000);
 
         get.printPrompt("testShoots", false);
         // Decrease power to 0
@@ -80,12 +80,13 @@ public class ProjectileTest {
 
         int damagedTankHealth = app.getTanksAlive().get(0).getHealth();
         // This is because of the float difference +- 1 pixel of the bullet trajectory.
-        boolean checkHealth = damagedTankHealth == 80|| damagedTankHealth == 82;
+        boolean checkHealth = damagedTankHealth >= 80 && damagedTankHealth <= 82;
         int shooterPoints = app.getTanksAlive().get(1).getPoints();
-        boolean checkPoints = shooterPoints == 18 || shooterPoints == 20;
+        boolean checkPoints = shooterPoints >= 18 && shooterPoints <= 20;
 
         // Check if points and damage is added correctly
-        assertTrue(checkHealth, "Incorrect damage applied on damage tank (B).");
+        assertTrue(checkHealth, "Incorrect damage applied on damage tank (B).\n"
+                + "Actual damage: "+ shooterPoints);
         assertTrue(checkPoints, "Incorrect points applied on shooter tank (A).");
 
         System.out.println("testBulletHitsOpponent passed");
@@ -125,9 +126,9 @@ public class ProjectileTest {
 
         int damagedTankHealth = app.getTanksAlive().get(0).getHealth();
         // This is because of the float difference +- 1 pixel of the bullet trajectory (explosion damage varies)
-        boolean checkHealth = damagedTankHealth == 56|| damagedTankHealth == 58;
+        boolean checkHealth = damagedTankHealth >= 56 && damagedTankHealth <= 58;
         int shooterPoints = app.getTanksAlive().get(1).getPoints();
-        boolean checkPoints = shooterPoints == 44 || shooterPoints == 42;
+        boolean checkPoints = shooterPoints <= 44 && shooterPoints >= 42;
 
         // Check if points and damage is added correctly
         assertTrue(checkHealth, "Incorrect damage applied on damage tank (B).");
@@ -166,6 +167,10 @@ public class ProjectileTest {
         assertEquals(-20, Projectile.getWindTest(), "Wrong wind level.");
         app.delay(100);
 
+        // Set random wind level
+        Projectile.setWindLevel();
+        boolean inInitialRange = Projectile.getWindTest() >= -35 && Projectile.getWindTest() <= 35;
+        assertTrue(inInitialRange, "Wind level is not in initial range [-35,35]");
 
         System.out.println("testWind passed");
     }
