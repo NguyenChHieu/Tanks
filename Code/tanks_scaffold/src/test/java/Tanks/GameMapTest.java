@@ -99,6 +99,36 @@ public class GameMapTest {
     }
 
     /**
+     * Tests the generateTerrain() method with valid text file input
+     * but some lines has more than 28 characters. In the "moreColumns.txt",
+     * on line 7, an additional X was added to the end of the line.
+     * This test verifies that the method correctly deals with the
+     * exceeding-length lines.
+     */
+    @Test
+    public void testGenerateTerrainValidMoreColumns(){
+        get.printPrompt("testGenerateTerrainValidMoreColumns", false);
+
+        String fileName = "additionalFiles/layoutTest/moreColumns.txt";
+
+        testMap.generateMapFromConfig(testMap.getBoard(), fileName);
+        GameObject[][] board = testMap.getBoard();
+
+        // Test
+        assertNotNull(board);
+        assertEquals(20, board.length, "Wrong number of rows");
+        assertEquals(28, board[0].length, "Wrong number of columns.");
+
+        // Some checks on the map's contents to see if they extracted correctly
+        assertEquals("X", board[5][1].type, "Map wasn't extracted correctly");
+        assertEquals("X", board[6][2].type, "Map wasn't extracted correctly");
+        assertEquals("X", board[7][0].type, "Map wasn't extracted correctly");
+        assertEquals("A", board[5][2].type, "Map wasn't extracted correctly");
+        assertEquals("1", board[6][0].type, "Map wasn't extracted correctly");
+        System.out.println("testGenerateTerrainValidMoreColumns passed");
+    }
+
+    /**
      * Test the instantiateHeight() method with valid input.
      * This test verifies that all the terrain pixels are
      * instantiated correctly.
