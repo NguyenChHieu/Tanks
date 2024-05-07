@@ -1,11 +1,12 @@
 package Tanks;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ConfigManagerTest {
     // helper function
-    public void printPrompt(String testName, boolean specifyOutput){
+    public void printPrompt(String testName, boolean specifyOutput) {
         System.out.println("______");
         System.out.println("Begin: " + testName);
         if (specifyOutput)
@@ -13,6 +14,7 @@ public class ConfigManagerTest {
     }
 
     // POSITIVE
+
     /**
      * Tests the loadConfiguration (ConfigManager) with valid JSON input.
      * This test verifies that the configuration is correctly loaded from the provided JSON string.
@@ -63,6 +65,7 @@ public class ConfigManagerTest {
     }
 
     // NEGATIVE
+
     /**
      * Tests the loadConfiguration (ConfigManager) with non-existent JSON input.
      * This test verifies that the method handles the invalid input text file correctly.
@@ -82,11 +85,11 @@ public class ConfigManagerTest {
      * This test verifies that the method handles the invalid input text file correctly.
      */
     @Test
-    public void testLoadConfigurationInvalidEmpty(){
+    public void testLoadConfigurationInvalidEmpty() {
         printPrompt("testLoadConfigurationInvalidEmpty", true);
         String configJson = "additionalFiles/empty.json";
         ConfigManager actual = ConfigManager.loadConfig(configJson);
-        assertNull(actual,"Expected null type");
+        assertNull(actual, "Expected null type");
         System.out.println("testLoadConfigurationInvalidEmpty passed");
     }
 
@@ -95,7 +98,7 @@ public class ConfigManagerTest {
      * This test verifies that the method handles the invalid input text file correctly.
      */
     @Test
-    public void testLoadConfigurationInvalidLevels(){
+    public void testLoadConfigurationInvalidLevels() {
         printPrompt("testLoadConfigurationInvalidLevels", true);
         String config = "additionalFiles/noLevelsFound.json";
         ConfigManager actual = ConfigManager.loadConfig(config);
@@ -109,7 +112,7 @@ public class ConfigManagerTest {
      * This test verifies that the method handles the invalid input text file correctly.
      */
     @Test
-    public void testLoadConfigurationInvalidColours(){
+    public void testLoadConfigurationInvalidColours() {
         printPrompt("testLoadConfigurationInvalidColours", true);
         String config = "additionalFiles/noColoursFound.json";
         ConfigManager actual = ConfigManager.loadConfig(config);

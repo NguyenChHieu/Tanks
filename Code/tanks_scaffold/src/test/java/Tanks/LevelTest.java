@@ -2,7 +2,9 @@ package Tanks;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class LevelTest {
     /**
      * Tests the Level class's constructor with valid input.
@@ -11,7 +13,7 @@ public class LevelTest {
      */
 
     @Test
-    public void testLevelInit(){
+    public void testLevelInit() {
         ConfigManagerTest get = new ConfigManagerTest();
         get.printPrompt("testLevelConfigInit", false);
         // Instantiate
