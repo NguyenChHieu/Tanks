@@ -73,7 +73,7 @@ public class GameMapTest {
      * Tests the generateTerrain() method with valid text file input
      * but the length of the text file is more than 20.
      * This test verifies that the method correctly deals with the
-     * non-existent or unreadable files.
+     * exceeding-length files.
      */
     @Test
     public void testGenerateTerrainValidMoreLines(){
