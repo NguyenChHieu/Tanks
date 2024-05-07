@@ -15,6 +15,7 @@ public class GameMapTest {
     private final GameMap testMap = new GameMap();
 
     // POSITIVE
+
     /**
      * Tests the generateTerrain() method with valid text file input.
      * This test verifies that the content from the txt file got
@@ -76,7 +77,7 @@ public class GameMapTest {
      * exceeding-length files.
      */
     @Test
-    public void testGenerateTerrainValidMoreLines(){
+    public void testGenerateTerrainValidMoreLines() {
         get.printPrompt("testGenerateTerrainValidMoreLines", false);
 
         String fileName = "additionalFiles/layoutTest/moreLines.txt";
@@ -106,7 +107,7 @@ public class GameMapTest {
      * exceeding-length lines.
      */
     @Test
-    public void testGenerateTerrainValidMoreColumns(){
+    public void testGenerateTerrainValidMoreColumns() {
         get.printPrompt("testGenerateTerrainValidMoreColumns", false);
 
         String fileName = "additionalFiles/layoutTest/moreColumns.txt";
@@ -129,12 +130,39 @@ public class GameMapTest {
     }
 
     /**
+     * Tests the generateTerrain() method with valid text file input,
+     * however there are some weird characters inside.
+     */
+    @Test
+    public void testGenerateTerrainValidWithOtherCharacters() {
+        get.printPrompt("testGenerateTerrainValidWithOtherCharacters", false);
+
+        String fileName = "additionalFiles/layoutTest/validOtherChars.txt";
+
+        testMap.generateMapFromConfig(testMap.getBoard(), fileName);
+        GameObject[][] board = testMap.getBoard();
+
+        // Test
+        assertNotNull(board);
+        assertEquals(20, board.length, "Wrong number of rows");
+        assertEquals(28, board[0].length, "Wrong number of columns.");
+
+        // Some checks on the map's contents to see if they extracted correctly
+        assertEquals("X", board[5][1].type, "Map wasn't extracted correctly");
+        assertEquals("X", board[6][2].type, "Map wasn't extracted correctly");
+        assertEquals("X", board[7][0].type, "Map wasn't extracted correctly");
+        assertEquals("A", board[5][2].type, "Map wasn't extracted correctly");
+        assertEquals("1", board[6][0].type, "Map wasn't extracted correctly");
+        System.out.println("testGenerateTerrainValidWithOtherCharacters passed");
+    }
+
+    /**
      * Test the instantiateHeight() method with valid input.
      * This test verifies that all the terrain pixels are
      * instantiated correctly.
      */
     @Test
-    public void testInstantiateHeight(){
+    public void testInstantiateHeight() {
         get.printPrompt("testInstantiateHeight", false);
 
         String fileName = "additionalFiles/layoutTest/validLayout.txt";
@@ -150,12 +178,12 @@ public class GameMapTest {
     }
 
     /**
-     *  Tests the movingAverage() method with valid input.
-     *  This test verifies that the height terrain pixels
-     *  gets successfully calculated as the mean of the next 32px (self incl.)
+     * Tests the movingAverage() method with valid input.
+     * This test verifies that the height terrain pixels
+     * gets successfully calculated as the mean of the next 32px (self incl.)
      */
     @Test
-    public void testMovingAverage(){
+    public void testMovingAverage() {
         get.printPrompt("testMovingAverage", false);
 
         String fileName = "additionalFiles/layoutTest/validLayout.txt";
@@ -178,7 +206,7 @@ public class GameMapTest {
      * This verifies tree root locations are extracted correctly.
      */
     @Test
-    public void testExtractTree(){
+    public void testExtractTree() {
         get.printPrompt("testExtractTree", false);
         String fileName = "additionalFiles/layoutTest/validLayout.txt";
 
@@ -206,15 +234,15 @@ public class GameMapTest {
      * which got automatically called inside.
      */
     @Test
-    public void testExtractTank(){
+    public void testExtractTank() {
         get.printPrompt("testExtractTank", false);
         String fileName = "additionalFiles/layoutTest/validLayout.txt";
 
         HashMap<String, int[]> colors = new HashMap<>();
         colors.put("A", new int[]{0, 0, 255});
-        colors.put("B", new int[]{255,0,0});
-        colors.put("C", new int[]{0,255,255});
-        colors.put("D", new int[]{255,255,0});
+        colors.put("B", new int[]{255, 0, 0});
+        colors.put("C", new int[]{0, 255, 255});
+        colors.put("D", new int[]{255, 255, 0});
 
         //Instantiate
         testMap.generateMapFromConfig(testMap.getBoard(), fileName);
@@ -239,9 +267,8 @@ public class GameMapTest {
     // SOME OTHER RENDER FUNCTIONS SUCH AS drawTurret(), drawTanks(), drawHUD()
     // are also covered, and since the draw functions are not required,
     // so I will keep it here.
-
     @Test
-    public void addRenderFunctions(){
+    public void addRenderFunctions() {
         get.printPrompt("addRenderFunction", false);
 
         // Create a new sketch
@@ -250,7 +277,7 @@ public class GameMapTest {
         // This map has a tree with cell-X at index 0, this is to
         // test whether the image of the tree has been drawn correctly.
         app.setConfigPath("additionalFiles/testMap.json");
-        PApplet.runSketch(new String[] {"App"}, app);
+        PApplet.runSketch(new String[]{"App"}, app);
 
         app.delay(1000);
 
@@ -263,7 +290,7 @@ public class GameMapTest {
      * get automatically called inside.
      */
     @Test
-    public void anotherRenderTest(){
+    public void anotherRenderTest() {
         get.printPrompt("anotherRenderTest", false);
 
         // Create a new sketch
@@ -271,7 +298,7 @@ public class GameMapTest {
         // Set to a custom map
         // This map is similar to level 1.
         app.setConfigPath("additionalFiles/configtest.json");
-        PApplet.runSketch(new String[] {"App"}, app);
+        PApplet.runSketch(new String[]{"App"}, app);
 
         app.delay(1000);
 
@@ -279,6 +306,7 @@ public class GameMapTest {
     }
 
     // NEGATIVE
+
     /**
      * Tests the generateTerrain() method with invalid text file input.
      * This test verifies that the method correctly deals with the non-existent
@@ -290,7 +318,7 @@ public class GameMapTest {
 
         String fileName = "non-existent";
 
-        testMap.generateMapFromConfig(testMap.getBoard(),fileName);
+        testMap.generateMapFromConfig(testMap.getBoard(), fileName);
 
         assertNull(testMap.getBoard(), "Handle unreadable .txt files.");
         System.out.println("testGenerateTerrainInvalidFileNotFound passed");
