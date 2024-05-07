@@ -43,23 +43,22 @@ public class Explosion {
         float currentYellowRadius = RADIUS * 0.2f * elapsedTime / animationDuration;
 
         int[] colors = {APP.color(255, 0, 0), APP.color(255, 165, 0), APP.color(255, 255, 0)};
-        // If explosion haven't finished, keep drawing
-        if (!finishedExplode) {
-            APP.noStroke();
 
-            if (elapsedTime <= animationDuration) {
-                APP.fill(colors[0]);
-                APP.ellipse(xPos, yPos, currentRedRadius * 2, currentRedRadius * 2);
-                APP.fill(colors[1]);
-                APP.ellipse(xPos, yPos, currentOrangeRadius * 2, currentOrangeRadius * 2);
-                APP.fill(colors[2]);
-                APP.ellipse(xPos, yPos, currentYellowRadius * 2, currentYellowRadius * 2);
+        APP.noStroke();
 
-            } else finishedExplode = true;
+        if (elapsedTime <= animationDuration) {
+            APP.fill(colors[0]);
+            APP.ellipse(xPos, yPos, currentRedRadius * 2, currentRedRadius * 2);
+            APP.fill(colors[1]);
+            APP.ellipse(xPos, yPos, currentOrangeRadius * 2, currentOrangeRadius * 2);
+            APP.fill(colors[2]);
+            APP.ellipse(xPos, yPos, currentYellowRadius * 2, currentYellowRadius * 2);
 
-            //reset
-            APP.stroke(0);
-        }
+        } else finishedExplode = true;
+
+        //reset
+        APP.stroke(0);
+
     }
 
     /**
