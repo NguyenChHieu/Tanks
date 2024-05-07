@@ -232,6 +232,11 @@ public class TankTest {
         System.out.println("testAddParachute passed");
     }
 
+    /**
+     * Tests the ultimate() power up and check if
+     * the drawUlt() and the projectile has the correct
+     * behaviour.
+     */
     @Test
      public void testUlt(){
         get.printPrompt("testUlt", false);
