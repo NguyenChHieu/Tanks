@@ -127,12 +127,10 @@ public class App extends PApplet {
     private void handleLeftRightKeyPressed(Tank currentTank, int key) {
         // Only allow to move when the tank's done falling
         if (currentTank.doneFalling(currentMap.getPixels()[currentTank.xPos])) {
-            if (currentTank.getFuelLevel() > 0) {
-                currentTank.move(key, WIDTH, FPS, 60);
-                // Update tank's y position
-                currentTank.yPos = currentMap.getPixels()[currentTank.xPos];
-                currentTank.useFuel();
-            }
+            currentTank.move(key, WIDTH, FPS, 60);
+            // Update tank's y position
+            currentTank.yPos = currentMap.getPixels()[currentTank.xPos];
+            currentTank.useFuel();
         }
     }
 

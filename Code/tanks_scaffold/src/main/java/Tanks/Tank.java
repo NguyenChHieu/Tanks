@@ -48,21 +48,15 @@ public class Tank extends GameObject implements Comparable<Tank> {
      */
     public void move(int key, int WINDOW_WIDTH, int FPS, int pxPS) {
         // Only move when have fuel
-        if (fuel >= 0) {
-            switch (key) {
-                // left
-                case 37:
-                    // Exceed left window border
-                    if (xPos >= pxPS / FPS) {
-                        xPos -= pxPS / FPS;
-                        break;
-                    }
-                case 39:
-                    // Exceed right window border
-                    if (xPos <= WINDOW_WIDTH - pxPS / FPS) {
-                        xPos += pxPS / FPS;
-                        break;
-                    }
+        if (fuel > 0) {
+            if (key == 37){
+                int newPos = xPos - (pxPS / FPS);
+                // Exceed left window border
+                xPos = Math.max(newPos, 0);
+            } else {
+                int newPos = xPos + (pxPS / FPS);
+                // Exceed right window border
+                xPos = Math.min(newPos, WINDOW_WIDTH);
             }
         }
     }

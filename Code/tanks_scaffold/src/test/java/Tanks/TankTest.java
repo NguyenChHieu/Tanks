@@ -116,7 +116,7 @@ public class TankTest {
         for (int i = 0; i < 30; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
         }
-        // Increase angle to min
+        // Decrease angle to min
         for (int i = 0; i < 60; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
         }
