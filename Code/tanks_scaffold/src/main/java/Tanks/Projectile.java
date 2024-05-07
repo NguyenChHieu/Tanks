@@ -165,7 +165,6 @@ public class Projectile {
                 // If in range of the explosion
                 if (distance >= 0 && distance <= EXPLODE_RADIUS) {
                     int damage = 60 - (int) distance * 60 / EXPLODE_RADIUS;
-                    // TODO CHECK IF CALCULATES CORRECTLY
                     damage = Math.min(tank.getHealth(), damage);
 //                System.out.println(tank.type+ " explode " + damage +" shooter " + shooter.type);
 

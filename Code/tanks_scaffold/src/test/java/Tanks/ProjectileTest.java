@@ -135,4 +135,38 @@ public class ProjectileTest {
 
         System.out.println("testBulletHitsOpponentNoParachute passed");
     }
+
+    /**
+     * Test the setWindLevel() and getWindLevel() method
+     * which mainly used for testing and isolating the
+     * wind (setting them to 0)
+     * Covers the all 3 drawWind() cases - left, right,
+     * no wind.
+     */
+    @Test
+    public void testWind(){
+        App app = new App();
+        app.loop();
+        app.setConfigPath("additionalFiles/testMap.json");
+        PApplet.runSketch(new String[]{"App"}, app);
+        // Setup delay
+        app.delay(1000);
+
+        get.printPrompt("testWind", false);
+
+        Projectile.setWindTest(0);
+        assertEquals(0, Projectile.getWindTest(), "Wrong wind level.");
+        app.delay(100);
+
+        Projectile.setWindTest(20);
+        assertEquals(20, Projectile.getWindTest(), "Wrong wind level.");
+        app.delay(100);
+
+        Projectile.setWindTest(-20);
+        assertEquals(-20, Projectile.getWindTest(), "Wrong wind level.");
+        app.delay(100);
+
+
+        System.out.println("testWind passed");
+    }
 }
