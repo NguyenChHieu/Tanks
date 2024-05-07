@@ -115,16 +115,10 @@ public class Tank extends GameObject implements Comparable<Tank> {
      * @param rotationSpeed base on FPS
      */
     public void updateAngle(int key, float rotationSpeed) {
-        switch (key) {
-            // Up
-            case 38:
-                angle += rotationSpeed;
-                break;
-            // Down
-            case 40:
-                angle -= rotationSpeed;
-                break;
-        }
+        if (key == 38)
+            angle += rotationSpeed;
+        else angle -= rotationSpeed;
+
         // Keep the angle between 0 and 180 deg
         angle = PApplet.constrain(angle, -PApplet.PI / 2, PApplet.PI / 2);
     }
