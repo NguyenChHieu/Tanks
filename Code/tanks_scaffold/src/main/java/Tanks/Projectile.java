@@ -268,7 +268,7 @@ public class Projectile {
      * @return true if the projectile go beyond the border.
      */
     public boolean outMap() {
-        if (yPos > 639 || xPos > 863 || xPos < 0) {
+        if (yPos > 640 || xPos > 864 || xPos < 0) {
             isOut = true;
             return true;
         }
