@@ -202,6 +202,25 @@ public class AppTest {
     }
 
     /**
+     * This test is created to test the setUpLevel() - test that
+     * the level loaded in (no trees) does not crash and keeps
+     * going.
+     */
+    @Test
+    public void testLevelWithNoTrees(){
+        get.printPrompt("testLevelWithNoTrees", false);
+
+        App app = new App();
+        app.loop();
+        app.setConfigPath("additionalFiles/levelNoTrees.json");
+        PApplet.runSketch(new String[]{"App"}, app);
+
+        // Setup delay
+        app.delay(2000);
+        System.out.println("testLevelWithNoTrees passed");
+    }
+
+    /**
      * This test is simply calling main.
      */
     @Test
