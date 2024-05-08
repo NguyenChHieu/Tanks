@@ -295,9 +295,6 @@ public class GameMapTest {
 
         // Create a new sketch
         App app = new App();
-        // Set to a custom map
-        // This map is similar to level 1.
-        app.setConfigPath("additionalFiles/configtest.json");
         PApplet.runSketch(new String[]{"App"}, app);
 
         app.delay(1000);

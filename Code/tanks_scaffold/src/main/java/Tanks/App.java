@@ -68,10 +68,6 @@ public class App extends PApplet {
         // INITIAL SETUP
         frameRate(FPS);
         manager = ConfigManager.loadConfig(configPath);
-        if (manager == null) {
-            System.out.println("Error setting up attributes");
-            return;
-        }
         // Setup first level
         setupFirstLevel();
         setUpParachutes(true);

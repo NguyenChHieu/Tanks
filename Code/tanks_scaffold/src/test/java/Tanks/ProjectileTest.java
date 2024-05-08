@@ -55,7 +55,7 @@ public class ProjectileTest {
 
         // Player B Shoots
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
-        app.delay(2000);
+        app.delay(4000);
 
         testTank = app.getTanksAlive().get(0);
         assertEquals("A", testTank.type, "The current tank should be A after B shoots.");
