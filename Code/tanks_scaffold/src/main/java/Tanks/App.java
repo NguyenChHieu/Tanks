@@ -449,12 +449,10 @@ public class App extends PApplet {
         Level level = manager.getLevels().get(currentLevelIndex);
         setUpLevel(level);
         extractGameAttributes(level.getLayoutFilePath(), manager.getPlayerColours());
-        if (currentMap != null) {
-            // Sort the tanks alphabetically in order
-            order.addAll(currentMap.getTanksList());
-            Collections.sort(order);
-            correctOrder.addAll(order);
-        }
+        // Sort the tanks alphabetically in order
+        order.addAll(currentMap.getTanksList());
+        Collections.sort(order);
+        correctOrder.addAll(order);
     }
 
     /**
