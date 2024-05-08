@@ -84,7 +84,6 @@ public class PlayerScores {
         for (Tank tank : playersList) {
             if (Objects.equals(tank.type, winner)) {
                 winnerColor = tank.getColorTank();
-                break;
             }
         }
         // Draw the winner on screen
@@ -114,7 +113,6 @@ public class PlayerScores {
             for (Tank tank : playersList) {
                 if (Objects.equals(tank.type, player)) {
                     playerColor = tank.getColorTank();
-                    break;
                 }
             }
             app.fill(playerColor[0], playerColor[1], playerColor[2]);
@@ -157,7 +155,6 @@ public class PlayerScores {
         for (Tank tank : playersList) {
             if (Objects.equals(tank.type, player)) {
                 playerColor = tank.getColorTank();
-                break;
             }
         }
         if (startDrawDelay == 0) {

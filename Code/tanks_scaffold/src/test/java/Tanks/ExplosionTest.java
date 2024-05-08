@@ -29,7 +29,7 @@ public class ExplosionTest {
         PApplet.runSketch(new String[]{"App"}, app);
 
         // Setup delay
-        app.delay(2000);
+        app.delay(4000);
 
         // Decrease angle to min of tank A
         for (int i = 0; i < 60; i++) {
@@ -49,7 +49,7 @@ public class ExplosionTest {
         }
 
         // Take turns shooting, then the B tank will create a hole eventually
-        for (int i = 0; i < 26; i ++){
+        for (int i = 0; i < 28; i ++){
             // Shoots, isolate wind effect to test the damage
             Projectile.setWindTest(0);
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
@@ -59,7 +59,7 @@ public class ExplosionTest {
         app.delay(5000);
 
         // Tank B move right +2 * 30
-        for (int i = 0; i < 42; i++) {
+        for (int i = 0; i < 40; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
         }
         // Wait for the explosion
@@ -87,7 +87,7 @@ public class ExplosionTest {
         PApplet.runSketch(new String[]{"App"}, app);
 
         // Setup delay
-        app.delay(4000);
+        app.delay(5000);
 
         // Setup B tank to have no parachute and low health
         Tank tankB = app.getTanksAlive().get(1);
@@ -129,7 +129,8 @@ public class ExplosionTest {
 
     /**
      * Tests the tank's explosion radius (15)
-     * when the tank's health is 0.
+     * when the tank's health is 0 and touches
+     * the ground.
      */
     @Test
     public void testTankExplosion(){
@@ -138,7 +139,7 @@ public class ExplosionTest {
         app.setConfigPath("additionalFiles/testMap.json");
         PApplet.runSketch(new String[]{"App"}, app);
         // Setup delay
-        app.delay(1000);
+        app.delay(4000);
 
         get.printPrompt("testTankExplosion", false);
 
