@@ -37,6 +37,17 @@ public class ProjectileTest {
         Tank testTank = app.getTanksAlive().get(0);
         assertEquals("B", testTank.type, "The current tank should be B after A shoots.");
 
+        // TEST TANK B SHOOT OUTSIDE border
+        // Move right +2 * 10
+        for (int i = 0; i < 125; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
+        }
+
+        // Increase angle
+        for (int i = 0; i < 8; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+        }
+
         // Max power
         for (int i = 0; i < 50; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, 'W', 87));
