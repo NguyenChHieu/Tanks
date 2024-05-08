@@ -130,7 +130,7 @@ public class App extends PApplet {
     private void handleSpaceKeyPressed(Tank currentTank) {
         if (levelEnds(order)) {
             // If game has 1 tank left, user click space, switch
-            if (!currentlyDelayedLevel) currentlyDelayedLevel = true;
+            currentlyDelayedLevel = true;
         } else {
             // Add a projectile to current active proj ls.
             active.add(currentTank.shoot());
@@ -259,7 +259,6 @@ public class App extends PApplet {
 
     /**
      * Sketch the arrow indicates the current player
-     *
      * @param x current player's tank X position
      * @param y current player's tank Y position
      */
