@@ -138,7 +138,9 @@ public class AppTest {
 
     /**
      * This test is created to test the reset whole game function
-     * when player finished the game and clicking "R"
+     * when player finished the game and clicking "R". It also
+     * mimics the behaviour of a player, when they mis-click a
+     * non-function key.
      */
     @Test
     public void testResetGame(){
@@ -164,6 +166,8 @@ public class AppTest {
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
         app.delay(5000);
 
+        // Click a key which has no function
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'J', 74));
         // Resets the game
         app.keyPressed(new KeyEvent(null, 0, 0, 0, 'R', 82));
         app.delay(3000);
@@ -194,5 +198,16 @@ public class AppTest {
         assertEquals(0, app.getCurrentLevelIndex(), "New game should start at level 1 (index 0)");
 
         System.out.println("testResetGame passed");
+    }
+
+    /**
+     * This test is simply calling main.
+     */
+    @Test
+    public void otherTests(){
+        get.printPrompt("otherTests", false);
+
+        App.main(new String[]{});
+        System.out.println("Successfully called .main");
     }
 }

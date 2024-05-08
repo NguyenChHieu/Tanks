@@ -105,19 +105,18 @@ public class App extends PApplet {
                 currentTank.ultimate();
             }
         } else {
-            handleEndGameEvents(key);
+            if (key == 'R')
+                handleEndGameEvents();
         }
     }
 
-    private void handleEndGameEvents(int key) {
-        if (key == 'R') {
-            resetGameAttributes(true);
-            saveParachutes.clear();
-            setupFirstLevel();
-            setUpParachutes(true);
-            scoreSave = new PlayerScores(correctOrder);
-            isEndGame = false;
-        }
+    private void handleEndGameEvents() {
+        resetGameAttributes(true);
+        saveParachutes.clear();
+        setupFirstLevel();
+        setUpParachutes(true);
+        scoreSave = new PlayerScores(correctOrder);
+        isEndGame = false;
     }
 
     private void handleLeftRightKeyPressed(Tank currentTank, int key) {

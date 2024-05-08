@@ -15,6 +15,8 @@ public class TankTest {
      * if the tank moves correctly and consume fuel as expected.
      * This includes test when tank has no fuel and tried to move,
      * Move when has fuel, and try to move until reached the borders.
+     * Mimic the behaviour of the player when they mis-click a non-function
+     * key.
      */
     @Test
     public void testTankMovement() {
@@ -33,6 +35,9 @@ public class TankTest {
         // Try to move
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
         assertEquals(128, testTank.xPos, "Tank should not move when fuel is exhausted.");
+
+        // Click a key which has no function
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'J', 74));
 
         // Set fuel for testing
         testTank.setFuel(250);
