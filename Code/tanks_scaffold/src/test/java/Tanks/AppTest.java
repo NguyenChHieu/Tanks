@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AppTest {
     private final ConfigManagerTest get = new ConfigManagerTest();
@@ -16,7 +17,7 @@ public class AppTest {
      * Then, we won't draw the HUD anymore.
      */
     @Test
-    public void coverHUDWhenPlayersDiedSameTime(){
+    public void coverHUDWhenPlayersDiedSameTime() {
         get.printPrompt("testCoverHUDWhenPlayersDiedSameTime", false);
 
         App app = new App();
@@ -29,12 +30,12 @@ public class AppTest {
 
         // Set up the tanks
         // Set initial health of each tank = 20
-        for (Tank tank : app.getTanksAlive()){
+        for (Tank tank : app.getTanksAlive()) {
             tank.tankLoseHP(80);
         }
 
         // Take turns shooting
-        for (int i = 0; i < 2; i ++){
+        for (int i = 0; i < 2; i++) {
             // Shoots, isolate wind effect to test the damage
             Projectile.setWindTest(0);
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
@@ -54,7 +55,7 @@ public class AppTest {
      * add a 1s delay before switching to the next level.
      */
     @Test
-    public void testSwitchLevel1sDelay(){
+    public void testSwitchLevel1sDelay() {
         get.printPrompt("testSwitchLevel1sDelay", false);
 
         App app = new App();
@@ -80,7 +81,7 @@ public class AppTest {
         int start = app.millis();
 
         app.delay(1000);
-        boolean checkTime = app.millis()-start >= 1000;
+        boolean checkTime = app.millis() - start >= 1000;
 
         // Add a delay to see the change of new level
         app.delay(1000);
@@ -96,7 +97,7 @@ public class AppTest {
      * - click space then the game will switch levels instantly.
      */
     @Test
-    public void testSwitchLevelInstantly(){
+    public void testSwitchLevelInstantly() {
         get.printPrompt("testSwitchLevelInstantly", false);
 
         App app = new App();
@@ -143,7 +144,7 @@ public class AppTest {
      * non-function key.
      */
     @Test
-    public void testResetGame(){
+    public void testResetGame() {
         get.printPrompt("testResetGame", false);
 
         App app = new App();
@@ -176,17 +177,17 @@ public class AppTest {
         boolean checkPointsReset = true;
         boolean checkTankHealth = true;
         boolean checkInitialParachutes = true;
-        for (Tank tank: app.getTanksAlive()){
-            if (tank.getPoints() != 0){
+        for (Tank tank : app.getTanksAlive()) {
+            if (tank.getPoints() != 0) {
                 checkPointsReset = false;
                 break;
             }
-            if (tank.getHealth() != 100){
+            if (tank.getHealth() != 100) {
                 checkTankHealth = false;
                 break;
             }
             // Currently in App initial parachutes = 3
-            if (tank.getParachutes() != 3){
+            if (tank.getParachutes() != 3) {
                 checkInitialParachutes = false;
                 break;
             }
@@ -204,7 +205,7 @@ public class AppTest {
      * This test is simply calling main.
      */
     @Test
-    public void otherTests(){
+    public void otherTests() {
         get.printPrompt("otherTests", false);
 
         App.main(new String[]{});

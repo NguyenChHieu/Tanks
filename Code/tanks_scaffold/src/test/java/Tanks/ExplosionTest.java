@@ -11,6 +11,7 @@ public class ExplosionTest {
     private final ConfigManagerTest get = new ConfigManagerTest();
 
     // TANK COLLISIONS
+
     /**
      * Tests the tank's explosion radius (30)
      * when the tank gets to the bottom of the map.
@@ -20,7 +21,7 @@ public class ExplosionTest {
      * was correct.
      */
     @Test
-    public void testTankFallToDeath(){
+    public void testTankFallToDeath() {
         get.printPrompt("testTankFallToDeath", false);
 
         App app = new App();
@@ -49,7 +50,7 @@ public class ExplosionTest {
         }
 
         // Take turns shooting, then the B tank will create a hole eventually
-        for (int i = 0; i < 28; i ++){
+        for (int i = 0; i < 28; i++) {
             // Shoots, isolate wind effect to test the damage
             Projectile.setWindTest(0);
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
@@ -71,6 +72,7 @@ public class ExplosionTest {
     }
 
     // TANK COLLISIONS
+
     /**
      * Tests the tank's explosion radius (15)
      * when the tank falls to death.
@@ -78,7 +80,7 @@ public class ExplosionTest {
      * shoot the terrain B tank.
      */
     @Test
-    public void testTankFallToDeathByBullet(){
+    public void testTankFallToDeathByBullet() {
         get.printPrompt("testTankFallToDeathByBullet", false);
 
         App app = new App();
@@ -108,12 +110,12 @@ public class ExplosionTest {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
         }
         // Move to the top
-        for (int  i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 37));
         }
 
         // Take turns shooting
-        for (int i = 0; i < 6; i ++) {
+        for (int i = 0; i < 6; i++) {
             // Shoots, isolate wind effect to test the damage
             Projectile.setWindTest(0);
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
@@ -141,7 +143,7 @@ public class ExplosionTest {
      * the ground.
      */
     @Test
-    public void testTankExplosion(){
+    public void testTankExplosion() {
         App app = new App();
         app.loop();
         app.setConfigPath("additionalFiles/testMap.json");

@@ -56,14 +56,14 @@ public class TankTest {
         // Test tank move to borders
         testTank.setFuel(2000);
         // Right border
-        while (testTank.xPos != 864){
+        while (testTank.xPos != 864) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
         }
         assertEquals(864, testTank.xPos, "Incorrect tank location.");
 
         testTank.setFuel(2000);
         // Left border
-        while (testTank.xPos != 0){
+        while (testTank.xPos != 0) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 37));
         }
         assertEquals(0, testTank.xPos, "Incorrect tank location.");
@@ -131,14 +131,15 @@ public class TankTest {
         System.out.println("testTankAngle passed");
     }
 
-    /** Tests the setPoints() function which use to set
+    /**
+     * Tests the setPoints() function which use to set
      * the points for the tanks on the new level.
      */
     @Test
-    public void testSetPoints(){
+    public void testSetPoints() {
         get.printPrompt("testSetPoints", false);
         // Create a dummy tank and add points
-        Tank testTank = new Tank(0,0,"O");
+        Tank testTank = new Tank(0, 0, "O");
         testTank.setPoints(10);
 
         // Test
@@ -147,12 +148,13 @@ public class TankTest {
     }
 
     // TEST POWER UPS
+
     /**
      * Tests the addFuel() power up and check if
      * the fuel level of the tank is updated correctly
      */
     @Test
-    public void addFuel(){
+    public void addFuel() {
         get.printPrompt("testAddFuel", false);
 
         App app = new App();
@@ -189,7 +191,7 @@ public class TankTest {
      * health is replenished correctly
      */
     @Test
-    public void testRepair(){
+    public void testRepair() {
         get.printPrompt("testRepair", false);
 
         App app = new App();
@@ -222,7 +224,7 @@ public class TankTest {
      * if the parachute was correctly added
      */
     @Test
-    public void testAddParachute(){
+    public void testAddParachute() {
         get.printPrompt("testAddParachute", false);
 
         App app = new App();
@@ -245,7 +247,7 @@ public class TankTest {
 
 
         // Check number of parachutes
-        assertEquals(initialNumParachute+1, testTank.getParachutes(),
+        assertEquals(initialNumParachute + 1, testTank.getParachutes(),
                 "Incorrect number of parachutes.");
         // Check credits
         assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
@@ -258,7 +260,7 @@ public class TankTest {
      * behaviour.
      */
     @Test
-     public void testUlt(){
+    public void testUlt() {
         get.printPrompt("testUlt", false);
 
         App app = new App();
@@ -289,5 +291,5 @@ public class TankTest {
         // Check credits
         assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
         System.out.println("testUlt passed");
-     }
+    }
 }

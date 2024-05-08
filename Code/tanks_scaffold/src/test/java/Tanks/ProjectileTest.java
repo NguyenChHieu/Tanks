@@ -16,7 +16,7 @@ public class ProjectileTest {
      * if the tank fires a projectile correctly and then switch turn.
      */
     @Test
-    public void testShoots(){
+    public void testShoots() {
         App app = new App();
         app.loop();
         app.setConfigPath("additionalFiles/testMap.json");
@@ -68,7 +68,7 @@ public class ProjectileTest {
      * are added correctly.
      */
     @Test
-    public void testBulletHitsOpponent(){
+    public void testBulletHitsOpponent() {
         App app = new App();
         app.loop();
         app.setConfigPath("additionalFiles/testMap.json");
@@ -97,7 +97,7 @@ public class ProjectileTest {
 
         // Check if points and damage is added correctly
         assertTrue(checkHealth, "Incorrect damage applied on damage tank (B).\n"
-                + "Actual damage: "+ shooterPoints);
+                + "Actual damage: " + shooterPoints);
         assertTrue(checkPoints, "Incorrect points applied on shooter tank (A).");
 
         System.out.println("testBulletHitsOpponent passed");
@@ -110,7 +110,7 @@ public class ProjectileTest {
      * are added correctly.
      */
     @Test
-    public void testBulletHitsOpponentNoParachute(){
+    public void testBulletHitsOpponentNoParachute() {
         App app = new App();
         app.loop();
         app.setConfigPath("additionalFiles/testMap.json");
@@ -156,7 +156,7 @@ public class ProjectileTest {
      * no wind.
      */
     @Test
-    public void testWind(){
+    public void testWind() {
         App app = new App();
         app.loop();
         app.setConfigPath("additionalFiles/testMap.json");
