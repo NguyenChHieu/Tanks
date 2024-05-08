@@ -40,7 +40,7 @@ public class App extends PApplet {
 
     /** Create the main App class and set the config path for the file */
     public App() {
-        this.configPath = "additionalFiles/testMap.json";
+        this.configPath = "config.json";
     }
 
     /**
@@ -256,7 +256,10 @@ public class App extends PApplet {
      * Draws tanks falling with parachutes on the game screen.
      */
     private void drawTankFall() {
-        for (Tank tank : order) {
+        // AVOID CONCURRENCY ERROR WHEN DRAWING
+        // BY CREATING A DEFENSIVE COPY
+        List<Tank> orderCopy = new ArrayList<>(order);
+        for (Tank tank : orderCopy) {
             tank.drawTankFall(this, getPathToImage("parachute.png"), currentMap.getPixels()[tank.xPos]);
         }
     }

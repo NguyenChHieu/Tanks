@@ -99,7 +99,7 @@ public class ExplosionTest {
         for (int i = 0; i < 30; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
         }
-
+        // Shoots
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
 
         // Adjust B's angle
@@ -114,10 +114,14 @@ public class ExplosionTest {
             Projectile.setWindTest(0);
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
             Projectile.setWindTest(0);
+            app.delay(500);
         }
 
-        // Delay
-        app.delay(3000);
+        // Tank B attempt to move on-air but couldn't
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
+
+
+        app.delay(1000);
 
         // Test
         int pointsForFallDamage = app.getTanksAlive().get(0).getPoints();
