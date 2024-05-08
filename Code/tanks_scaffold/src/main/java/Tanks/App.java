@@ -11,9 +11,9 @@ public class App extends PApplet {
 
     /** Frame per second */
     public static final int FPS = 30;
-    /** CELL_SIZE*BOARD_WIDTH */
+    /** CELL_SIZE * BOARD_WIDTH */
     public static int WIDTH = 864;
-    /** BOARD_HEIGHT*CELL_SIZE+TOP_BAR */
+    /** BOARD_HEIGHT * CELL_SIZE + TOP_BAR */
     public static int HEIGHT = 640;
     // Gameplay attributes
     private final int INITIAL_PARACHUTES = 3;
