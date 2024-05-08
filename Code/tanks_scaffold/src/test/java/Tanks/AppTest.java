@@ -135,4 +135,64 @@ public class AppTest {
 
         System.out.println("testSwitchLevelInstantly passed");
     }
+
+    /**
+     * This test is created to test the reset whole game function
+     * when player finished the game and clicking "R"
+     */
+    @Test
+    public void testResetGame(){
+        get.printPrompt("testResetGame", false);
+
+        App app = new App();
+        app.loop();
+        app.setConfigPath("additionalFiles/testMap.json");
+        PApplet.runSketch(new String[]{"App"}, app);
+
+        // Setup delay
+        app.delay(2000);
+
+        // Set health of the tank to low so that we can test the explosion quicker
+        app.getTanksAlive().get(0).tankLoseHP(90);
+
+        // Decrease power to 0
+        for (int i = 0; i < 50; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, 'S', 83));
+        }
+
+        // Shoots
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
+        app.delay(5000);
+
+        // Resets the game
+        app.keyPressed(new KeyEvent(null, 0, 0, 0, 'R', 82));
+        app.delay(3000);
+
+        // Test
+        boolean checkPointsReset = true;
+        boolean checkTankHealth = true;
+        boolean checkInitialParachutes = true;
+        for (Tank tank: app.getTanksAlive()){
+            if (tank.getPoints() != 0){
+                checkPointsReset = false;
+                break;
+            }
+            if (tank.getHealth() != 100){
+                checkTankHealth = false;
+                break;
+            }
+            // Currently in App initial parachutes = 3
+            if (tank.getParachutes() != 3){
+                checkInitialParachutes = false;
+                break;
+            }
+        }
+
+        assertTrue(checkPointsReset, "Points should be reset.");
+        assertTrue(checkTankHealth, "Health should be reset.");
+        assertTrue(checkInitialParachutes, "Parachutes should be reset.");
+        assertEquals(0, app.getCurrentLevelIndex(), "New game should start at level 1 (index 0)");
+
+        System.out.println("testResetGame passed");
+    }
 }

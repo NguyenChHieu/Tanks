@@ -556,7 +556,7 @@ public class App extends PApplet {
     }
 
     /**
-     * Get the tanks which are still alive
+     * Get the tanks which are still alive (for testing)
      * @return list of alive tanks
      */
     public List<Tank> getTanksAlive() {
@@ -564,10 +564,9 @@ public class App extends PApplet {
     }
 
     /**
-     * Get the current map for testing
-     * @return GameMap object referring to current level
+     * Get the currentLevelIndex (for testing)
      */
-    public GameMap getCurrentMap(){
-        return currentMap;
+    public int getCurrentLevelIndex(){
+        return currentLevelIndex;
     }
 }
