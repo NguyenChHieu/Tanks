@@ -78,7 +78,6 @@ public class App extends PApplet {
     /**
      * Check for any key events and performs
      * the corresponding function.
-     *
      * @param event key event received.
      */
     @Override
@@ -105,8 +104,7 @@ public class App extends PApplet {
                 currentTank.ultimate();
             }
         } else {
-            if (key == 'R')
-                handleEndGameEvents();
+            if (key == 'R') handleEndGameEvents();
         }
     }
 
@@ -141,7 +139,7 @@ public class App extends PApplet {
 
             // New wind
             int newWind = Projectile.windChange();
-            for (Projectile p : active){
+            for (Projectile p : active) {
                 p.setWindProjectile(newWind);
             }
 
@@ -567,7 +565,7 @@ public class App extends PApplet {
     /**
      * Get the currentLevelIndex (for testing)
      */
-    public int getCurrentLevelIndex(){
+    public int getCurrentLevelIndex() {
         return currentLevelIndex;
     }
 }
