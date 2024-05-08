@@ -65,7 +65,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
      * Decrease fuel level every time the tank moves.
      */
     public void useFuel() {
-        fuel -= 2;
+        fuel = Math.max(0, fuel-2);
     }
 
     /**
