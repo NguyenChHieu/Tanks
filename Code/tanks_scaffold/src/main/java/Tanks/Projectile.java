@@ -278,8 +278,6 @@ public class Projectile {
         WIND = wind;
     }
 
-    //TODO: ADD THIS IN UML
-
     /**
      * Set the current wind level. Mainly use for
      * testing - such as isolating the wind from
