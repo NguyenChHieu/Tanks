@@ -15,9 +15,9 @@ public class Explosion {
 
     /**
      * Create an explosion object
-     * @param app refer to Main
-     * @param xPos X-position of the center
-     * @param yPos Y-position of the center
+     * @param app    refer to Main
+     * @param xPos   X-position of the center
+     * @param yPos   Y-position of the center
      * @param radius radius of the explosion
      */
     public Explosion(PApplet app, float xPos, float yPos, int radius) {

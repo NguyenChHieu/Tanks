@@ -151,7 +151,6 @@ public class Projectile {
 
     /**
      * Calculate the damage cause by the explosion on tanks.
-     *
      * @param tanks          list of alive tanks
      * @param EXPLODE_RADIUS radius of the explosion
      */
@@ -208,13 +207,9 @@ public class Projectile {
 
     /**
      * Draw the projectile's current position.
-     *
      * @param app refer to Main
      */
     public void drawProjectile(PApplet app) {
-//        app.stroke(0);
-//        app.point(xPos, yPos);
-
         int[] rgb = SHOOTER.getColorTank();
         app.fill(rgb[0], rgb[1], rgb[2]);
         app.ellipse(xPos, yPos, 10, 10);
