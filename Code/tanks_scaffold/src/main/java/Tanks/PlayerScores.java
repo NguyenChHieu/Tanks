@@ -48,7 +48,7 @@ public class PlayerScores {
             app.text("Player " + tank.type, 723, 69 + 14 * i);
 
             app.fill(0);
-            app.text(points.get(tank.type), 835, 69 + 14 * i);
+            app.text(points.get(tank.type), 830, 69 + 14 * i);
             i++;
         }
 
