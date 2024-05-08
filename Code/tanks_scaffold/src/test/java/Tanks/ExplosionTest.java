@@ -91,7 +91,7 @@ public class ExplosionTest {
 
         // Setup B tank to have no parachute and low health
         Tank tankB = app.getTanksAlive().get(1);
-        tankB.tankLoseHP(90);
+        tankB.tankLoseHP(60);
         tankB.setParachutes(0);
 
         // Adjust A's angle
@@ -107,6 +107,10 @@ public class ExplosionTest {
         for (int i = 0; i < 30; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
         }
+        // Move to the top
+        for (int  i = 0; i < 5; i++){
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 37));
+        }
 
         // Take turns shooting
         for (int i = 0; i < 6; i ++) {
@@ -114,18 +118,18 @@ public class ExplosionTest {
             Projectile.setWindTest(0);
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
             Projectile.setWindTest(0);
-            app.delay(500);
         }
+        // Wait for created bullets to explode
+        app.delay(500);
 
         // Tank B attempt to move on-air but couldn't
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
 
-
-        app.delay(1000);
+        app.delay(2000);
 
         // Test
         int pointsForFallDamage = app.getTanksAlive().get(0).getPoints();
-        boolean checkTrue = pointsForFallDamage == 10; // since B's health is 10
+        boolean checkTrue = pointsForFallDamage == 40; // since B's health is 40
         assertTrue(checkTrue, "Wrong points.");
         assertEquals(1, app.getTanksAlive().size(), "Incorrect number of alive tanks.");
         System.out.println("testTankFallToDeathByBullet passed");

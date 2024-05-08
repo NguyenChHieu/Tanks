@@ -464,18 +464,15 @@ public class App extends PApplet {
      */
     private void setUpLevel(Level level) {
         // Set level's background
-        if (level.getBackground() != null) {
-            backgroundPNG = loadImage(getPathToImage(level.getBackground()));
-        }
+        backgroundPNG = loadImage(getPathToImage(level.getBackground()));
+
         // Set level's terrain
         foregroundColor = level.getForegroundColour();
 
         // Set level's trees
-        if (level.getTrees() != null) {
-            trees = loadImage(getPathToImage(level.getTrees()));
-            // Resize tree img
-            trees.resize(32, 32);
-        }
+        trees = loadImage(getPathToImage(level.getTrees()));
+        // Resize tree img
+        trees.resize(32, 32);
     }
 
     /**
