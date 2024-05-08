@@ -282,6 +282,7 @@ public class TankTest {
 
         // Shoots
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
+        app.delay(4000);
 
         // Check fuel level
         assertFalse(testTank.getUltStatus(), "Ult status should be false after shoots.");
