@@ -551,6 +551,7 @@ public class Tank extends GameObject implements Comparable<Tank> {
 
     /**
      * Set the tank's fuel for testing
+     * @param fuel int represent fuel level
      */
     public void setFuel(int fuel){
         this.fuel = fuel;

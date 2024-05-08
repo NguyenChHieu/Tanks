@@ -564,6 +564,7 @@ public class App extends PApplet {
 
     /**
      * Get the currentLevelIndex (for testing)
+     * @return int represent current level index
      */
     public int getCurrentLevelIndex() {
         return currentLevelIndex;

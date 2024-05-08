@@ -51,6 +51,7 @@ public class Projectile {
 
     /**
      * Modify the wind level by +5/-5 after each player fires.
+     * @return return the current wind level
      */
     public static int windChange() {
         windLevel += (int) (Math.random() * 11) - 5;
@@ -278,10 +279,21 @@ public class Projectile {
     }
 
     //TODO: ADD THIS IN UML
+
+    /**
+     * Set the current wind level. Mainly use for
+     * testing - such as isolating the wind from
+     * the trajectory.
+     * @param wind int represent wind level
+     */
     public static void setWindTest(int wind){
         windLevel = wind;
     }
 
+    /**
+     * Get current wind level. (For testing)
+     * @return int represent current wind level
+     */
     public static int getWindTest(){
         return windLevel;
     }
