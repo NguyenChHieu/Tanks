@@ -282,8 +282,15 @@ public class TankTest {
         app.delay(200);
         assertTrue(testTank.getUltStatus(), "Ult status should be true before shoots.");
 
+        // Decrease power
+        for (int i = 0; i < 100; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, 'S', 83));
+        }
+
         // Shoots
+        Projectile.setWindTest(0);
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
+        Projectile.setWindTest(0);
         app.delay(4000);
 
         // Check fuel level
