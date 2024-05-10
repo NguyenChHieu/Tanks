@@ -108,6 +108,10 @@ public class App extends PApplet {
         }
     }
 
+    /**
+     * Handle the case when the user pressed R after
+     * the game has ended to restart the game.
+     */
     private void handleEndGameEvents() {
         resetGameAttributes(true);
         saveParachutes.clear();
@@ -117,6 +121,12 @@ public class App extends PApplet {
         isEndGame = false;
     }
 
+    /**
+     * Handle tank movements, does not allow the tank to
+     * move left/right when falling.
+     * @param currentTank indicates the tank in the current turn
+     * @param key distinguish left/right movements.
+     */
     private void handleLeftRightKeyPressed(Tank currentTank, int key) {
         // Only allow to move when the tank's done falling
         if (currentTank.doneFalling(currentMap.getPixels()[currentTank.xPos])) {
@@ -127,6 +137,10 @@ public class App extends PApplet {
         }
     }
 
+    /**
+     * Handle projectile shooting + instant switch when level ends
+     * @param currentTank indicates the tank in the current turn
+     */
     private void handleSpaceKeyPressed(Tank currentTank) {
         if (levelEnds(order)) {
             // If game has 1 tank left, user click space, switch
