@@ -282,24 +282,7 @@ public class GameMapTest {
         app.delay(1000);
 
         System.out.println("Successfully add the render functions to coverage.");
-    }
-
-    /**
-     * This test is to add the coverage of the draw functions
-     * in GameMap including drawTerrain(), drawTrees(),which
-     * get automatically called inside.
-     */
-    @Test
-    public void anotherRenderTest() {
-        get.printPrompt("anotherRenderTest", false);
-
-        // Create a new sketch
-        App app = new App();
-        PApplet.runSketch(new String[]{"App"}, app);
-
-        app.delay(1000);
-
-        System.out.println("Successfully add the render functions to coverage.");
+        app.noLoop();
     }
 
     // NEGATIVE

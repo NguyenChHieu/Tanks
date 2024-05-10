@@ -60,6 +60,7 @@ public class ProjectileTest {
         testTank = app.getTanksAlive().get(0);
         assertEquals("A", testTank.type, "The current tank should be A after B shoots.");
         System.out.println("testShoots passed");
+        app.noLoop();
     }
 
     /**
@@ -101,6 +102,7 @@ public class ProjectileTest {
         assertTrue(checkPoints, "Incorrect points applied on shooter tank (A).");
 
         System.out.println("testBulletHitsOpponent passed");
+        app.noLoop();
     }
 
     /**
@@ -146,6 +148,7 @@ public class ProjectileTest {
         assertTrue(checkPoints, "Incorrect points applied on shooter tank (A).");
 
         System.out.println("testBulletHitsOpponentNoParachute passed");
+        app.noLoop();
     }
 
     /**
@@ -184,5 +187,6 @@ public class ProjectileTest {
         assertTrue(inInitialRange, "Wind level is not in initial range [-35,35]");
 
         System.out.println("testWind passed");
+        app.noLoop();
     }
 }

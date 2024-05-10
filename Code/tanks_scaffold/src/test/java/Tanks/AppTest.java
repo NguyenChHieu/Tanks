@@ -47,6 +47,7 @@ public class AppTest {
         // Test
         assertEquals(0, app.getTanksAlive().size(), "Incorrect number of alive tanks.");
         System.out.println("testCoverHUDWhenPlayersDiedSameTime passed");
+        app.noLoop();
     }
 
     /**
@@ -90,6 +91,7 @@ public class AppTest {
         assertEquals(2, app.getTanksAlive().size(), "New level should have 2 tanks.");
 
         System.out.println("testSwitchLevel1sDelay passed");
+        app.noLoop();
     }
 
     /**
@@ -135,6 +137,7 @@ public class AppTest {
         assertEquals(2, app.getTanksAlive().size(), "New level should have 2 tanks.");
 
         System.out.println("testSwitchLevelInstantly passed");
+        app.noLoop();
     }
 
     /**
@@ -199,6 +202,7 @@ public class AppTest {
         assertEquals(0, app.getCurrentLevelIndex(), "New game should start at level 1 (index 0)");
 
         System.out.println("testResetGame passed");
+        app.noLoop();
     }
 
     /**
@@ -218,6 +222,7 @@ public class AppTest {
         // Setup delay
         app.delay(2000);
         System.out.println("testLevelWithNoTrees passed");
+        app.noLoop();
     }
 
     /**

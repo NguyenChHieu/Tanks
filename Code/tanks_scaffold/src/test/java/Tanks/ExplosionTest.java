@@ -69,6 +69,7 @@ public class ExplosionTest {
         // Test
         assertEquals(1, app.getTanksAlive().size(), "Incorrect number of alive tanks.");
         System.out.println("testTankFallToDeath passed");
+        app.noLoop();
     }
 
     // TANK COLLISIONS
@@ -135,6 +136,7 @@ public class ExplosionTest {
         assertTrue(checkTrue, "Wrong points.");
         assertEquals(1, app.getTanksAlive().size(), "Incorrect number of alive tanks.");
         System.out.println("testTankFallToDeathByBullet passed");
+        app.noLoop();
     }
 
     /**
@@ -170,5 +172,6 @@ public class ExplosionTest {
         assertEquals("B", testTank.type, "The current tank should be B after A shoots.");
         assertEquals(1, app.getTanksAlive().size(), "There should be only 1 tank left.");
         System.out.println("testTankExplosion passed");
+        app.noLoop();
     }
 }

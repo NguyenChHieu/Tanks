@@ -69,6 +69,7 @@ public class TankTest {
         assertEquals(0, testTank.xPos, "Incorrect tank location.");
 
         System.out.println("testTankMovement passed");
+        app.noLoop();
     }
 
     /**
@@ -99,6 +100,7 @@ public class TankTest {
         Tank testTank = app.getTanksAlive().get(0);
         assertEquals(0, testTank.getPower(), "Incorrect ROC for tank power.");
         System.out.println("testTankPower passed");
+        app.noLoop();
     }
 
     /**
@@ -129,6 +131,7 @@ public class TankTest {
         Tank testTank = app.getTanksAlive().get(0);
         assertEquals(-app.PI / 2, testTank.getAngle(), "Incorrect ROC for tank angle.");
         System.out.println("testTankAngle passed");
+        app.noLoop();
     }
 
     /**
@@ -184,6 +187,7 @@ public class TankTest {
         // Check credits
         assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
         System.out.println("testAddFuel passed");
+        app.noLoop();
     }
 
     /**
@@ -217,6 +221,7 @@ public class TankTest {
         // Check credits
         assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
         System.out.println("testRepair passed");
+        app.noLoop();
     }
 
     /**
@@ -252,6 +257,7 @@ public class TankTest {
         // Check credits
         assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
         System.out.println("testAddParachute passed");
+        app.noLoop();
     }
 
     /**
@@ -298,5 +304,6 @@ public class TankTest {
         // Check credits
         assertEquals(0, testTank.getPoints(), "Incorrect amount of credits.");
         System.out.println("testUlt passed");
+        app.noLoop();
     }
 }
