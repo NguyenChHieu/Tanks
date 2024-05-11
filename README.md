@@ -18,9 +18,9 @@ PvP offline game - players control tanks that can aim and  fire at each other.
 ## Tank Control
 + Take charge of your tank's movements and firepower.
 + Use the keyboard controls to:
-  + Maneuver your tank across the terrain **(RIGHT/LEFT ARROW KEYS)**
+  + Maneuver your tank across the terrain **(RIGHT/LEFT ARROW)**
   + Adjust your turret's angle **(Press W to increase the power, S to decrease the power)**
-  + Vary your shot's power level **(UP/DOWN ARROW KEYS)**
+  + Vary your shot's power level **(UP/DOWN ARROW)**
     + NOTE: Your max power = to your current health.
     + Players take turns shooting by **pressing SPACE**
 **Be strategic with your movements and shots to dominate the battlefield!**
