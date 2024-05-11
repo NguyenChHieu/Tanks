@@ -41,6 +41,6 @@ PvP offline game - players control tanks that can aim and  fire at each other.
 + Earn currency from scoring hits and use them to buy powerups:
 + _Repair kits_ (**R**) - cost 20: repairs the player’s tank by increasing health by 20 (maximum health 
 is 100).
-+_ Additional fuel_ (**F**) - cost 10: increase the player’s remaining fuel by 200.
++ _Additional fuel_ (**F**) - cost 10: increase the player’s remaining fuel by 200.
 
 **These can be game-changers in the heat of battle!**
