@@ -26,7 +26,10 @@ PvP offline game - players control tanks that can aim and  fire at each other.
   + Vary your shot's power level **(UP/DOWN ARROW)**
   + <img width="60" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/c49c31ff-84ad-4194-970f-b909bd169fbf">
   
-    + NOTE: Your max power = to your current health.
+    + NOTE:
+    + Every time you move, the fuel got deducted (1px / 1 fuel credit), indicated on the HUD:
+    + 
+    + Your max power = to your current health.
     + Players take turns shooting by **pressing SPACE**
 **Be strategic with your movements and shots to dominate the battlefield!**
 
@@ -34,3 +37,11 @@ PvP offline game - players control tanks that can aim and  fire at each other.
 + Fire powerful projectiles from your tank, causing explosions on impact.
 + Watch out for the blast radius and strategize your shots to outmaneuver your opponents.
 + Your projectile is affected by the current wind! (dynamic-wind) <img width="40" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/1204e680-45c6-4953-84e6-cfedfe340463">
+
+## Powerups and Upgrades
++ Earn currency from scoring hits and use them to buy powerups:
++ _Repair kits_ (**R**) - cost 20: repairs the player’s tank by increasing health by 20 (maximum health 
+is 100).
++_ Additional fuel_ (**F**) - cost 10: increase the player’s remaining fuel by 200.
+
+**These can be game-changers in the heat of battle!**
