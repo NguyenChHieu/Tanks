@@ -27,10 +27,8 @@ PvP offline game - players control tanks that can aim and  fire at each other.
   + <img width="60" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/c49c31ff-84ad-4194-970f-b909bd169fbf">
   
     + NOTE:
-    + Every time you move, the fuel got deducted (1px / 1 fuel credit), indicated on the HUD:
-    + <img width="27" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/75c8b547-11e4-4060-b885-21dcf565af2a">
-
-    + Your max power = to your current health.
+    + Every time you move, the fuel got deducted (1px / 1 fuel credit), indicated on the HUD:<img width="27" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/75c8b547-11e4-4060-b885-21dcf565af2a">
+    + Your max power = to your current health: <img width="88" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/a2bee4bd-d7fb-4e0a-ac36-2b5a61d200ed">
     + Players take turns shooting by **pressing SPACE**
 **Be strategic with your movements and shots to dominate the battlefield!**
 
