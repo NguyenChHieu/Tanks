@@ -6,8 +6,11 @@ PvP offline game - players control tanks that can aim and  fire at each other.
 + Control your tank's movement, aim your turret, and strategize your shots to outmaneuver and outgun your opponents.
 
 ## Levels
-+ You can customize your level by inserting your text files as you want. By default, the game will have
-3 levels: snow (level 1), desert (level 2) and plain (level 3).
++ You can customize your level by inserting your text files as you want.
++ By default, the game will have 3 levels:
+  + Snow (level 1)
+  + <img width="646" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/169430b6-7e0e-496d-ae50-0e92e08e4e60">
+  + Desert (level 2) and plain (level 3).
 
 ## Tank Control
 + Take charge of your tank's movements and firepower.
