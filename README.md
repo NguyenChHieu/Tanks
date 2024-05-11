@@ -59,3 +59,11 @@ PvP offline game - players control tanks that can aim and  fire at each other.
  TODO ADD GIF
  
 **These can be game-changers in the heat of battle!**
+
+## Scoreboard and Victory
++ Keep an eye on the scoreboard to track your progress.
++ The game ends when only one tank remains standing. Will you emerge as the ultimate tank commander?
+
+**Get ready to immerse yourself in explosive tank battles, where every move counts and victory awaits the boldest commanders! Let's roll out and conquer the battlefield!**
+
+
