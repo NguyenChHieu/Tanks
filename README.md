@@ -1,4 +1,4 @@
-<img width="645" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/d6e868f3-48ab-48b4-a4ad-ef0e399b6733"># Tanks
+# Tanks
 PvP offline game - players control tanks that can aim and  fire at each other.
 
 ## Gameplay Overview
