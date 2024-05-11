@@ -37,10 +37,18 @@ PvP offline game - players control tanks that can aim and  fire at each other.
 + Watch out for the blast radius and strategize your shots to outmaneuver your opponents.
 + Your projectile is affected by the current wind! (dynamic-wind) <img width="40" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/1204e680-45c6-4953-84e6-cfedfe340463">
 
+## Game-changer: **PARACHUTES** <img width="18" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/15e698cd-8e5e-422d-84dd-580ff98105ed">
+
++ Picture this: your tank hovering in midair, the terrain below crumbling from the impact of a projectile.
++ That's when you deploy your trusty parachute, gently guiding your tank down at a controlled pace, unscathed. But watch out, you've only got **three parachutes per game!**
++ If you're out of parachutes, brace for impact as your tank falls faster, taking damage with each pixel of height.
+
+**It's all about timing and resource management in the midst of chaos!**
+
 ## Powerups and Upgrades
 + Earn currency from scoring hits and use them to buy powerups:
-+ _Repair kits_ (**R**) - cost 20: repairs the player’s tank by increasing health by 20 (maximum health 
-is 100).
++ _Repair kits_ (**R**) - cost 20: repairs the player’s tank by increasing health by 20.
 + _Additional fuel_ (**F**) - cost 10: increase the player’s remaining fuel by 200.
++ _Additional parachute_ (**P**) - cost 15: increase the player's remaining parachutes by 1.
 
 **These can be game-changers in the heat of battle!**
