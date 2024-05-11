@@ -24,7 +24,7 @@ PvP offline game - players control tanks that can aim and  fire at each other.
   + <img width="60" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/10b75b1e-0650-4211-b7eb-4b5eb9148f43">
 
   + Vary your shot's power level **(UP/DOWN ARROW)**
-  + <img width="100" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/c49c31ff-84ad-4194-970f-b909bd169fbf">
+  + <img width="60" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/c49c31ff-84ad-4194-970f-b909bd169fbf">
   
     + NOTE: Your max power = to your current health.
     + Players take turns shooting by **pressing SPACE**
