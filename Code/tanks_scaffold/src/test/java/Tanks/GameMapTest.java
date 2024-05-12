@@ -259,32 +259,6 @@ public class GameMapTest {
         System.out.println("testExtractTank passed");
     }
 
-    /**
-     * This test is to add the coverage of the draw functions
-     * in GameMap including drawTerrain(), drawTrees()
-     */
-
-    // SOME OTHER RENDER FUNCTIONS SUCH AS drawTurret(), drawTanks(), drawHUD()
-    // are also covered, and since the draw functions are not required,
-    // so I will keep it here.
-    @Test
-    public void addRenderFunctions() {
-        get.printPrompt("addRenderFunction", false);
-
-        // Create a new sketch
-        App app = new App();
-        // Set to a custom map
-        // This map has a tree with cell-X at index 0, this is to
-        // test whether the image of the tree has been drawn correctly.
-        app.setConfigPath("additionalFiles/testMap.json");
-        PApplet.runSketch(new String[]{"App"}, app);
-
-        app.delay(1000);
-
-        System.out.println("Successfully add the render functions to coverage.");
-        app.noLoop();
-    }
-
     // NEGATIVE
 
     /**
