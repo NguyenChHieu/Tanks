@@ -119,17 +119,17 @@ public class TankTest {
         // Setup delay
         app.delay(1000);
 
-        // Increase angle to max
+        // Decrease angle to min
         for (int i = 0; i < 30; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
         }
-        // Decrease angle to min
+        // Increase angle to max
         for (int i = 0; i < 60; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
         }
 
         Tank testTank = app.getTanksAlive().get(0);
-        assertEquals(-app.PI / 2, testTank.getAngle(), "Incorrect ROC for tank angle.");
+        assertEquals(app.PI / 2, testTank.getAngle(), "Incorrect ROC for tank angle.");
         System.out.println("testTankAngle passed");
         app.noLoop();
     }

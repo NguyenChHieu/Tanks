@@ -37,15 +37,14 @@ public class ProjectileTest {
         Tank testTank = app.getTanksAlive().get(0);
         assertEquals("B", testTank.type, "The current tank should be B after A shoots.");
 
+        app.delay(10);
         // TEST TANK B SHOOT OUTSIDE border
-        // Move right +2 * 10
         for (int i = 0; i < 125; i++) {
             app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 39));
         }
-
         // Increase angle
-        for (int i = 0; i < 8; i++) {
-            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+        for (int i = 0; i < 10; i++) {
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
         }
 
         // Max power
@@ -80,7 +79,7 @@ public class ProjectileTest {
         get.printPrompt("testBulletHitsOpponent", false);
         // Max angle
         for (int i = 0; i < 30; i++) {
-            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
         }
 
         // Shoots, isolate wind effect to test the damage
@@ -127,7 +126,7 @@ public class ProjectileTest {
 
         // Max angle
         for (int i = 0; i < 30; i++) {
-            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
         }
 
         // Shoots, isolate wind effect to test the damage

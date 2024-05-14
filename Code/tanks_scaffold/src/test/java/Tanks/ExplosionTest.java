@@ -34,7 +34,7 @@ public class ExplosionTest {
 
         // Decrease angle to min of tank A
         for (int i = 0; i < 60; i++) {
-            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
         }
         // Shoots
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
@@ -42,7 +42,7 @@ public class ExplosionTest {
         // SET UP THE HOLE
         // Increase angle to max
         for (int i = 0; i < 30; i++) {
-            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
         }
         // Decrease power
         for (int i = 0; i < 40; i++) {
@@ -100,7 +100,7 @@ public class ExplosionTest {
         // Adjust A's angle
         // Increase angle to max
         for (int i = 0; i < 30; i++) {
-            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
         }
         // Shoots
         app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 32));
@@ -108,7 +108,7 @@ public class ExplosionTest {
         // Adjust B's angle
         // Increase angle to max
         for (int i = 0; i < 30; i++) {
-            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 38));
+            app.keyPressed(new KeyEvent(null, 0, 0, 0, ' ', 40));
         }
         // Move to the top
         for (int i = 0; i < 5; i++) {
