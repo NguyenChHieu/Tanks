@@ -35,7 +35,7 @@ PvP offline game - players control tanks that can aim and  fire at each other.
 ## Projectiles and Explosions
 + Fire powerful projectiles from your tank, causing explosions on impact (max 60 explosion damage).
 
-https://github.com/NguyenChHieu/Tanks/assets/140675996/ed0ebc8a-07f7-4df3-8035-c3f5d708fa28
+![Shoots](https://github.com/NguyenChHieu/Tanks/assets/140675996/d369e05a-5dbd-4fe8-9cc4-42053d8dc55b)
 
 + Watch out for the blast radius and strategize your shots to outmaneuver your opponents.
 + Your projectile is affected by the current wind! (dynamic-wind) <img width="40" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/1204e680-45c6-4953-84e6-cfedfe340463">
