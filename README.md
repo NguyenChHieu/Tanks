@@ -55,8 +55,6 @@ PvP offline game - players control tanks that can aim and  fire at each other.
 + _Additional parachute_ (**P**) - cost 15: increase the player's remaining parachutes by 1.
 + _ULTIMATE_ (**X**) - cost 20: the next shot fired by this player will have double the radius 
 (60 instead of 30). Projectile damage is not increased but will affect tanks within the radius.
-
- TODO ADD GIF
  
 **These can be game-changers in the heat of battle!**
 
