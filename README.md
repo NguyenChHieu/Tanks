@@ -34,9 +34,9 @@ PvP offline game - players control tanks that can aim and  fire at each other.
 
 ## Projectiles and Explosions
 + Fire powerful projectiles from your tank, causing explosions on impact (max 60 explosion damage).
-
-  TODO ADD GIF
   
+![Shoots](https://github.com/NguyenChHieu/Tanks/assets/140675996/6d890e00-b6d7-44c4-9930-64e5e67f7e9d)
+
 + Watch out for the blast radius and strategize your shots to outmaneuver your opponents.
 + Your projectile is affected by the current wind! (dynamic-wind) <img width="40" alt="image" src="https://github.com/NguyenChHieu/Tanks/assets/140675996/1204e680-45c6-4953-84e6-cfedfe340463">
 
@@ -54,9 +54,7 @@ PvP offline game - players control tanks that can aim and  fire at each other.
 + _Additional fuel_ (**F**) - cost 10: increase the player’s remaining fuel by 200.
 + _Additional parachute_ (**P**) - cost 15: increase the player's remaining parachutes by 1.
 + _ULTIMATE_ (**X**) - cost 20: the next shot fired by this player will have double the radius 
-(60 instead of 30). Projectile damage is not increased, but will affect tanks within the radius.
-
- TODO ADD GIF
+(60 instead of 30). Projectile damage is not increased but will affect tanks within the radius.
  
 **These can be game-changers in the heat of battle!**
 
