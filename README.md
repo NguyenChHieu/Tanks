@@ -1,6 +1,8 @@
 # Tanks
 PvP offline game - players control tanks that can aim and  fire at each other.
 
+*Note*: Clone the git repo into a folder and just click on run.sh to play!
+
 ## Gameplay Overview
 + Welcome to the tank warfare game! Battle it out with your friends in a thrilling tank combat experience.
 + Control your tank's movement, aim your turret, and strategize your shots to outmaneuver and outgun your opponents.
